@@ -1,0 +1,146 @@
+{
+  "city": {
+    "1": {
+      "ID": 1,
+      "name": 1672306601,
+      "posX": -5,
+      "posY": 0,
+      "icon": "town_1",
+      "raceType": "Human"
+    },
+    "2": {
+      "ID": 2,
+      "name": 1672306602,
+      "posX": -190,
+      "posY": 30,
+      "icon": "town_2",
+      "raceType": "Human"
+    },
+    "3": {
+      "ID": 3,
+      "name": 1672306603,
+      "posX": 0,
+      "posY": 150,
+      "icon": "town_3",
+      "raceType": "Human"
+    },
+    "4": {
+      "ID": 4,
+      "name": 1672306604,
+      "posX": 150,
+      "posY": -30,
+      "icon": "town_4",
+      "raceType": "Human"
+    },
+    "5": {
+      "ID": 5,
+      "name": 1672306605,
+      "posX": -150,
+      "posY": -100,
+      "icon": "town_5",
+      "raceType": "Human"
+    },
+    "6": {
+      "ID": 6,
+      "name": 1672306606,
+      "posX": -180,
+      "posY": -180,
+      "icon": "town_6",
+      "raceType": "Human"
+    }
+  },
+  "race": {
+    "Human": {
+      "raceType": "Human",
+      "MainBase": 1,
+      "Barracks": 101,
+      "Range": 201,
+      "Stable": 301,
+      "Market": 401,
+      "_defaultBuilding": "1,101"
+    }
+  },
+  "building": {
+    "1": {
+      "ID": 1,
+      "buildingID": "Human_MainBase",
+      "raceType": "Human",
+      "buildingType": "MainBase",
+      "buildingSubType": "MainBase",
+      "_name": "1672307001,1672307002,1672307003,1672307004,1672307005",
+      "_mainBaseLv": "1,2,3,4,5",
+      "_costGold": "1000,2000,3000,4000,5000",
+      "_costHour": "24,48,72,96,120"
+    },
+    "101": {
+      "ID": 101,
+      "buildingID": "Human_Barracks",
+      "raceType": "Human",
+      "buildingType": "Military",
+      "buildingSubType": "Barracks",
+      "_name": "1672307011,1672307012,1672307013,1672307014,1672307015",
+      "_mainBaseLv": "1,2,3,4,5",
+      "_costGold": "500,1000,1500,2000,2500",
+      "_costHour": "6,12,24,36,48"
+    },
+    "201": {
+      "ID": 201,
+      "buildingID": "Human_Range",
+      "raceType": "Human",
+      "buildingType": "Military",
+      "buildingSubType": "Range",
+      "_name": "1672307021,1672307022,1672307023",
+      "_mainBaseLv": "2,3,4",
+      "_costGold": "1000,1500,2000",
+      "_costHour": "12,24,36"
+    },
+    "301": {
+      "ID": 301,
+      "buildingID": "Human_Stable",
+      "raceType": "Human",
+      "buildingType": "Military",
+      "buildingSubType": "Stable",
+      "_name": "1672307031,1672307032,1672307033",
+      "_mainBaseLv": "2,4,5",
+      "_costGold": "1000,2000,2500",
+      "_costHour": "12,36,48"
+    },
+    "401": {
+      "ID": 401,
+      "buildingID": "Human_Economy",
+      "raceType": "Human",
+      "buildingType": "Economy",
+      "buildingSubType": "Market",
+      "_name": "1672307041,1672307042,1672307043,1672307044,1672307045",
+      "_mainBaseLv": "1,2,3,4,5",
+      "_costGold": "500,1000,1500,2000,2500",
+      "_costHour": "6,12,24,36,48"
+    }
+  },
+  "recruitDaily": {
+    "101": {
+      "ID": 101,
+      "_lv1": "{totalNum:5,\nrecruitNum:\n{1101:100,\n1201:100\n}}",
+      "_lv2": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv3": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv4": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv5": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}"
+    },
+    "201": {
+      "ID": 201,
+      "_lv1": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv2": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv3": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv4": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv5": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}"
+    },
+    "301": {
+      "ID": 301,
+      "_lv1": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv2": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv3": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv4": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}",
+      "_lv5": "{totalNum:5,\nrecruitNum:\n{1101:100\n}}"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+using JetBrains.Annotations;
+using RPGCharacterAnims.Actions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+/// <summary>
+/// 寻路模块
+/// </summary>
+public class NavMgr : MonoSingleton<NavMgr>
+{
+    public Dictionary<int, NavData> navDict = new Dictionary<int, NavData>();
+
+    public void SetNav(int _selfWUID, float _moveSpeed, NavPurpose _navPurpose, int _targetWUID)
+    {
+        NavData navData = new NavData(_selfWUID, _moveSpeed, _navPurpose);
+        navData.SetTargetWUID(_targetWUID);
+    }
+
+    public void SetNav(int _selfWUID, float _moveSpeed, NavPurpose _navPurpose, Vector3 _targetPos)
+    {
+        NavData navData = new NavData(_selfWUID, _moveSpeed, _navPurpose);
+        navData.SetTargetPos(_targetPos);
+    }
+
+    //上个寻路结束的ID
+    int lastEndNavID;
+    bool havNavEnd = false;
+    public void Update()
+    {
+        foreach (var item in navDict)
+        {
+            if (item.Value.navAgent.remainingDistance < 0.5f)
+            {
+                lastEndNavID = item.Key;
+                havNavEnd = true;
+                item.Value.selfUnit.OnNavArrive(item.Value);
+                break;
+            }
+        }
+        if (havNavEnd)
+        {
+            navDict.Remove(lastEndNavID);
+            havNavEnd = false;
+        }
+    }
+
+    /// <summary>
+    /// 刷新所有寻路的速度
+    /// </summary>
+    public void RefreshAllNavSpeed()
+    {
+        foreach (var item in navDict)
+        {
+            item.Value.RefreshNavSpeed();
+        }
+    }
+}
