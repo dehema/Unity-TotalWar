@@ -33,6 +33,10 @@ public class UnitConfig
     /// </summary>
     public float attackRange;
     /// <summary>
+    /// 攻击时长
+    /// </summary>
+    public float attackDuration;
+    /// <summary>
     /// 转向速度
     /// </summary>
     public float angularSpeed;

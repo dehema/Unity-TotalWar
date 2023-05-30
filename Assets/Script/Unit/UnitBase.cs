@@ -104,14 +104,15 @@ public class UnitBase : MonoBehaviour, IUnitBase
     /// <summary>
     /// 攻击单位
     /// </summary>
-    /// <param name="_defender">防御者</param>
+    /// <param name="_defender">被攻击者</param>
     public virtual void AttackUnit(UnitBase _defender)
     {
-        if (!canAttack)
+        if (IsDead)
         {
             return;
         }
-        if (IsDead)
+        //被攻击者逃出了攻击距离
+        if (Vector3.Distance(_defender.transform.position, transform.position) > MoveStopDistance)
         {
             return;
         }
@@ -285,9 +286,10 @@ public class UnitBase : MonoBehaviour, IUnitBase
         }
         else if (unitBattleState == UnitBattleState.MoveToEnemy)
         {
+            nav.isStopped = false;
             if (attackTarget != null)
             {
-                if (Vector3.Distance(attackTarget.transform.position, transform.position) <= MoveStopDistance)
+                if (Vector3.Distance(attackTarget.transform.position, transform.position) <= MoveStopDistance && canAttack)
                 {
                     //在攻击范围内
                     SetBattleState(UnitBattleState.Attack);
@@ -301,8 +303,11 @@ public class UnitBase : MonoBehaviour, IUnitBase
         }
         else if (unitBattleState == UnitBattleState.Attack)
         {
+            nav.isStopped = true;
             transform.LookAt(attackTarget.transform.position);
-            Timer.Ins.SetTimeOut(() => { SetBattleState(UnitBattleState.MoveToEnemy); }, unitData.arttckInterval, unitData.unitCreateIndex);
+            Timer.Ins.SetTimeOut(() => { SetBattleState(UnitBattleState.MoveToEnemy); }, unitData.unitConfig.attackDuration, unitData.unitCreateIndex);
+            canAttack = false;
+            SetCanAttackTrue();
         }
         else if (unitBattleState == UnitBattleState.Dead)
         {
@@ -370,7 +375,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
     }
 
     /// <summary>
-    /// 刷新状态机
+    /// 刷新动画状态机
     /// </summary>
     void RefreshAnimator()
     {
@@ -391,8 +396,6 @@ public class UnitBase : MonoBehaviour, IUnitBase
                 else
                     triggerName = AnimatorParams.attack_B;
                 Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, Random.Range(0.4f, 0.6f), unitData.unitCreateIndex);
-                canAttack = false;
-                SetCanAttackTrue();
                 break;
             case UnitBattleState.Dead:
 
@@ -408,11 +411,17 @@ public class UnitBase : MonoBehaviour, IUnitBase
         }
     }
 
+    /// <summary>
+    /// 重置能否攻击字段
+    /// </summary>
     void SetCanAttackTrue()
     {
         Timer.Ins.SetTimeOut(() => { canAttack = true; }, unitConfig.attackInterval, unitData.unitCreateIndex);
     }
 
+    /// <summary>
+    /// 是否死亡
+    /// </summary>
     void CheckDead()
     {
         if (UnitHp <= 0)
