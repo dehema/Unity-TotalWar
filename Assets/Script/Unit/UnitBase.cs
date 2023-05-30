@@ -30,6 +30,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
     public bool IsPlayer { get { return unitConfig.type == UnitType.Player; } }
     //是否能攻击 攻击有攻击CD
     public bool canAttack = true;
+    public string animatorTiggerName;
 
     void Awake()
     {
@@ -240,8 +241,10 @@ public class UnitBase : MonoBehaviour, IUnitBase
                 SetBattleState(UnitBattleState.FindEnemy);
                 return;
             }
+            //有攻击目标且目标在攻击范围内
             if (attackTarget != null && !nav.pathPending && Vector3.Distance(attackTarget.transform.position, transform.position) < MoveStopDistance)
             {
+                nav.updateRotation = true;
                 nav.isStopped = true;
                 SetAnimatorTrigger(AnimatorParams.idle);
                 if (canAttack)
@@ -253,18 +256,23 @@ public class UnitBase : MonoBehaviour, IUnitBase
     }
 
     /// <summary>
-    /// 寻路停止范围 自身半径+攻击距离+对方半径
+    /// 寻路停止范围 自身半径+对方半径+攻击距离
     /// </summary>
     float MoveStopDistance
     {
         get
         {
-            float attackRadius = 0.3f;
+            float attackRadius = 0.5f;
             if (attackTarget.nav)
             {
                 attackRadius = attackTarget.nav.radius;
             }
-            return nav.radius + attackRadius + unitConfig.attackRange;
+            else
+            {
+                //没有寻路组件说明是玩家
+            }
+            float distance = nav.radius + attackRadius + unitConfig.attackRange;
+            return distance;
         }
     }
     TimerHandler SetAttackTargetTimer;
@@ -286,7 +294,6 @@ public class UnitBase : MonoBehaviour, IUnitBase
         }
         else if (unitBattleState == UnitBattleState.MoveToEnemy)
         {
-            nav.isStopped = false;
             if (attackTarget != null)
             {
                 if (Vector3.Distance(attackTarget.transform.position, transform.position) <= MoveStopDistance && canAttack)
@@ -338,6 +345,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
         {
             attackTarget = enemy;
             nav.isStopped = false;
+            nav.stoppingDistance = MoveStopDistance;
         }
     }
 
@@ -366,12 +374,16 @@ public class UnitBase : MonoBehaviour, IUnitBase
     /// <summary>
     /// 设置动画状态机触发器
     /// </summary>
-    /// <param name="_params"></param>
-    public void SetAnimatorTrigger(string _params)
+    /// <param name="_tiggerName"></param>
+    public void SetAnimatorTrigger(string _tiggerName)
     {
-        string triggerName = _params;
-        Debug.Log($"触发状态机->{triggerName}");
-        animator.SetTrigger(triggerName);
+        if (animatorTiggerName == _tiggerName)
+        {
+            return;
+        }
+        animatorTiggerName = _tiggerName;
+        Debug.Log($"触发状态机->{_tiggerName}");
+        animator.SetTrigger(animatorTiggerName);
     }
 
     /// <summary>
@@ -388,13 +400,17 @@ public class UnitBase : MonoBehaviour, IUnitBase
             case UnitBattleState.StartBattle:
                 break;
             case UnitBattleState.MoveToEnemy:
-                triggerName = AnimatorParams.run;
+                if (attackTarget != null && Vector3.Distance(attackTarget.transform.position, transform.position) > MoveStopDistance)
+                {
+                    triggerName = AnimatorParams.run;
+                }
                 break;
             case UnitBattleState.Attack:
-                if (Random.Range(0, 100) < 50)
-                    triggerName = AnimatorParams.attack_A;
-                else
-                    triggerName = AnimatorParams.attack_B;
+                triggerName = AnimatorParams.attack_A;
+                //if (Random.Range(0, 100) < 50)
+                //    triggerName = AnimatorParams.attack_A;
+                //else
+                //    triggerName = AnimatorParams.attack_B;
                 Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, Random.Range(0.4f, 0.6f), unitData.unitCreateIndex);
                 break;
             case UnitBattleState.Dead:
