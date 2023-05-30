@@ -8,11 +8,6 @@ public partial class BattleDefeatView : BaseView
 {
     BattleDefeatViewParams viewParams;
     bool isAnyKeyClose = false;
-    public override void Init(params object[] _params)
-    {
-        base.Init(_params);
-        btClose_Button.SetButton(OnClickClose);
-    }
 
     public override void OnOpen(params object[] _params)
     {
@@ -22,11 +17,6 @@ public partial class BattleDefeatView : BaseView
         isAnyKeyClose = false;
         ResetUI();
         Timer.Ins.SetTimeOut(() => { isAnyKeyClose = true; }, 1);
-    }
-
-    public override void OnClose(Action _cb)
-    {
-        base.OnClose(_cb);
     }
 
     public void ResetUI()
@@ -46,12 +36,18 @@ public partial class BattleDefeatView : BaseView
         anyKeyClose_Text.DOFade(1, 0.5f).SetDelay(1);
     }
 
-    void OnClickClose()
+    public override void OnClose(Action _cb)
     {
-        if (!isAnyKeyClose)
-            return;
-        Close();
+        base.OnClose(_cb);
         viewParams?.closeCB?.Invoke();
+    }
+
+    private void Update()
+    {
+        if (isAnyKeyClose && Input.anyKeyDown)
+        {
+            Close();
+        }
     }
 }
 

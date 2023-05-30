@@ -8,11 +8,6 @@ public partial class BattleVictoryView : BaseView
 {
     BattleVictoryViewParams viewParams;
     bool isAnyKeyClose = false;
-    public override void Init(params object[] _params)
-    {
-        base.Init(_params);
-        btClose_Button.SetButton(OnClickClose);
-    }
 
     public override void OnOpen(params object[] _params)
     {
@@ -47,11 +42,12 @@ public partial class BattleVictoryView : BaseView
         viewParams?.closeCB?.Invoke();
     }
 
-    void OnClickClose()
+    private void Update()
     {
-        if (!isAnyKeyClose)
-            return;
-        Close();
+        if (isAnyKeyClose && Input.anyKeyDown)
+        {
+            Close();
+        }
     }
 }
 

@@ -113,7 +113,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
             return;
         }
         //被攻击者逃出了攻击距离
-        if (Vector3.Distance(_defender.transform.position, transform.position) > MoveStopDistance)
+        if (unitConfig.type == UnitType.Infantry && Vector3.Distance(_defender.transform.position, transform.position) > MoveStopDistance)
         {
             return;
         }
@@ -411,7 +411,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
                 //    triggerName = AnimatorParams.attack_A;
                 //else
                 //    triggerName = AnimatorParams.attack_B;
-                Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, Random.Range(0.4f, 0.6f), unitData.unitCreateIndex);
+                Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, unitConfig.attackHurtTime + Random.Range(0, 0.1f), unitData.unitCreateIndex);
                 break;
             case UnitBattleState.Dead:
 

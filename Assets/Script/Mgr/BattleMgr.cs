@@ -397,6 +397,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
             {
                 SetBattleState(BattleState.Finish);
                 //没有预备士兵可以创建
+                //战斗结束
                 if (armyType == ArmyType.player)
                 {
                     BattleDefeat();
@@ -405,6 +406,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
                 {
                     BattleVictory();
                 }
+                UIMgr.Ins.CloseView<HUDView>();
                 return;
             }
         }

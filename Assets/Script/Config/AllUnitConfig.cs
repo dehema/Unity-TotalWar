@@ -33,6 +33,10 @@ public class UnitConfig
     /// </summary>
     public float attackRange;
     /// <summary>
+    /// 攻击敌人后,对方多久受伤
+    /// </summary>
+    public float attackHurtTime;
+    /// <summary>
     /// 攻击时长
     /// </summary>
     public float attackDuration;

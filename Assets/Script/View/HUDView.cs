@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public partial class HUDView : BaseView
 {
@@ -20,7 +21,19 @@ public partial class HUDView : BaseView
     {
         base.OnOpen(_params);
         hpDBHandler = DataMgr.Ins.playerData.hp.Bind(BindHp);
+        //UI
+        InitHpSlider();
     }
+
+    private void InitHpSlider()
+    {
+        hpSlider_Rect.anchoredPosition = Vector2.zero;
+        hpSlider_Rect.anchorMin = Vector2.zero;
+        hpSlider_Rect.anchorMax = Vector2.zero;
+        hpSlider_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, hpSliderBg_Rect.rect.width);
+        hpSlider_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, hpSliderBg_Rect.rect.height);
+    }
+
 
     public override void OnClose(Action _cb)
     {
@@ -32,10 +45,14 @@ public partial class HUDView : BaseView
     DBHandler.Binding hpDBHandler;
     void BindHp(DBModify _dm)
     {
+        if (_dm.action != DBAction.Update)
+            return;
         float hp = DataMgr.Ins.playerData.hp.Value;
         float maxHp = DataMgr.Ins.playerData.hpMax.Value;
         txtHp_Text.text = $"{(int)hp}/{(int)maxHp}";
-        hpSlider_Slider.value = hp / maxHp;
+        float progress = hp / maxHp;
+        Vector2 newRect = new Vector2(hpSliderBg_Rect.rect.width * progress, hpSliderBg_Rect.rect.height);
+        hpSlider_Rect.DOSizeDelta(newRect, 0.2f);
     }
 
     /// <summary>

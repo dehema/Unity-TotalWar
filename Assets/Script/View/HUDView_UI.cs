@@ -18,9 +18,13 @@ public partial class HUDView : BaseView
     [HideInInspector]
     public GameObject hudUnitStateBar;
     [HideInInspector]
+    public GameObject hpSliderBg;
+    [HideInInspector]
+    public RectTransform hpSliderBg_Rect;
+    [HideInInspector]
     public GameObject hpSlider;
     [HideInInspector]
-    public Slider hpSlider_Slider;
+    public RectTransform hpSlider_Rect;
     [HideInInspector]
     public GameObject txtHp;
     [HideInInspector]
@@ -35,8 +39,10 @@ public partial class HUDView : BaseView
         content = transform.Find("$content#Rect").gameObject;
         content_Rect = content.GetComponent<RectTransform>();
         hudUnitStateBar = transform.Find("$content#Rect/hudUnitStateBarList/$hudUnitStateBar").gameObject;
-        hpSlider = transform.Find("$content#Rect/playerState/slider/$hpSlider#Slider").gameObject;
-        hpSlider_Slider = hpSlider.GetComponent<Slider>();
+        hpSliderBg = transform.Find("$content#Rect/playerState/$hpSliderBg#Rect").gameObject;
+        hpSliderBg_Rect = hpSliderBg.GetComponent<RectTransform>();
+        hpSlider = transform.Find("$content#Rect/playerState/$hpSliderBg#Rect/$hpSlider#Rect").gameObject;
+        hpSlider_Rect = hpSlider.GetComponent<RectTransform>();
         txtHp = transform.Find("$content#Rect/playerState/$txtHp#Text").gameObject;
         txtHp_Text = txtHp.GetComponent<Text>();
     }
