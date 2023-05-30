@@ -5,23 +5,23 @@
     /// </summary>
     Human = 1,
     /// <summary>
-    /// 精灵
-    /// </summary>
-    Orc,
-    /// <summary>
     /// 兽人
     /// </summary>
-    Elf,
+    Orc = 2,
+    /// <summary>
+    /// 精灵
+    /// </summary>
+    Elf = 3,
     /// <summary>
     /// 野蛮人
     /// </summary>
-    Barbarian,
+    Barbarian = 4,
     /// <summary>
     /// 不死族
     /// </summary>
-    Undead,
+    Undead = 5,
     /// <summary>
     /// 矮人
     /// </summary>
-    Dwarf,
+    Dwarf = 6,
 }

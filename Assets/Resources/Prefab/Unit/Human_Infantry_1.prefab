@@ -4059,7 +4059,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7589031987078195145}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.28
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -4098,7 +4098,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Height: 1.6241256
   m_Direction: 1
   m_Center: {x: 0, y: 0.7985136, z: 0}
@@ -4116,6 +4116,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   startBarPos: {fileID: 0}
+  rigidbody: {fileID: 0}
+  attackTarget: {fileID: 0}
+  canAttack: 1
+  animatorTiggerName: 
 --- !u!1 &7617592670929687658
 GameObject:
   m_ObjectHideFlags: 0

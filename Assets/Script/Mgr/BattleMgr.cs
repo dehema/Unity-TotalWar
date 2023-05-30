@@ -16,6 +16,8 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     //战斗是否开始
     public bool isBattleStart = false;
     public BattleState battleState;
+    //弓箭对象池
+    public ObjPool arrowPool;
 
     /// <summary>
     /// 双方单位数量上限
@@ -31,6 +33,17 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         InitArmyQueueData(ArmyType.player);
         InitArmyQueueData(ArmyType.enemy, _enemyTroop);
         Timer.Ins.SetTimeOut(BattleInit, 0.5f);
+        InitPool();
+    }
+    
+    /// <summary>
+    /// 初始化对象池
+    /// </summary>
+    void InitPool()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefab/Weapon/Arrow");
+        GameObject goArrow = Instantiate(prefab, transform);
+        arrowPool = PoolMgr.Ins.CreatePool(goArrow);
     }
 
     /// <summary>
@@ -85,7 +98,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         //for (int i = 0; i < _unitNum; i++)
         //    PlayerMgr.Ins.AddPlayerUnit(1101);
         TroopData troopData = new TroopData();
-        troopData.units.Add(1101, _unitNum);
+        troopData.units.Add(1201, _unitNum);
         return troopData;
     }
 
@@ -427,6 +440,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         //UI
         Timer.Ins.SetTimeOut(() =>
         {
+            ExitBattleScene();
             BattleVictoryViewParams viewParams = new BattleVictoryViewParams();
             viewParams.closeCB = () => { SceneMgr.Ins.ChangeScene(SceneID.WorldMap); };
             UIMgr.Ins.OpenView<BattleVictoryView>(viewParams);
@@ -447,10 +461,19 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         //UI
         Timer.Ins.SetTimeOut(() =>
         {
+            ExitBattleScene();
             BattleDefeatViewParams viewParams = new BattleDefeatViewParams();
             viewParams.closeCB = () => { SceneMgr.Ins.ChangeScene(SceneID.WorldMap); };
             UIMgr.Ins.OpenView<BattleDefeatView>(viewParams);
         }, 2);
+    }
+
+    /// <summary>
+    /// 关闭战斗场景
+    /// </summary>
+    void ExitBattleScene()
+    {
+        arrowPool.CollectAll();
     }
 
     /// <summary>

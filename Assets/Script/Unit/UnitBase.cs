@@ -407,10 +407,11 @@ public class UnitBase : MonoBehaviour, IUnitBase
                 break;
             case UnitBattleState.Attack:
                 triggerName = AnimatorParams.attack_A;
-                //if (Random.Range(0, 100) < 50)
-                //    triggerName = AnimatorParams.attack_A;
-                //else
-                //    triggerName = AnimatorParams.attack_B;
+                if (unitConfig.type == UnitType.Infantry)
+                {
+                    if (Random.Range(0, 100) < 50)
+                        triggerName = AnimatorParams.attack_B;
+                }
                 Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, unitConfig.attackHurtTime + Random.Range(0, 0.1f), unitData.unitCreateIndex);
                 break;
             case UnitBattleState.Dead:

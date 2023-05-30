@@ -4,7 +4,7 @@
       "ID": "1101",
       "type": "Infantry",
       "name": 1672401101,
-      "hp": 50,
+      "hp": "100",
       "attack": "10",
       "attackInterval": "2",
       "attackRange": "0.5",
@@ -17,13 +17,13 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Infantry_1",
-      "#备注": "普通步兵"
+      "#备注": "帝国步兵"
     },
     "1102": {
       "ID": 1102,
       "type": "Infantry",
       "name": 1672401102,
-      "hp": 50,
+      "hp": "100",
       "attack": "10",
       "attackInterval": "2",
       "attackRange": "0.5",
@@ -36,13 +36,13 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Infantry_2",
-      "#备注": ""
+      "#备注": "资深步兵"
     },
     "1103": {
       "ID": 1103,
       "type": "Infantry",
       "name": 1672401103,
-      "hp": 50,
+      "hp": "100",
       "attack": "10",
       "attackInterval": "2",
       "attackRange": "0.5",
@@ -55,13 +55,13 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Infantry_3",
-      "#备注": ""
+      "#备注": "精英步兵"
     },
     "1104": {
       "ID": 1104,
       "type": "Infantry",
       "name": 1672401104,
-      "hp": 50,
+      "hp": "100",
       "attack": "10",
       "attackInterval": "2",
       "attackRange": "0.5",
@@ -74,13 +74,13 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Infantry_4",
-      "#备注": ""
+      "#备注": "禁卫步兵"
     },
     "1105": {
       "ID": 1105,
       "type": "Infantry",
       "name": 1672401105,
-      "hp": 50,
+      "hp": "100",
       "attack": "10",
       "attackInterval": "2",
       "attackRange": "0.5",
@@ -93,18 +93,18 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Infantry_5",
-      "#备注": ""
+      "#备注": "国王卫队"
     },
     "1201": {
-      "ID": 1201,
+      "ID": "1201",
       "type": "Archer",
-      "name": 1672401201,
+      "name": "1672401201",
       "hp": 50,
       "attack": "10",
       "attackInterval": "2",
-      "attackRange": "0.5",
-      "attackHurtTime": "0.4",
-      "attackDuration": "1.4",
+      "attackRange": "20",
+      "attackHurtTime": "0",
+      "attackDuration": "1.1",
       "angularSpeed": "999",
       "height": 1.5,
       "value": 10,
@@ -112,7 +112,7 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Archer_1",
-      "#备注": "普通弓箭手"
+      "#备注": "帝国弓箭手"
     },
     "1202": {
       "ID": 1202,
@@ -121,9 +121,9 @@
       "hp": 50,
       "attack": "10",
       "attackInterval": "2",
-      "attackRange": "0.5",
-      "attackHurtTime": "0.4",
-      "attackDuration": "1.4",
+      "attackRange": "20",
+      "attackHurtTime": "0",
+      "attackDuration": "1.1",
       "angularSpeed": "999",
       "height": 1.5,
       "value": 10,
@@ -131,7 +131,7 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Archer_2",
-      "#备注": "普通弓箭手"
+      "#备注": "资深弓箭手"
     },
     "1203": {
       "ID": 1203,
@@ -140,9 +140,9 @@
       "hp": 50,
       "attack": "10",
       "attackInterval": "2",
-      "attackRange": "0.5",
-      "attackHurtTime": "0.4",
-      "attackDuration": "1.4",
+      "attackRange": "20",
+      "attackHurtTime": "0",
+      "attackDuration": "1.1",
       "angularSpeed": "999",
       "height": 1.5,
       "value": 10,
@@ -150,7 +150,7 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Archer_3",
-      "#备注": "普通弓箭手"
+      "#备注": "精英弓箭手"
     },
     "1204": {
       "ID": 1204,
@@ -159,9 +159,9 @@
       "hp": 50,
       "attack": "10",
       "attackInterval": "2",
-      "attackRange": "0.5",
-      "attackHurtTime": "0.4",
-      "attackDuration": "1.4",
+      "attackRange": "20",
+      "attackHurtTime": "0",
+      "attackDuration": "1.1",
       "angularSpeed": "999",
       "height": 1.5,
       "value": 10,
@@ -169,7 +169,7 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Archer_4",
-      "#备注": "普通弓箭手"
+      "#备注": "禁卫长弓手"
     },
     "1205": {
       "ID": 1205,
@@ -178,9 +178,9 @@
       "hp": 50,
       "attack": "10",
       "attackInterval": "2",
-      "attackRange": "0.5",
-      "attackHurtTime": "0.4",
-      "attackDuration": "1.4",
+      "attackRange": "20",
+      "attackHurtTime": "0",
+      "attackDuration": "1.1",
       "angularSpeed": "999",
       "height": 1.5,
       "value": 10,
@@ -188,7 +188,7 @@
       "upkeep": "1",
       "race": "Human",
       "fullID": "Human_Archer_5",
-      "#备注": "普通弓箭手"
+      "#备注": "国王射手"
     },
     "1301": {
       "ID": 1301,
@@ -284,6 +284,101 @@
       "race": "Human",
       "fullID": "Human_Cavalry _5",
       "#备注": ""
+    },
+    "2101": {
+      "ID": "2101",
+      "type": "Infantry",
+      "name": "1672401101",
+      "hp": "120",
+      "attack": "10",
+      "attackInterval": "2.2",
+      "attackRange": "0.6",
+      "attackHurtTime": "0.4",
+      "attackDuration": "1.4",
+      "angularSpeed": "999",
+      "height": 1.5,
+      "value": "15",
+      "value_pre": "6",
+      "upkeep": "6",
+      "race": "Orc",
+      "fullID": "Orc_Infantry_1",
+      "#备注": "兽人步兵"
+    },
+    "2102": {
+      "ID": "2102",
+      "type": "Infantry",
+      "name": 1672401102,
+      "hp": "120",
+      "attack": "12",
+      "attackInterval": "2.2",
+      "attackRange": "0.6",
+      "attackHurtTime": "0.4",
+      "attackDuration": "1.4",
+      "angularSpeed": "999",
+      "height": 1.5,
+      "value": "15",
+      "value_pre": "6",
+      "upkeep": "6",
+      "race": "Orc",
+      "fullID": "Orc_Infantry_2",
+      "#备注": "兽人战士"
+    },
+    "2103": {
+      "ID": "2103",
+      "type": "Infantry",
+      "name": 1672401103,
+      "hp": "120",
+      "attack": "12",
+      "attackInterval": "2.2",
+      "attackRange": "0.6",
+      "attackHurtTime": "0.4",
+      "attackDuration": "1.4",
+      "angularSpeed": "999",
+      "height": 1.5,
+      "value": "15",
+      "value_pre": "6",
+      "upkeep": "6",
+      "race": "Orc",
+      "fullID": "Orc_Infantry_3",
+      "#备注": "强兽人"
+    },
+    "2104": {
+      "ID": "2104",
+      "type": "Infantry",
+      "name": 1672401104,
+      "hp": "120",
+      "attack": "12",
+      "attackInterval": "2.2",
+      "attackRange": "0.6",
+      "attackHurtTime": "0.4",
+      "attackDuration": "1.4",
+      "angularSpeed": "999",
+      "height": 1.5,
+      "value": "15",
+      "value_pre": "6",
+      "upkeep": "6",
+      "race": "Orc",
+      "fullID": "Orc_Infantry_4",
+      "#备注": "黑兽人"
+    },
+    "2105": {
+      "ID": "2105",
+      "type": "Infantry",
+      "name": 1672401105,
+      "hp": "120",
+      "attack": "12",
+      "attackInterval": "2.2",
+      "attackRange": "0.6",
+      "attackHurtTime": "0.4",
+      "attackDuration": "1.4",
+      "angularSpeed": "999",
+      "height": 1.5,
+      "value": "15",
+      "value_pre": "6",
+      "upkeep": "6",
+      "race": "Orc",
+      "fullID": "Orc_Infantry_5",
+      "#备注": "兽人冠军"
     }
   },
   "Common": {
