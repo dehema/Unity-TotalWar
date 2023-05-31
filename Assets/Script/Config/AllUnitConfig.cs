@@ -19,7 +19,14 @@ public class UnitConfig
     public int ID;
     public UnitType type;
     public string name;
+    /// <summary>
+    /// 生命值
+    /// </summary>
     public int hp;
+    /// <summary>
+    /// 移动速度
+    /// </summary>
+    public float moveSpeed;
     /// <summary>
     /// 攻击力
     /// </summary>

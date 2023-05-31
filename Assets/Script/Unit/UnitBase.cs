@@ -61,6 +61,7 @@ public class UnitBase : MonoBehaviour, IUnitBase
         nav = GetComponent<NavMeshAgent>();
         if (nav != null)
         {
+            nav.speed = unitConfig.moveSpeed;
             nav.angularSpeed = unitConfig.angularSpeed;
         }
         rigidbody = GetComponent<Rigidbody>();
