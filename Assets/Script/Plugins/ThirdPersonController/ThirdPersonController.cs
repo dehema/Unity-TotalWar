@@ -277,6 +277,10 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
+            float weight = Mathf.Clamp(_animationBlend, 0, 6);
+            Debug.Log(_animationBlend);
+            _animator.SetLayerWeight(1, weight);
+            _animator.SetLayerWeight(2, weight);
         }
 
         private void JumpAndGravity()
