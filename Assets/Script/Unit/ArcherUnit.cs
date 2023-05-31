@@ -14,7 +14,6 @@ public class ArcherUnit : UnitBase
 
     public override void AttackUnit(UnitBase _defender)
     {
-        GameObject itemArrow = BattleMgr.Ins.arrowPool.Get();
-        itemArrow.transform.position = shootPos.position;
+        GameObject itemArrow = BattleMgr.Ins.GetArrow(shootPos.transform, _defender.transform, this);
     }
 }

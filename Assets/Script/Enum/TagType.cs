@@ -1,5 +1,7 @@
 ﻿
 public enum TagType
 {
-    ground
+    ground,
+    Env,
+    Player
 }

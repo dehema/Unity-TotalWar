@@ -35,7 +35,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         Timer.Ins.SetTimeOut(BattleInit, 0.5f);
         InitPool();
     }
-    
+
     /// <summary>
     /// 初始化对象池
     /// </summary>
@@ -507,6 +507,21 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     /// 战斗结束
     /// </summary>
     public bool IsBattleFinish { get { return BattleMgr.Ins.battleState == BattleState.Finish; } }
+
+    const int maxArrowNum = 5;
+    /// <summary>
+    /// 从对象池中获取弓箭
+    /// </summary>
+    /// <param name="_parms"></param>
+    /// <returns></returns>
+    public GameObject GetArrow(params object[] _parms)
+    {
+        if (arrowPool.activePool.Count > maxArrowNum)
+        {
+            arrowPool.CollectOne(arrowPool.activePool[0]);
+        }
+        return arrowPool.Get(_parms);
+    }
 }
 
 /// <summary>

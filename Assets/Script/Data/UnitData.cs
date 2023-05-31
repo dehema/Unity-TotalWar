@@ -13,6 +13,9 @@ public class UnitData
     /// 攻击间隔
     /// </summary>
     public float arttckInterval = 2;
+    /// <summary>
+    /// 军队阵营
+    /// </summary>
     public ArmyType armyType;
     public string unitCreateIndex;
 

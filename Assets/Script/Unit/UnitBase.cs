@@ -31,6 +31,20 @@ public class UnitBase : MonoBehaviour, IUnitBase
     //是否能攻击 攻击有攻击CD
     public bool canAttack = true;
     public string animatorTiggerName;
+    public float height
+    {
+        get
+        {
+            if (IsPlayer)
+            {
+                return GetComponent<CharacterController>().height;
+            }
+            else
+            {
+                return GetComponent<CapsuleCollider>().height;
+            }
+        }
+    }
 
     void Awake()
     {
@@ -252,6 +266,11 @@ public class UnitBase : MonoBehaviour, IUnitBase
                     SetBattleState(UnitBattleState.Attack);
                 }
             }
+        }
+        //士兵不移动时一直看向目标
+        if (!IsPlayer && nav.isOnNavMesh && nav.isStopped && attackTarget != null)
+        {
+            transform.LookAt(attackTarget.transform);
         }
     }
 

@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class ObjPool
 {
+    /// <summary>
+    /// 激活池
+    /// </summary>
     public List<GameObject> activePool = new List<GameObject>();
+    /// <summary>
+    /// 非激活池
+    /// </summary>
     public List<GameObject> inActivePool = new List<GameObject>();
     public GameObject prototype;
     public Transform prototypeParent;
