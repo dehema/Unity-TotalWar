@@ -6,15 +6,15 @@ public enum BuildingType
     /// <summary>
     /// 主要序列
     /// </summary>
-    MainBase,
+    MainBase = 0,
     /// <summary>
     /// 军事序列
     /// </summary>
-    Military,
+    Military = 1,
     /// <summary>
     /// 经济序列
     /// </summary>
-    Economy
+    Economy = 2
 
 }
 

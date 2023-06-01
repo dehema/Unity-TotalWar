@@ -49,33 +49,31 @@ public class RaceBuildingConfig
     /// 种族类型
     /// </summary>
     public RaceType raceType;
+    public string _MainBase;
+    public string _Military;
+    public string _Economy;
+    public string _defaultBuilding;
     /// <summary>
     /// 主要序列
     /// </summary>
-    public int MainBase;
+    public List<int> MainBase;
     /// <summary>
-    /// 近战序列
+    /// 军事序列
     /// </summary>
-    public int Barracks;
-    /// <summary>
-    /// 远程序列
-    /// </summary>
-    public int Range;
-    /// <summary>
-    /// 骑兵序列
-    /// </summary>
-    public int Stable;
+    public List<int> Military;
     /// <summary>
     /// 经济序列
     /// </summary>
-    public int Economy;
-    public string _defaultBuilding;
+    public List<int> Economy;
     /// <summary>
     /// 默认建筑
     /// </summary>
     public List<int> defaultBuilding = new List<int>();
     public void Init()
     {
+        Array.ForEach(_MainBase.Split(','), val => { MainBase.Add(int.Parse(val)); });
+        Array.ForEach(_Military.Split(','), val => { Military.Add(int.Parse(val)); });
+        Array.ForEach(_Economy.Split(','), val => { Economy.Add(int.Parse(val)); });
         Array.ForEach(_defaultBuilding.Split(','), val => { defaultBuilding.Add(int.Parse(val)); });
     }
 }

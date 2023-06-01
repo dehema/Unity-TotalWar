@@ -33,7 +33,9 @@ public partial class EscView : BaseView
     {
         if (Application.isEditor)
         {
+#if UNITY_EDITOR
             EditorApplication.isPlaying = false;
+#endif
         }
         else
         {

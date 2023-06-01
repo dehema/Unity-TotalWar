@@ -16,7 +16,7 @@ public partial class CityInfoBuildingItem : PoolItemBase
 
     override internal void _LoadUI()    
     {
-        buildingIcon = transform.Find("$buildingIcon#Image").gameObject;
+        buildingIcon = transform.Find("buildingIconBg/$buildingIcon#Image").gameObject;
         buildingIcon_Image = buildingIcon.GetComponent<Image>();
         buildingName = transform.Find("$buildingName#Text").gameObject;
         buildingName_Text = buildingName.GetComponent<Text>();

@@ -109,6 +109,11 @@ public partial class TopView : BaseView
     /// </summary>
     public void RefreshTimeSpeedUI()
     {
+        if (WorldMgr.Ins == null)
+        {
+            btTimePause_light.SetActive(true);
+            return;
+        }
         btTimePause_light.SetActive(WorldMgr.Ins?.worldDate.timeSpeed == TimeSpeed.pause);
         btTimeNormal_light.SetActive(WorldMgr.Ins?.worldDate.timeSpeed == TimeSpeed.normal);
         btTimeQuick_light.SetActive(WorldMgr.Ins?.worldDate.timeSpeed == TimeSpeed.quick);

@@ -131,5 +131,7 @@ public class WorldPlayer : WorldUnitBase
                 });
                 break;
         }
+        //玩家移动后 暂停
+        WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.pause);
     }
 }
