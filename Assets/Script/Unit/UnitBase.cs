@@ -162,10 +162,18 @@ public class UnitBase : MonoBehaviour, IUnitBase
         {
             return;
         }
+        //动画
         if (!IsPlayer)
         {
-            //不是玩家的单位受伤后 重新寻找攻击目标
-            SetBattleState(UnitBattleState.FindEnemy);
+            if (nav != null)
+            {
+                nav.isStopped = true;
+            }
+            SetBattleState(UnitBattleState.TakeDamage);
+            Timer.Ins.SetTimeOut(() =>
+            {
+                SetBattleState(UnitBattleState.FindEnemy);
+            }, 0.6f, unitData.unitCreateIndex);
         }
     }
 
@@ -434,8 +442,10 @@ public class UnitBase : MonoBehaviour, IUnitBase
                 }
                 Timer.Ins.SetTimeOut(() => { AttackUnit(attackTarget); }, unitConfig.attackHurtTime + Random.Range(0, 0.1f), unitData.unitCreateIndex);
                 break;
+            case UnitBattleState.TakeDamage:
+                triggerName = AnimatorParams.take_damage;
+                break;
             case UnitBattleState.Dead:
-
                 if (Random.Range(0, 100) < 50)
                     triggerName = AnimatorParams.death_A;
                 else
@@ -520,6 +530,7 @@ public enum UnitBattleState
     FindEnemy,
     MoveToEnemy,
     Attack,
+    TakeDamage,
     Dead,
     Win,
 }

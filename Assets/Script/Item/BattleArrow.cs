@@ -38,7 +38,7 @@ public class BattleArrow : PoolItemBase3D
         Transform startPos = _params[0] as Transform;
         shootTarget = _params[1] as Transform;
         attacker = _params[2] as UnitBase;
-        transform.SetParent(attacker.transform);
+        transform.SetParent(BattleMgr.Ins.transform);
         transform.position = startPos.position;
         transform.eulerAngles = startPos.eulerAngles;
         //下面求弓箭发射角度
@@ -50,7 +50,7 @@ public class BattleArrow : PoolItemBase3D
         float startAngle = angleSpeed * (flyTime / 2);
         //高度差
         float height = Mathf.Abs(transform.position.y - shootTarget.transform.position.y);
-        float heightAngle = height * flyTime * angleSpeed / 10;
+        float heightAngle = height * flyTime * angleSpeed / 20;
         transform.eulerAngles = startPos.eulerAngles - new Vector3(0, 0, startAngle + heightAngle);
         //增加一个随机角度
         transform.eulerAngles += new Vector3(0, Random.Range(-0.5f, 0.5f), Random.Range(-1, 1));
