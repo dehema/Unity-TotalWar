@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public partial class CityInfoBuildingItem : PoolItemBase
 {
     [HideInInspector]
+    public GameObject buildingFrame;
+    [HideInInspector]
+    public Image buildingFrame_Image;
+    [HideInInspector]
     public GameObject buildingIcon;
     [HideInInspector]
     public Image buildingIcon_Image;
@@ -16,7 +20,9 @@ public partial class CityInfoBuildingItem : PoolItemBase
 
     override internal void _LoadUI()    
     {
-        buildingIcon = transform.Find("buildingIconBg/$buildingIcon#Image").gameObject;
+        buildingFrame = transform.Find("$buildingFrame#Image").gameObject;
+        buildingFrame_Image = buildingFrame.GetComponent<Image>();
+        buildingIcon = transform.Find("$buildingFrame#Image/$buildingIcon#Image").gameObject;
         buildingIcon_Image = buildingIcon.GetComponent<Image>();
         buildingName = transform.Find("$buildingName#Text").gameObject;
         buildingName_Text = buildingName.GetComponent<Text>();

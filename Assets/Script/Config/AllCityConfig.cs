@@ -56,52 +56,83 @@ public class RaceBuildingConfig
     /// <summary>
     /// 主要序列
     /// </summary>
-    public List<int> MainBase;
+    public List<int> MainBase = new List<int>();
     /// <summary>
     /// 军事序列
     /// </summary>
-    public List<int> Military;
+    public List<int> Military = new List<int>();
     /// <summary>
     /// 经济序列
     /// </summary>
-    public List<int> Economy;
+    public List<int> Economy = new List<int>();
     /// <summary>
     /// 默认建筑
     /// </summary>
-    public List<int> defaultBuilding = new List<int>();
+    public List<int> DefaultBuilding = new List<int>();
     public void Init()
     {
         Array.ForEach(_MainBase.Split(','), val => { MainBase.Add(int.Parse(val)); });
         Array.ForEach(_Military.Split(','), val => { Military.Add(int.Parse(val)); });
         Array.ForEach(_Economy.Split(','), val => { Economy.Add(int.Parse(val)); });
-        Array.ForEach(_defaultBuilding.Split(','), val => { defaultBuilding.Add(int.Parse(val)); });
+        Array.ForEach(_defaultBuilding.Split(','), val => { DefaultBuilding.Add(int.Parse(val)); });
     }
 }
 
 public class BuildingConfig
 {
     public int ID;
+    /// <summary>
+    /// 建筑ID
+    /// </summary>
     public string buildingID;
-    public string raceType;
+    /// <summary>
+    /// 种族
+    /// </summary>
+    public RaceType raceType;
+    /// <summary>
+    /// 建筑类型
+    /// </summary>
     public BuildingType buildingType;
+    /// <summary>
+    /// 建筑二级类型
+    /// </summary>
     public BuildingSubType buildingSubType;
-    public string _name;
-    public string _mainBaseLv;
-    public string _costGold;
-    public string _costHour;
+    /// <summary>
+    /// 建筑名称
+    /// </summary>
+    public string name;
+    /// <summary>
+    /// 前置建筑
+    /// </summary>
+    public string _preBuildingIDs;
+    /// <summary>
+    /// 图标
+    /// </summary>
+    public string icon;
+    /// <summary>
+    /// 花费金钱
+    /// </summary>
+    public int costGold;
+    /// <summary>
+    /// 升级耗时
+    /// </summary>
+    public int costHour;
+    /// <summary>
+    /// 是否启用
+    /// </summary>
+    public bool enable;
 
-    public List<string> name;
-    public List<int> mainBaseLv = new List<int>();
-    public List<int> costGold = new List<int>();
-    public List<int> costHour = new List<int>();
+    /// <summary>
+    /// 前置建筑
+    /// </summary>
+    public List<int> preBuildingIDs = new List<int>();
 
     public void Init()
     {
-        name = new List<string>(_name.Split(','));
-        Array.ForEach(_name.Split(','), val => { mainBaseLv.Add(int.Parse(val)); });
-        Array.ForEach(_mainBaseLv.Split(','), val => { mainBaseLv.Add(int.Parse(val)); });
-        Array.ForEach(_costGold.Split(','), val => { costGold.Add(int.Parse(val)); });
-        Array.ForEach(_costHour.Split(','), val => { costHour.Add(int.Parse(val)); });
+        if (!string.IsNullOrEmpty(_preBuildingIDs))
+        {
+            Array.ForEach(_preBuildingIDs.Split(','), val => { preBuildingIDs.Add(int.Parse(val)); });
+        }
     }
 }
 
@@ -111,34 +142,18 @@ public class BuildingConfig
 public class RecruitDailyConfig
 {
     public int ID;
-    public string _lv1;
-    public string _lv2;
-    public string _lv3;
-    public string _lv4;
-    public string _lv5;
-    public RecruitDailyLvConfig lv1;
-    public RecruitDailyLvConfig lv2;
-    public RecruitDailyLvConfig lv3;
-    public RecruitDailyLvConfig lv4;
-    public RecruitDailyLvConfig lv5;
+    /// <summary>
+    /// 生成总数
+    /// </summary>
+    public int totalNum;
+    public string _recruitNum;
+    /// <summary>
+    /// 招募
+    /// </summary>
+    public Dictionary<int, int> recruitNum;
 
     public void Init()
     {
-        lv1 = JsonConvert.DeserializeObject<RecruitDailyLvConfig>(_lv1);
-        lv2 = JsonConvert.DeserializeObject<RecruitDailyLvConfig>(_lv2);
-        lv3 = JsonConvert.DeserializeObject<RecruitDailyLvConfig>(_lv3);
-        lv4 = JsonConvert.DeserializeObject<RecruitDailyLvConfig>(_lv4);
-        lv5 = JsonConvert.DeserializeObject<RecruitDailyLvConfig>(_lv5);
+        recruitNum = JsonConvert.DeserializeObject<Dictionary<int, int>>(_recruitNum);
     }
-}
-public class RecruitDailyLvConfig
-{
-    /// <summary>
-    /// 每日生成的士兵总数
-    /// </summary>
-    public int totalNum;
-    /// <summary>
-    /// 士兵ID和权重
-    /// </summary>
-    public Dictionary<int, int> recruitNum;
 }

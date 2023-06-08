@@ -26,7 +26,7 @@ public class CityData
     /// <summary>
     /// 存在建筑信息
     /// </summary>
-    public Dictionary<BuildingType, BuildingData> buildingDict = new Dictionary<BuildingType, BuildingData>();
+    public Dictionary<int, BuildingData> buildingDict = new Dictionary<int, BuildingData>();
     /// <summary>
     /// 建造中的建筑信息
     /// </summary>
@@ -43,11 +43,18 @@ public class CityData
         CityConfig cityConfig = CityMgr.Ins.GetCityConfig(_cityID);
         RaceBuildingConfig _raceBuildingConfig = CityMgr.Ins.GetRaceBuildingConfig(cityConfig.raceType);
         //填充默认建筑
-        foreach (var buildingID in _raceBuildingConfig.defaultBuilding)
+        Action<List<int>> fillData = (buildingIDs) =>
         {
-            var buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
-            buildingDict[buildingConfig.buildingType] = new BuildingData(buildingID);
-        }
+            foreach (var buildingID in buildingIDs)
+            {
+                var buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
+                buildingDict[buildingID] = new BuildingData(buildingID);
+            }
+        };
+        fillData(_raceBuildingConfig.MainBase);
+        fillData(_raceBuildingConfig.Military);
+        fillData(_raceBuildingConfig.Economy);
+        fillData(_raceBuildingConfig.DefaultBuilding);
     }
 
     /// <summary>
@@ -59,7 +66,7 @@ public class CityData
     {
         foreach (var item in buildingDict)
         {
-            if (item.Value.buildingID == _buildingID)
+            if (item.Value.id == _buildingID)
             {
                 return item.Value;
             }
@@ -75,8 +82,12 @@ public class CityData
         recruitUnit.Clear();
         foreach (var item in buildingDict)
         {
-            int buildingID = item.Value.buildingID;
-            int buildingLv = item.Value.lv;
+            if (item.Value.buildingConfig.buildingType != BuildingType.Military)
+            {
+                //是否是军事序列建筑
+                continue;
+            }
+            int buildingID = item.Value.id;
             BuildingConfig buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
             if (buildingConfig.buildingType != BuildingType.Military)
                 continue;
@@ -103,13 +114,13 @@ public class CityData
 /// </summary>
 public class BuildingData
 {
-    public int buildingID;
-    public int lv;
+    public int id;
+    public BuildingConfig buildingConfig;
     public BuildingData() { }
-    public BuildingData(int _buildingID, int _lv = 1)
+    public BuildingData(int _id)
     {
-        buildingID = _buildingID;
-        lv = _lv;
+        id = _id;
+        buildingConfig = CityMgr.Ins.GetBuildingConfig(id);
     }
 
     /// <summary>
@@ -118,16 +129,16 @@ public class BuildingData
     public Dictionary<int, int> GetRecruitUnitDaily()
     {
         Dictionary<int, int> units = new Dictionary<int, int>();
-        RecruitDailyLvConfig config = CityMgr.Ins.GetRecruitableDailyLv(buildingID, lv);
         List<int> options = new List<int>();
         List<int> weights = new List<int>();
+        RecruitDailyConfig recruitConfig = CityMgr.Ins.RecruitDailyConfig(id);
         //获取权重
-        foreach (var item in config.recruitNum)
+        foreach (var item in recruitConfig.recruitNum)
         {
             options.Add(item.Key);
             weights.Add(item.Value);
         }
-        for (int i = 0; i < config.totalNum; i++)
+        for (int i = 0; i < recruitConfig.totalNum; i++)
         {
             int unitID = RandomTools.GetWeightRandomIndex(options, weights);
             if (units.ContainsKey(unitID))

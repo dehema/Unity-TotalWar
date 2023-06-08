@@ -36,6 +36,10 @@ public partial class CityInfoView : BaseView
     [HideInInspector]
     public Text txtDevelop_Text;
     [HideInInspector]
+    public GameObject owner;
+    [HideInInspector]
+    public Text owner_Text;
+    [HideInInspector]
     public GameObject optionList;
     [HideInInspector]
     public RectTransform optionList_Rect;
@@ -76,16 +80,18 @@ public partial class CityInfoView : BaseView
         txtDevelopProress_Text = txtDevelopProress.GetComponent<Text>();
         txtDevelop = transform.Find("$content#Rect/pop/top/$developProress#Slider/Level/$txtDevelop#Text").gameObject;
         txtDevelop_Text = txtDevelop.GetComponent<Text>();
-        optionList = transform.Find("$content#Rect/pop/infos/Viewport/Content/$optionList#Rect,GridLayoutGroup").gameObject;
+        owner = transform.Find("$content#Rect/pop/top/ClaSymbol/$owner#Text").gameObject;
+        owner_Text = owner.GetComponent<Text>();
+        optionList = transform.Find("$content#Rect/pop/operation/Viewport/Content/$optionList#Rect,GridLayoutGroup").gameObject;
         optionList_Rect = optionList.GetComponent<RectTransform>();
         optionList_GridLayoutGroup = optionList.GetComponent<GridLayoutGroup>();
-        btRecruit = transform.Find("$content#Rect/pop/infos/Viewport/Content/$optionList#Rect,GridLayoutGroup/$btRecruit#Button,Rect").gameObject;
+        btRecruit = transform.Find("$content#Rect/pop/operation/Viewport/Content/$optionList#Rect,GridLayoutGroup/$btRecruit#Button,Rect").gameObject;
         btRecruit_Button = btRecruit.GetComponent<Button>();
         btRecruit_Rect = btRecruit.GetComponent<RectTransform>();
-        buildingList = transform.Find("$content#Rect/pop/infos/Viewport/Content/$buildingList#Rect,GridLayoutGroup").gameObject;
+        buildingList = transform.Find("$content#Rect/pop/building/Viewport/Content/$buildingList#Rect,GridLayoutGroup").gameObject;
         buildingList_Rect = buildingList.GetComponent<RectTransform>();
         buildingList_GridLayoutGroup = buildingList.GetComponent<GridLayoutGroup>();
-        buildingItem = transform.Find("$content#Rect/pop/infos/Viewport/Content/$buildingList#Rect,GridLayoutGroup/$buildingItem#Rect").gameObject;
+        buildingItem = transform.Find("$content#Rect/pop/building/Viewport/Content/$buildingList#Rect,GridLayoutGroup/$buildingItem#Rect").gameObject;
         buildingItem_Rect = buildingItem.GetComponent<RectTransform>();
     }
 }

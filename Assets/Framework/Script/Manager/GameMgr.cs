@@ -9,11 +9,6 @@ public class GameMgr : MonoBehaviour
     public static GameMgr Ins;
     public bool enterGame = false;
 
-    struct aaa
-    {
-        public int a;
-    }
-
     private void Awake()
     {
         Ins = this;

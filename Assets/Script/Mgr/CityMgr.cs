@@ -44,6 +44,14 @@ public class CityMgr : MonoSingleton<CityMgr>
     }
 
     /// <summary>
+    /// 获取建筑每日招募配置
+    /// </summary>
+    public RecruitDailyConfig RecruitDailyConfig(int _buildingID)
+    {
+        return allCityConfig.recruitDaily[_buildingID];
+    }
+
+    /// <summary>
     /// 获取种族建筑信息
     /// </summary>
     /// <returns></returns>
@@ -72,31 +80,7 @@ public class CityMgr : MonoSingleton<CityMgr>
         {
             return null;
         }
-        return cityData.buildingDict[_buildingType];
-    }
-
-    /// <summary>
-    /// 获得某指定等级的建筑 每日刷新招募士兵的配置
-    /// </summary>
-    /// <param name="_buildingID"></param>
-    /// <param name="_lv"></param>
-    /// <returns></returns>
-    public RecruitDailyLvConfig GetRecruitableDailyLv(int _buildingID, int _lv)
-    {
-        RecruitDailyConfig config = allCityConfig.recruitDaily[_buildingID];
-        if (config == null)
-            return null;
-        string targetLv = "lv" + _lv;
-        Type type = config.GetType();
-        FieldInfo[] fieldInfos = type.GetFields();
-        foreach (var f in fieldInfos)
-        {
-            if (f.Name == targetLv)
-            {
-                return f.GetValue(config) as RecruitDailyLvConfig;
-            }
-        }
-        return null;
+        return cityData.buildingDict[_cityID];
     }
 
     /// <summary>
