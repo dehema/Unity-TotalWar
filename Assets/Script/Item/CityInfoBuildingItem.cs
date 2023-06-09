@@ -23,7 +23,7 @@ public partial class CityInfoBuildingItem : PoolItemBase
         switch (buildingConfig.buildingType)
         {
             case BuildingType.MainBase:
-                buildingFrame_Image.sprite = Resources.Load<Sprite>("UI/common/equipment_frame_yellow");
+                buildingFrame_Image.sprite = Resources.Load<Sprite>("UI/common/equipment_frame_gold");
                 break;
             case BuildingType.Military:
                 buildingFrame_Image.sprite = Resources.Load<Sprite>("UI/common/equipment_frame_red");
