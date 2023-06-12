@@ -61,6 +61,26 @@ public partial class CityInfoView : BaseView
     public GameObject buildingItem;
     [HideInInspector]
     public RectTransform buildingItem_Rect;
+    [HideInInspector]
+    public GameObject btConstruct;
+    [HideInInspector]
+    public Button btConstruct_Button;
+    [HideInInspector]
+    public GameObject constructNeed;
+    [HideInInspector]
+    public GameObject constructNeedGold;
+    [HideInInspector]
+    public Text constructNeedGold_Text;
+    [HideInInspector]
+    public GameObject constructNeedTime;
+    [HideInInspector]
+    public Text constructNeedTime_Text;
+    [HideInInspector]
+    public GameObject constructTips;
+    [HideInInspector]
+    public GameObject constructNeedTips;
+    [HideInInspector]
+    public Text constructNeedTips_Text;
 
     internal override void _LoadUI()    
     {
@@ -93,5 +113,15 @@ public partial class CityInfoView : BaseView
         buildingList_GridLayoutGroup = buildingList.GetComponent<GridLayoutGroup>();
         buildingItem = transform.Find("$content#Rect/pop/building/Viewport/Content/$buildingList#Rect,GridLayoutGroup/$buildingItem#Rect").gameObject;
         buildingItem_Rect = buildingItem.GetComponent<RectTransform>();
+        btConstruct = transform.Find("$content#Rect/pop/buildingTips/$btConstruct#Button").gameObject;
+        btConstruct_Button = btConstruct.GetComponent<Button>();
+        constructNeed = transform.Find("$content#Rect/pop/buildingTips/$constructNeed").gameObject;
+        constructNeedGold = transform.Find("$content#Rect/pop/buildingTips/$constructNeed/$constructNeedGold#Text").gameObject;
+        constructNeedGold_Text = constructNeedGold.GetComponent<Text>();
+        constructNeedTime = transform.Find("$content#Rect/pop/buildingTips/$constructNeed/$constructNeedTime#Text").gameObject;
+        constructNeedTime_Text = constructNeedTime.GetComponent<Text>();
+        constructTips = transform.Find("$content#Rect/pop/buildingTips/$constructTips").gameObject;
+        constructNeedTips = transform.Find("$content#Rect/pop/buildingTips/$constructTips/$constructNeedTips#Text").gameObject;
+        constructNeedTips_Text = constructNeedTips.GetComponent<Text>();
     }
 }
