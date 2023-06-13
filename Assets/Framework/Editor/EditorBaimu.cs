@@ -346,6 +346,12 @@ public class EditorBaimu : EditorWindow
         OnlyShowLastUI(ViewLayer.PopUI.ToString());
     }
 
+    [MenuItem("GameObject/BM工具/只显示最后一个TipsUI", priority = 3)]
+    public static void OnlyShowLastTipsUI()
+    {
+        OnlyShowLastUI(ViewLayer.TipsUI.ToString());
+    }
+
     public static void OnlyShowLastUI(string _rootName)
     {
         GameObject uiRoot = GameObject.Find(typeof(UIMgr).ToString());
@@ -387,7 +393,7 @@ public class EditorBaimu : EditorWindow
     }
 
 
-    [MenuItem("GameObject/BM工具/重置 显示&&点击", priority = 2)]
+    [MenuItem("GameObject/BM工具/重置 显示&&点击", priority = 999)]
     public static void PickingAndIsolateReset()
     {
         ShowAllGameObject();

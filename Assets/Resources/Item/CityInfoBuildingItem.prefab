@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5463169447816171318}
   - component: {fileID: 1822538887803246035}
   m_Layer: 5
-  m_Name: bg
+  m_Name: $bg#Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

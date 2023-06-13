@@ -13,6 +13,7 @@ public partial class CityInfoBuildingItem : PoolItemBase
         buildingData = _params[0] as BuildingData;
         buildID = buildingData.id;
         buildingConfig = buildingData.buildingConfig;
+        bg_Button.SetButton(OnClickItem);
         RefreshUI();
     }
 
@@ -32,5 +33,13 @@ public partial class CityInfoBuildingItem : PoolItemBase
                 buildingFrame_Image.sprite = Resources.Load<Sprite>("UI/common/equipment_frame_yellow");
                 break;
         }
+    }
+
+    /// <summary>
+    /// 点击自身弹出tips
+    /// </summary>
+    void OnClickItem()
+    {
+        UIMgr.Ins.GetView<CityInfoView>().ShowBuildingTips(buildingConfig);
     }
 }

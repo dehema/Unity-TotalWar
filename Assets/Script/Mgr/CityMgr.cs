@@ -93,4 +93,14 @@ public class CityMgr : MonoSingleton<CityMgr>
             item.Value.RefreshRecruitUnit();
         }
     }
+
+    /// <summary>
+    /// Éý¼¶½¨Öþ
+    /// </summary>
+    /// <param name="cityID"></param>
+    /// <param name="_buildingID"></param>
+    public void UpgradeBuilding(int cityID, int _buildingID)
+    {
+
+    }
 }
