@@ -1,14 +1,20 @@
+using DotLiquid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public partial class CityInfoView : BaseView
 {
     //UI
     ObjPool buildingPool;
-    ObjPool constructPool;
+    ObjPool upgradeConditionPool;
+    Dictionary<int, CityInfoBuildingItem> buildingItemDict = new Dictionary<int, CityInfoBuildingItem>();
     //data
     CityInfoViewParams viewParams;
     int cityID;
@@ -23,8 +29,9 @@ public partial class CityInfoView : BaseView
         cityConfig = CityMgr.Ins.GetCityConfig(cityID);
         //pool
         buildingPool = PoolMgr.Ins.CreatePool(buildingItem);
-        constructPool = PoolMgr.Ins.CreatePool(btConstruct);
+        upgradeConditionPool = PoolMgr.Ins.CreatePool(upgradeCondition);
         //UI
+        btUpgradeBuilding_Button.SetButton(OnClickUpgradeBuilding);
         btclose_Button.SetButton(Close);
         btRecruit_Button.SetButton(OnClickRecruit);
         buildingTips.SetActive(false);
@@ -37,6 +44,13 @@ public partial class CityInfoView : BaseView
         txtCityName_Text.text = LangMgr.Ins.Get(cityConfig.name);
         InitOption();
         InitBuilding();
+        PlayerMgr.Ins.SetPlayerScene(PlayerScene.city);
+    }
+
+    public override void OnClose(Action _cb)
+    {
+        base.OnClose(_cb);
+        PlayerMgr.Ins.SetPlayerScene(PlayerScene.world);
     }
 
     /// <summary>
@@ -55,13 +69,16 @@ public partial class CityInfoView : BaseView
     private void InitBuilding()
     {
         buildingPool.CollectAll();
+        buildingItemDict.Clear();
         int buildingNum = cityData.buildingDict.Count;
         int row = Mathf.CeilToInt(buildingNum / 4f);
         float height = buildingList_GridLayoutGroup.cellSize.y * row + buildingList_GridLayoutGroup.spacing.y * (row - 1);
         buildingList_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         foreach (var item in cityData.buildingDict)
         {
-            buildingPool.Get(item.Value);
+            GameObject go = buildingPool.Get(item.Value);
+            CityInfoBuildingItem cityInfoBuildingItem = go.GetComponent<CityInfoBuildingItem>();
+            buildingItemDict.Add(item.Key, cityInfoBuildingItem);
         }
     }
 
@@ -89,24 +106,88 @@ public partial class CityInfoView : BaseView
             buildingTips.SetActive(false);
             return;
         }
+        //坐标
+        buildingTips.transform.position = buildingItemDict[_buildingConfig.ID].transform.position;
+        buildingTips_Rect.anchoredPosition += new Vector2(0, 100);
+        //data
         selectBuildingConfig = _buildingConfig;
         buildingTips.SetActive(true);
-        //升级
-        constructPool.CollectAll();
-        foreach (var item in _buildingConfig.upgradeBuildingIDs)
+        //
+        //升级按钮
+        constructList.SetActive(false);
+        //升级所需材料
+        constructNeed.SetActive(false);
+        //升级条件提示
+        constructTips.SetActive(false);
+        //满级提示
+        buildingMaxLv.SetActive(false);
+        inBuildingTips.SetActive(false);
+        int newBuildingID = _buildingConfig.upgradeBuildingID;
+        //满级
+        if (newBuildingID == 0)
         {
-            GameObject go = constructPool.Get();
-            go.GetComponent<Button>().onClick.RemoveAllListeners();
-            int newBuildingID = item;
-            BuildingConfig newBuildingConfig = CityMgr.Ins.GetBuildingConfig(newBuildingID);
-            go.transform.Find("Text").GetComponent<Text>().text = LangMgr.Ins.Get("1667200203") + LangMgr.Ins.Get(newBuildingConfig.name);
-            go.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                Debug.Log("升级为" + LangMgr.Ins.Get(newBuildingConfig.name));
-                CityMgr.Ins.UpgradeBuilding(cityID, _buildingConfig.ID);
-            });
+            buildingMaxLv.SetActive(true);
+            return;
         }
-        //升级成本
+        //建造中
+        if (cityData.inBuildIngData.ContainsKey(_buildingConfig.ID))
+        {
+            inBuildingTips.SetActive(true);
+            InBuildIngData inBuildIngData = cityData.inBuildIngData[_buildingConfig.ID];
+            inBuildingTips_Text.text = LangMgr.Ins.Get("1667200206") + "\n" + string.Format(LangMgr.Ins.Get("1667200207"), inBuildIngData.endHour - DataMgr.Ins.gameData.worldTime.TotalHour);
+            return;
+        }
+        BuildingConfig newBuildingConfig = CityMgr.Ins.GetBuildingConfig(newBuildingID);
+        //升级条件提示
+        bool isCondition = true;
+        upgradeConditionPool.CollectAll();
+        foreach (var preBuildingID in newBuildingConfig.preBuildingIDs)
+        {
+            if (!CityMgr.Ins.IsHasBuilding(cityID, preBuildingID))
+            {
+                GameObject go = upgradeConditionPool.Get();
+                BuildingConfig needCityConfig = CityMgr.Ins.GetBuildingConfig(preBuildingID);
+                go.GetComponent<Text>().text = LangMgr.Ins.Get("1667200205") + LangMgr.Ins.Get(needCityConfig.name);
+                isCondition = false;
+            }
+        }
+        constructTips.SetActive(!isCondition);
+        //
+        if (isCondition)
+        {
+            //升级所需材料
+            constructNeed.SetActive(true);
+            int costGold = newBuildingConfig.costGold;
+            constructNeedGold_Text.text = costGold.ToString();
+            constructNeedGold_Text.color = DataMgr.Ins.playerData.gold.Value >= costGold ? Color.white : Color.red;
+            constructNeedTime_Text.text = newBuildingConfig.costHour + "H";
+            //升级按钮
+            constructList.SetActive(true);
+            txtUpgradeBuilding_Text.text = LangMgr.Ins.Get("1667200203") + LangMgr.Ins.Get(newBuildingConfig.name);
+        }
+    }
+
+    /// <summary>
+    /// 升级建筑
+    /// </summary>
+    void OnClickUpgradeBuilding()
+    {
+        BuildingConfig newBuildingConfig = CityMgr.Ins.GetBuildingConfig(selectBuildingConfig.upgradeBuildingID);
+        if (DataMgr.Ins.playerData.gold.Value < newBuildingConfig.costGold)
+        {
+            Utility.PopTips(LangMgr.Ins.Get("1672500003"));
+            return;
+        }
+        InBuildIngData inBuildIngData = new InBuildIngData();
+        inBuildIngData.startHour = DataMgr.Ins.gameData.worldTime.TotalHour;
+        inBuildIngData.endHour = DataMgr.Ins.gameData.worldTime.TotalHour + newBuildingConfig.costHour;
+        inBuildIngData.originBuildingID = selectBuildingConfig.ID;
+        inBuildIngData.targetBuildingID = selectBuildingConfig.upgradeBuildingID;
+        cityData.inBuildIngData.Add(selectBuildingConfig.ID, inBuildIngData);
+        DataMgr.Ins.playerData.gold.Value -= newBuildingConfig.costGold;
+        DataMgr.Ins.SaveAllData();
+        buildingTips.SetActive(false);
+        Debug.Log(newBuildingConfig.costHour + "小时后升级为" + LangMgr.Ins.Get(newBuildingConfig.name));
     }
 }
 
@@ -114,7 +195,6 @@ public class CityInfoViewParams
 {
     //城镇ID
     public int cityID;
-
     public CityInfoViewParams(int _cityID)
     {
         cityID = _cityID;

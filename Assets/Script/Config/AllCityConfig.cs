@@ -108,7 +108,7 @@ public class BuildingConfig
     /// <summary>
     /// 升级后的建筑ID
     /// </summary>
-    public string _upgradeBuildingIDs;
+    public string _upgradeBuildingID;
     /// <summary>
     /// 图标
     /// </summary>
@@ -130,17 +130,13 @@ public class BuildingConfig
     /// 前置建筑
     /// </summary>
     public List<int> preBuildingIDs = new List<int>();
-    /// <summary>
-    /// 升级后的建筑ID
-    /// </summary>
-    public List<int> upgradeBuildingIDs = new List<int>();
+    public int upgradeBuildingID = 0;
 
     public void Init()
     {
         if (!string.IsNullOrEmpty(_preBuildingIDs))
             Array.ForEach(_preBuildingIDs.Split(','), val => { preBuildingIDs.Add(int.Parse(val)); });
-        if (!string.IsNullOrEmpty(_upgradeBuildingIDs))
-            Array.ForEach(_upgradeBuildingIDs.Split(','), val => { upgradeBuildingIDs.Add(int.Parse(val)); });
+        int.TryParse(_upgradeBuildingID, out upgradeBuildingID);
     }
 }
 

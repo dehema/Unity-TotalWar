@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ public class CityMgr : MonoSingleton<CityMgr>
             {
                 item.Value.cityData.RefreshRecruitUnit();
             }
+        };
+        WorldMgr.Ins.worldDate.onNewHour += () =>
+        {
+            AddInBuildingProgress();
         };
     }
 
@@ -95,12 +100,55 @@ public class CityMgr : MonoSingleton<CityMgr>
     }
 
     /// <summary>
-    /// 升级建筑
+    /// 是否存在建筑 升级过的也算
     /// </summary>
-    /// <param name="cityID"></param>
+    /// <param name="_cityID"></param>
     /// <param name="_buildingID"></param>
-    public void UpgradeBuilding(int cityID, int _buildingID)
+    /// <returns></returns>
+    public bool IsHasBuilding(int _cityID, int _buildingID)
     {
+        if (!DataMgr.Ins.gameData.cityData.ContainsKey(_cityID))
+        {
+            return false;
+        }
+        CityData cityData = DataMgr.Ins.gameData.cityData[_cityID];
+        foreach (var item in cityData.buildingDict)
+        {
+            if (IsContainBuilding(item.Key, _buildingID))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    /// <summary>
+    /// 建筑A是否包含建筑B
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContainBuilding(int _buildingIDA, int _buildingIDB)
+    {
+        return (_buildingIDA / 10 == _buildingIDB / 10) && (_buildingIDA >= _buildingIDB);
+    }
+
+    /// <summary>
+    /// 增加建造中建筑进度
+    /// </summary>
+    void AddInBuildingProgress()
+    {
+        foreach (var item in DataMgr.Ins.gameData.cityData)
+        {
+            for (int i = item.Value.inBuildIngData.Count - 1; i >= 0; i--)
+            {
+                KeyValuePair<int, InBuildIngData> data = item.Value.inBuildIngData.ElementAt(i);
+                if (DataMgr.Ins.gameData.worldTime.TotalHour >= data.Value.endHour)
+                {
+                    //建造完成
+                    item.Value.inBuildIngData.Remove(data.Key);
+                    item.Value.buildingDict.Remove(data.Value.originBuildingID);
+                    item.Value.buildingDict.Add(data.Value.targetBuildingID, new BuildingData(data.Value.targetBuildingID));
+                }
+            }
+        }
     }
 }

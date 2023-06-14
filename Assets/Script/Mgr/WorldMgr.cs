@@ -148,10 +148,9 @@ public class WorldMgr : MonoBehaviour
         InitTestTroop();
         foreach (var item in DataMgr.Ins.gameData.troops)
         {
-            var pos = item.Value.pos;
             var WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), transform).GetComponent<WorldTroop>();
             WorldTroop.transform.SetParent(transform.Find(WorldUnitType.troop.ToString()));
-            WorldTroop.transform.position = new Vector3(pos.x, 0, pos.y);
+            WorldTroop.transform.position = new Vector3(item.Value.posX, 0, item.Value.posY);
             WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
         }
     }
@@ -163,7 +162,8 @@ public class WorldMgr : MonoBehaviour
     {
         TroopData troopData = new TroopData();
         troopData.wuid = GetWUID(WorldUnitType.troop);
-        troopData.pos = new Vector2(10, 0);
+        troopData.posX = 10;
+        troopData.posY = 0;
         troopData.units = new Dictionary<int, int> { { 1101, 5 } };
         DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TroopData
 {
     public int wuid;
-    public Vector2 pos;
+    public float posX;
+    public float posY;
     public Dictionary<int, int> units = new Dictionary<int, int>();
 }

@@ -64,13 +64,21 @@ public partial class CityInfoView : BaseView
     [HideInInspector]
     public GameObject buildingTips;
     [HideInInspector]
+    public RectTransform buildingTips_Rect;
+    [HideInInspector]
     public GameObject btCloseBuildingTips;
     [HideInInspector]
     public Button btCloseBuildingTips_Button;
     [HideInInspector]
     public GameObject constructList;
     [HideInInspector]
-    public GameObject btConstruct;
+    public GameObject btUpgradeBuilding;
+    [HideInInspector]
+    public Button btUpgradeBuilding_Button;
+    [HideInInspector]
+    public GameObject txtUpgradeBuilding;
+    [HideInInspector]
+    public Text txtUpgradeBuilding_Text;
     [HideInInspector]
     public GameObject constructNeed;
     [HideInInspector]
@@ -84,9 +92,15 @@ public partial class CityInfoView : BaseView
     [HideInInspector]
     public GameObject constructTips;
     [HideInInspector]
-    public GameObject constructNeedTips;
+    public GameObject upgradeCondition;
     [HideInInspector]
-    public Text constructNeedTips_Text;
+    public GameObject buildingMaxLv;
+    [HideInInspector]
+    public Text buildingMaxLv_Text;
+    [HideInInspector]
+    public GameObject inBuildingTips;
+    [HideInInspector]
+    public Text inBuildingTips_Text;
 
     internal override void _LoadUI()    
     {
@@ -119,18 +133,25 @@ public partial class CityInfoView : BaseView
         buildingList_GridLayoutGroup = buildingList.GetComponent<GridLayoutGroup>();
         buildingItem = transform.Find("$content#Rect/pop/building/Viewport/Content/$buildingList#Rect,GridLayoutGroup/$buildingItem#Rect").gameObject;
         buildingItem_Rect = buildingItem.GetComponent<RectTransform>();
-        buildingTips = transform.Find("$content#Rect/pop/$buildingTips").gameObject;
-        btCloseBuildingTips = transform.Find("$content#Rect/pop/$buildingTips/$btCloseBuildingTips#Button").gameObject;
+        buildingTips = transform.Find("$content#Rect/pop/$buildingTips#Rect").gameObject;
+        buildingTips_Rect = buildingTips.GetComponent<RectTransform>();
+        btCloseBuildingTips = transform.Find("$content#Rect/pop/$buildingTips#Rect/bg/$btCloseBuildingTips#Button").gameObject;
         btCloseBuildingTips_Button = btCloseBuildingTips.GetComponent<Button>();
-        constructList = transform.Find("$content#Rect/pop/$buildingTips/$constructList").gameObject;
-        btConstruct = transform.Find("$content#Rect/pop/$buildingTips/$constructList/$btConstruct").gameObject;
-        constructNeed = transform.Find("$content#Rect/pop/$buildingTips/$constructNeed").gameObject;
-        constructNeedGold = transform.Find("$content#Rect/pop/$buildingTips/$constructNeed/$constructNeedGold#Text").gameObject;
+        constructList = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList").gameObject;
+        btUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList/$btUpgradeBuilding#Button").gameObject;
+        btUpgradeBuilding_Button = btUpgradeBuilding.GetComponent<Button>();
+        txtUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList/$btUpgradeBuilding#Button/$txtUpgradeBuilding#Text").gameObject;
+        txtUpgradeBuilding_Text = txtUpgradeBuilding.GetComponent<Text>();
+        constructNeed = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructNeed").gameObject;
+        constructNeedGold = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructNeed/$constructNeedGold#Text").gameObject;
         constructNeedGold_Text = constructNeedGold.GetComponent<Text>();
-        constructNeedTime = transform.Find("$content#Rect/pop/$buildingTips/$constructNeed/$constructNeedTime#Text").gameObject;
+        constructNeedTime = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructNeed/$constructNeedTime#Text").gameObject;
         constructNeedTime_Text = constructNeedTime.GetComponent<Text>();
-        constructTips = transform.Find("$content#Rect/pop/$buildingTips/$constructTips").gameObject;
-        constructNeedTips = transform.Find("$content#Rect/pop/$buildingTips/$constructTips/$constructNeedTips#Text").gameObject;
-        constructNeedTips_Text = constructNeedTips.GetComponent<Text>();
+        constructTips = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructTips").gameObject;
+        upgradeCondition = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructTips/$upgradeCondition").gameObject;
+        buildingMaxLv = transform.Find("$content#Rect/pop/$buildingTips#Rect/$buildingMaxLv#Text").gameObject;
+        buildingMaxLv_Text = buildingMaxLv.GetComponent<Text>();
+        inBuildingTips = transform.Find("$content#Rect/pop/$buildingTips#Rect/$inBuildingTips#Text").gameObject;
+        inBuildingTips_Text = inBuildingTips.GetComponent<Text>();
     }
 }

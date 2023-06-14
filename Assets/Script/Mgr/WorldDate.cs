@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static WorldDate;
 
 public class WorldDate
 {
@@ -9,6 +10,9 @@ public class WorldDate
 
     public delegate void OnNewDay();
     public OnNewDay onNewDay;
+
+    public delegate void OnNewHour();
+    public OnNewHour onNewHour;
     /// <summary>
     /// 时间流速
     /// </summary>
@@ -56,6 +60,7 @@ public class WorldDate
             {
                 DataMgr.Ins.gameData.worldTime.minute = 0;
                 DataMgr.Ins.gameData.worldTime.hour++;
+                onNewHour();
                 LogDate();
             }
         };
@@ -63,9 +68,9 @@ public class WorldDate
         {
             if (DataMgr.Ins.gameData.worldTime.hour >= 24)
             {
-                onNewDay();
                 DataMgr.Ins.gameData.worldTime.hour = 0;
                 DataMgr.Ins.gameData.worldTime.day++;
+                onNewDay();
             }
         };
         Action checkDay = () =>

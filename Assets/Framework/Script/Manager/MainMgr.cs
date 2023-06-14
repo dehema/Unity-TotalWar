@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MainMgr : MonoBehaviour
 {
-    public static MainMgr instance;
+    public static MainMgr Ins;
 
     private void Awake()
     {
-        instance = this;
+        Ins = this;
         DontDestroyOnLoad(this);
         Application.targetFrameRate = 60;
     }

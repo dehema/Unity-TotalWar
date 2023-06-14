@@ -55,7 +55,7 @@ public class WorldTimeData
         get
         {
             int _season = (year - 1) * 4 + (int)season - 1;
-            int _day = _season * 30;
+            int _day = _season * 30 + day;
             int _hours = _day * 24 + hour;
             return _hours;
         }

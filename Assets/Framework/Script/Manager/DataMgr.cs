@@ -129,7 +129,9 @@ public class DataMgr : Singleton<DataMgr>
     /// </summary>
     public void SaveAllData()
     {
-
+        DataMgr.Ins.SaveGameData();
+        DataMgr.Ins.SavePlayerData();
+        DataMgr.Ins.SaveSettingData();
     }
 }
 

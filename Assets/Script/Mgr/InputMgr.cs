@@ -50,14 +50,20 @@ public class InputMgr : MonoSingleton<InputMgr>
             }
             else if (Input.GetKeyDown(KeyCode.BackQuote))
             {
+                if (PlayerMgr.Ins.playerScene != PlayerScene.world)
+                    return;
                 WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.pause);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                if (PlayerMgr.Ins.playerScene != PlayerScene.world)
+                    return;
                 WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.normal);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
+                if (PlayerMgr.Ins.playerScene != PlayerScene.world)
+                    return;
                 WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.quick);
             }
         }

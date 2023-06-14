@@ -30,7 +30,7 @@ public class CityData
     /// <summary>
     /// 建造中的建筑信息
     /// </summary>
-    public Dictionary<BuildingType, InBuildData> inBuild = new Dictionary<BuildingType, InBuildData>();
+    public Dictionary<int, InBuildIngData> inBuildIngData = new Dictionary<int, InBuildIngData>();
     /// <summary>
     /// 可招募单位 <士兵ID,士兵数量>
     /// </summary>
@@ -117,9 +117,9 @@ public class BuildingData
     public int id;
     public BuildingConfig buildingConfig;
     public BuildingData() { }
-    public BuildingData(int _id)
+    public BuildingData(int _buildingID)
     {
-        id = _id;
+        id = _buildingID;
         buildingConfig = CityMgr.Ins.GetBuildingConfig(id);
     }
 
@@ -157,9 +157,14 @@ public class BuildingData
 /// <summary>
 /// 正在建造的建筑数据
 /// </summary>
-public class InBuildData
+public class InBuildIngData
 {
-    public int buildingID;
-    public int targetLv;
-    public WorldTimeData startDate;
+    //开始时间
+    public int startHour;
+    //结束时间
+    public int endHour;
+    //被升级建筑
+    public int originBuildingID;
+    //升级后的建筑
+    public int targetBuildingID;
 }
