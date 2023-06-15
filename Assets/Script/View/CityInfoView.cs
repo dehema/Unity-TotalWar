@@ -32,6 +32,8 @@ public partial class CityInfoView : BaseView
         upgradeConditionPool = PoolMgr.Ins.CreatePool(upgradeCondition);
         //UI
         btUpgradeBuilding_Button.SetButton(OnClickUpgradeBuilding);
+        debugBtUpgradeBuilding_Button.SetDebugButton(OnClickDebugUpgradeBuilding);
+        debugBtFinishBuild_Button.SetDebugButton(OnClickDebugBtFinishBuild);
         btclose_Button.SetButton(Close);
         btRecruit_Button.SetButton(OnClickRecruit);
         buildingTips.SetActive(false);
@@ -45,6 +47,7 @@ public partial class CityInfoView : BaseView
         InitOption();
         InitBuilding();
         PlayerMgr.Ins.SetPlayerScene(PlayerScene.city);
+        buildingTips.SetActive(false);
     }
 
     public override void OnClose(Action _cb)
@@ -114,7 +117,7 @@ public partial class CityInfoView : BaseView
         buildingTips.SetActive(true);
         //
         //升级按钮
-        constructList.SetActive(false);
+        btUpgradeBuilding.SetActive(false);
         //升级所需材料
         constructNeed.SetActive(false);
         //升级条件提示
@@ -162,7 +165,7 @@ public partial class CityInfoView : BaseView
             constructNeedGold_Text.color = DataMgr.Ins.playerData.gold.Value >= costGold ? Color.white : Color.red;
             constructNeedTime_Text.text = newBuildingConfig.costHour + "H";
             //升级按钮
-            constructList.SetActive(true);
+            btUpgradeBuilding.SetActive(true);
             txtUpgradeBuilding_Text.text = LangMgr.Ins.Get("1667200203") + LangMgr.Ins.Get(newBuildingConfig.name);
         }
     }
@@ -188,6 +191,24 @@ public partial class CityInfoView : BaseView
         DataMgr.Ins.SaveAllData();
         buildingTips.SetActive(false);
         Debug.Log(newBuildingConfig.costHour + "小时后升级为" + LangMgr.Ins.Get(newBuildingConfig.name));
+    }
+
+    /// <summary>
+    /// 升级建筑(测试)
+    /// </summary>
+    void OnClickDebugUpgradeBuilding()
+    {
+        CityMgr.Ins.UpgradeBuilding(cityID, selectBuildingConfig.ID, selectBuildingConfig.upgradeBuildingID);
+        buildingTips.SetActive(false);
+        InitBuilding();
+    }
+
+    /// <summary>
+    /// 瞬间完成建造(测试)
+    /// </summary>
+    public void OnClickDebugBtFinishBuild()
+    {
+        OnClickDebugUpgradeBuilding();
     }
 }
 

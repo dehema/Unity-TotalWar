@@ -751,8 +751,8 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 415, y: 585}
-  m_Spacing: {x: 67.3, y: 66}
+  m_CellSize: {x: 352.4, y: 521.1}
+  m_Spacing: {x: 34, y: 66}
   m_Constraint: 0
   m_ConstraintCount: 5
 --- !u!114 &50732471122627529
@@ -1945,6 +1945,7 @@ MonoBehaviour:
   bg_Button: {fileID: 0}
   content: {fileID: 0}
   content_Rect: {fileID: 0}
+  unitItem: {fileID: 0}
   btClose: {fileID: 0}
   btClose_Button: {fileID: 0}
   townName: {fileID: 0}
@@ -1963,7 +1964,6 @@ MonoBehaviour:
   sureRecruit_Button: {fileID: 0}
   debugRefreshRecruitUnit: {fileID: 0}
   debugRefreshRecruitUnit_Button: {fileID: 0}
-  unitItem: {fileID: 0}
 --- !u!1 &8153179631697023834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2445,14 @@ PrefabInstance:
     - target: {fileID: 892831629738312594, guid: ca499f09ae124c54e837a5e112133ce8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892831629822972785, guid: ca499f09ae124c54e837a5e112133ce8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 27.900024
+      objectReference: {fileID: 0}
+    - target: {fileID: 892831630072831085, guid: ca499f09ae124c54e837a5e112133ce8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 892831630108251544, guid: ca499f09ae124c54e837a5e112133ce8, type: 3}
       propertyPath: m_Name

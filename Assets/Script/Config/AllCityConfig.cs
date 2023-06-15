@@ -49,32 +49,38 @@ public class RaceBuildingConfig
     /// 种族类型
     /// </summary>
     public RaceType raceType;
-    public string _MainBase;
-    public string _Military;
-    public string _Economy;
+    public string _mainBase;
+    public string _military;
+    public string _economy;
     public string _defaultBuilding;
+    public string _initial_Building;
     /// <summary>
     /// 主要序列
     /// </summary>
-    public List<int> MainBase = new List<int>();
+    public List<int> mainBase = new List<int>();
     /// <summary>
     /// 军事序列
     /// </summary>
-    public List<int> Military = new List<int>();
+    public List<int> military = new List<int>();
     /// <summary>
     /// 经济序列
     /// </summary>
-    public List<int> Economy = new List<int>();
+    public List<int> economy = new List<int>();
     /// <summary>
-    /// 默认建筑
+    /// 默认被建造的建筑
     /// </summary>
-    public List<int> DefaultBuilding = new List<int>();
+    public List<int> defaultBuilding = new List<int>();
+    /// <summary>
+    /// 初始可显示的
+    /// </summary>
+    public List<int> initial_Building = new List<int>();
     public void Init()
     {
-        Array.ForEach(_MainBase.Split(','), val => { MainBase.Add(int.Parse(val)); });
-        Array.ForEach(_Military.Split(','), val => { Military.Add(int.Parse(val)); });
-        Array.ForEach(_Economy.Split(','), val => { Economy.Add(int.Parse(val)); });
-        Array.ForEach(_defaultBuilding.Split(','), val => { DefaultBuilding.Add(int.Parse(val)); });
+        Array.ForEach(_mainBase.Split(','), val => { mainBase.Add(int.Parse(val)); });
+        Array.ForEach(_military.Split(','), val => { military.Add(int.Parse(val)); });
+        Array.ForEach(_economy.Split(','), val => { economy.Add(int.Parse(val)); });
+        Array.ForEach(_defaultBuilding.Split(','), val => { defaultBuilding.Add(int.Parse(val)); });
+        Array.ForEach(_initial_Building.Split(','), val => { initial_Building.Add(int.Parse(val)); });
     }
 }
 
@@ -108,7 +114,7 @@ public class BuildingConfig
     /// <summary>
     /// 升级后的建筑ID
     /// </summary>
-    public string _upgradeBuildingID;
+    public int upgradeBuildingID = 0;
     /// <summary>
     /// 图标
     /// </summary>
@@ -130,13 +136,11 @@ public class BuildingConfig
     /// 前置建筑
     /// </summary>
     public List<int> preBuildingIDs = new List<int>();
-    public int upgradeBuildingID = 0;
 
     public void Init()
     {
         if (!string.IsNullOrEmpty(_preBuildingIDs))
             Array.ForEach(_preBuildingIDs.Split(','), val => { preBuildingIDs.Add(int.Parse(val)); });
-        int.TryParse(_upgradeBuildingID, out upgradeBuildingID);
     }
 }
 
