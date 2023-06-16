@@ -68,7 +68,7 @@
       "buildingSubType": "MainBase",
       "name": "2000010001",
       "_preBuildingIDs": "",
-      "upgradeBuildingID": "10002",
+      "upgradeBuildingID": 10002,
       "icon": "empire_city1",
       "costGold": "1000",
       "costHour": 24,
