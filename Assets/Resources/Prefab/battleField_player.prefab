@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 2357588113057750396}
   - component: {fileID: 2654129011671895476}
   - component: {fileID: 1216044338826295351}
+  - component: {fileID: 2239238474080406612}
   m_Layer: 8
   m_Name: battleField_player
   m_TagString: Player
@@ -801,6 +802,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4698152120088058464, guid: c093b7a4dd4da424cb6b9ee144e15fb1, type: 3}
+--- !u!114 &2239238474080406612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357588113057750384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7767b5ded1098a443bb56764bd04afc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  startBarPos: {fileID: 0}
+  rigidbody: {fileID: 0}
+  attackTarget: {fileID: 0}
+  canAttack: 1
+  animatorTiggerName: 
 --- !u!1 &2430788871274923939
 GameObject:
   m_ObjectHideFlags: 0

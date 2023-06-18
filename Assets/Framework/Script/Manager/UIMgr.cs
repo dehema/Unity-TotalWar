@@ -250,20 +250,24 @@ public class UIMgr : MonoBehaviour
         else if (SceneMgr.Ins.IsWorld)
         {
             mouseModel = MouseModel.World;
-            foreach (var item in allShowView)
+        }
+        //如果有UI强制转换成UI模式
+        foreach (var item in allShowView)
+        {
+            if (item.Value.viewConfig.worldAllow == false)
             {
-                if (item.Value.viewConfig.worldAllow == false)
-                {
-                    mouseModel = MouseModel.UI;
-                    break;
-                }
+                mouseModel = MouseModel.UI;
+                break;
             }
         }
-        //暂停世界时间流速
-        bool isPause = mouseModel == MouseModel.UI;
-        if (isPause)
+        if (!SceneMgr.Ins.IsBattleField)
         {
-            WorldMgr.Ins?.worldDate.SetTimeSpeed(TimeSpeed.pause);
+            //暂停世界时间流速
+            bool isPause = mouseModel == MouseModel.UI;
+            if (isPause)
+            {
+                WorldMgr.Ins?.worldDate.SetTimeSpeed(TimeSpeed.pause);
+            }
         }
         //修改鼠标模式
         InputMgr.Ins.SetMouseModel(mouseModel);

@@ -527,6 +527,14 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         }
         return arrowPool.Get(_parms);
     }
+
+    /// <summary>
+    /// 是否锁定玩家相机
+    /// </summary>
+    public void SetLockPlayerCamera(bool _lock)
+    {
+        playerController.thirdPersonController.LockCameraPosition = _lock;
+    }
 }
 
 /// <summary>
