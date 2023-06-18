@@ -156,6 +156,7 @@ public class InputMgr : MonoSingleton<InputMgr>
 
     public void OnClick(Vector3 _mousePos)
     {
+        //鼠标点击特效
         if (!SceneMgr.Ins.IsBattleField)
         {
             UIMgr.Ins.GetView<CursorEffectView>()?.ClickEffect(_mousePos);
@@ -164,7 +165,7 @@ public class InputMgr : MonoSingleton<InputMgr>
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                //如果是
+                //世界地图
                 if (SceneMgr.Ins.IsWorld)
                 {
                     WorldMgr.Ins?.OnClick(_mousePos);
