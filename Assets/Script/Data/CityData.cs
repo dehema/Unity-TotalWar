@@ -82,6 +82,11 @@ public class CityData
                 //是否是军事序列建筑
                 continue;
             }
+            if (item.Value.isInitialBuilded)
+            {
+                //建筑尚未建造
+                continue;
+            }
             int buildingID = item.Value.id;
             BuildingConfig buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
             if (buildingConfig.buildingType != BuildingType.Military)

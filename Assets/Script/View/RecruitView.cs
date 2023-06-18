@@ -26,8 +26,20 @@ public partial class RecruitView : BaseView
     {
         base.OnOpen(_params);
         viewParams = _params[0] as RecruitViewParams;
-        InitSortUnitIDs();
+        InitSortUnitIDs(viewParams.unitNum);
         RefreshUnitItems();
+    }
+
+    /// <summary>
+    /// 兵种集合数据
+    /// </summary>
+    private void InitSortUnitIDs(Dictionary<int, int> _unitNum)
+    {
+        sortUnitIDs.Clear();
+        foreach (var item in _unitNum)
+        {
+            sortUnitIDs.Add(item.Key);
+        }
     }
 
     /// <summary>
@@ -87,18 +99,6 @@ public partial class RecruitView : BaseView
     }
 
     /// <summary>
-    /// 兵种集合数据
-    /// </summary>
-    private void InitSortUnitIDs()
-    {
-        sortUnitIDs.Clear();
-        foreach (var item in viewParams.unitNum)
-        {
-            sortUnitIDs.Add(item.Key);
-        }
-    }
-
-    /// <summary>
     /// 刷新排序数据
     /// </summary>
     private void RefreshSortUnitIDs()
@@ -129,6 +129,7 @@ public partial class RecruitView : BaseView
     private void OnClickDebugRefreshRecruitUnit()
     {
         viewParams.cityData.RefreshRecruitUnit();
+        InitSortUnitIDs(viewParams.cityData.recruitUnit);
         RefreshUnitItems();
     }
 }
