@@ -64,7 +64,7 @@ public class CityMgr : MonoSingleton<CityMgr>
     /// <returns></returns>
     public RaceBuildingConfig GetRaceBuildingConfig(RaceType _raceType)
     {
-        return allCityConfig.race[_raceType];
+        return ConfigMgr.Ins.factionConfig.race[_raceType];
     }
 
     /// <summary>

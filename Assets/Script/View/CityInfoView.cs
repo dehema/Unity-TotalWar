@@ -23,10 +23,6 @@ public partial class CityInfoView : BaseView
     public override void Init(params object[] _params)
     {
         base.Init(_params);
-        viewParams = _params[0] as CityInfoViewParams;
-        cityID = viewParams.cityID;
-        cityData = CityMgr.Ins.GetCityDataByID(cityID);
-        cityConfig = CityMgr.Ins.GetCityConfig(cityID);
         //pool
         buildingPool = PoolMgr.Ins.CreatePool(buildingItem);
         upgradeConditionPool = PoolMgr.Ins.CreatePool(upgradeCondition);
@@ -43,6 +39,12 @@ public partial class CityInfoView : BaseView
     public override void OnOpen(params object[] _params)
     {
         base.OnOpen(_params);
+        //data
+        viewParams = _params[0] as CityInfoViewParams;
+        cityID = viewParams.cityID;
+        cityData = CityMgr.Ins.GetCityDataByID(cityID);
+        cityConfig = CityMgr.Ins.GetCityConfig(cityID);
+        //UI
         txtCityName_Text.text = LangMgr.Ins.Get(cityConfig.name);
         InitOption();
         InitBuilding();

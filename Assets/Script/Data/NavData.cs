@@ -46,6 +46,14 @@ public class NavData
         RefreshNavSpeed();
     }
 
+    ~NavData()
+    {
+        if (navAgent != null)
+        {
+            navAgent.isStopped = true;
+        }
+    }
+
     public void SetTargetPos(Vector3 _targetPos)
     {
         targetPos = _targetPos;
