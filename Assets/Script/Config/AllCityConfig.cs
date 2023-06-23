@@ -38,7 +38,18 @@ public class CityConfig
     /// </summary>
     public float posY;
     public string icon;
-    public RaceType raceType;
+    /// <summary>
+    /// 种族ID
+    /// </summary>
+    public int factionID;
+    /// <summary>
+    /// 商队数量
+    /// </summary>
+    public int tradeCaravan_num;
+    /// <summary>
+    /// 商队初始资金
+    /// </summary>
+    public int tradeCaravan_gold;
 }
 
 public class BuildingConfig

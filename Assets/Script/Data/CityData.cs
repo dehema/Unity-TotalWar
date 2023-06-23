@@ -35,20 +35,25 @@ public class CityData
     /// 可招募单位 <士兵ID,士兵数量>
     /// </summary>
     public Dictionary<int, int> recruitUnit = new Dictionary<int, int>();
+    /// <summary>
+    /// 派系ID
+    /// </summary>
+    public int factionID;
 
     public CityData() { }
     public CityData(int _cityID)
     {
         cityID = _cityID;
-        CityConfig cityConfig = CityMgr.Ins.GetCityConfig(_cityID);
-        RaceBuildingConfig _raceBuildingConfig = CityMgr.Ins.GetRaceBuildingConfig(cityConfig.raceType);
+        CityConfig cityConfig = CityMgr.Ins.GetCityConfig(cityID);
+        factionID = CityMgr.Ins.GetCityFactionID(cityID);
+        FactionConfig factionConfig = WorldMgr.Ins.GetFactionConfig(factionID);
         //填充默认建筑
-        foreach (int buildingID in _raceBuildingConfig.initial_Building)
+        foreach (int buildingID in factionConfig.initial_Building)
         {
             var buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
             if (!buildingConfig.enable)
                 continue;
-            buildingDict[buildingID] = new BuildingData(buildingID, !_raceBuildingConfig.defaultBuilding.Contains(buildingID));
+            buildingDict[buildingID] = new BuildingData(buildingID, !factionConfig.defaultBuilding.Contains(buildingID));
         }
     }
 

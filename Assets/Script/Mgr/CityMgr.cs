@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -24,6 +25,10 @@ public class CityMgr : MonoSingleton<CityMgr>
             {
                 item.Value.cityData.RefreshRecruitUnit();
             }
+            //发薪水
+
+            //每日收入
+
         };
         WorldMgr.Ins.worldDate.onNewHour += () =>
         {
@@ -62,7 +67,7 @@ public class CityMgr : MonoSingleton<CityMgr>
     /// 获取种族建筑信息
     /// </summary>
     /// <returns></returns>
-    public RaceBuildingConfig GetRaceBuildingConfig(RaceType _raceType)
+    public RaceConfig GetRaceConfig(RaceType _raceType)
     {
         return ConfigMgr.Ins.factionConfig.race[_raceType];
     }
@@ -166,5 +171,24 @@ public class CityMgr : MonoSingleton<CityMgr>
             cityData.buildingDict.Remove(_originBuildingID);
         cityData.buildingDict.Add(_newBuildingID, new BuildingData(_newBuildingID));
         DataMgr.Ins.SaveAllData();
+    }
+
+    /// <summary>
+    /// 查询城镇派系ID
+    /// </summary>
+    /// <returns></returns>
+    public int GetCityFactionID(int _cityID)
+    {
+        foreach (var factionData in DataMgr.Ins.gameData.factions)
+        {
+            foreach (var cityID in factionData.Value.citys)
+            {
+                if (cityID == _cityID)
+                {
+                    return factionData.Key;
+                }
+            }
+        }
+        return -1;
     }
 }

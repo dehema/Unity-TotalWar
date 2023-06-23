@@ -168,4 +168,13 @@ public class WorldMgr : MonoBehaviour
         troopData.units = new Dictionary<int, int> { { 1101, 5 } };
         DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
     }
+
+    /// <summary>
+    /// ªÒ»°≈…œµ≈‰÷√
+    /// </summary>
+    /// <returns></returns>
+    public FactionConfig GetFactionConfig(int _factionID)
+    {
+        return ConfigMgr.Ins.factionConfig.faction[_factionID];
+    }
 }

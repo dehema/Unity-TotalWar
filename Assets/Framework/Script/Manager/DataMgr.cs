@@ -122,6 +122,7 @@ public class DataMgr : Singleton<DataMgr>
     /// </summary>
     public void NewDay()
     {
+
     }
 
     /// <summary>
