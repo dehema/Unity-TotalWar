@@ -25,6 +25,10 @@ public class NavMgr : MonoSingleton<NavMgr>
     public void SetNav(int _selfWUID, float _moveSpeed, NavPurpose _navPurpose, Vector3 _targetPos)
     {
         NavData navData = new NavData(_selfWUID, _moveSpeed, _navPurpose);
+        if (navDict.ContainsKey(_selfWUID))
+        {
+            navDict[_selfWUID] = null;
+        }
         navDict[_selfWUID] = navData;
         navData.SetTargetPos(_targetPos);
     }

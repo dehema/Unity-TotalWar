@@ -145,7 +145,8 @@ public class WorldMgr : MonoBehaviour
     private void InitTroops()
     {
         //测试部队
-        InitTestTroop();
+        //InitTestTroop();
+        //生成所有部队
         foreach (var item in DataMgr.Ins.gameData.troops)
         {
             var WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), transform).GetComponent<WorldTroop>();

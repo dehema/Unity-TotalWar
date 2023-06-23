@@ -8,17 +8,12 @@ using UnityEngine;
 public class AllCityConfig : ConfigBase
 {
     public Dictionary<int, CityConfig> city = new Dictionary<int, CityConfig>();
-    public Dictionary<RaceType, RaceBuildingConfig> race = new Dictionary<RaceType, RaceBuildingConfig>();
     public Dictionary<int, BuildingConfig> building = new Dictionary<int, BuildingConfig>();
     public Dictionary<int, RecruitDailyConfig> recruitDaily = new Dictionary<int, RecruitDailyConfig>();
 
     public override void Init()
     {
         base.Init();
-        foreach (var item in race)
-        {
-            item.Value.Init();
-        }
         foreach (var item in building)
         {
             item.Value.Init();
@@ -34,54 +29,16 @@ public class CityConfig
 {
     public int ID;
     public string name;
+    /// <summary>
+    /// X坐标
+    /// </summary>
     public float posX;
+    /// <summary>
+    /// Y坐标
+    /// </summary>
     public float posY;
     public string icon;
     public RaceType raceType;
-}
-
-/// <summary>
-/// 种族建筑
-/// </summary>
-public class RaceBuildingConfig
-{
-    /// <summary>
-    /// 种族类型
-    /// </summary>
-    public RaceType raceType;
-    public string _mainBase;
-    public string _military;
-    public string _economy;
-    public string _defaultBuilding;
-    public string _initial_Building;
-    /// <summary>
-    /// 主要序列
-    /// </summary>
-    public List<int> mainBase = new List<int>();
-    /// <summary>
-    /// 军事序列
-    /// </summary>
-    public List<int> military = new List<int>();
-    /// <summary>
-    /// 经济序列
-    /// </summary>
-    public List<int> economy = new List<int>();
-    /// <summary>
-    /// 默认被建造的建筑
-    /// </summary>
-    public List<int> defaultBuilding = new List<int>();
-    /// <summary>
-    /// 初始可显示的
-    /// </summary>
-    public List<int> initial_Building = new List<int>();
-    public void Init()
-    {
-        Array.ForEach(_mainBase.Split(','), val => { mainBase.Add(int.Parse(val)); });
-        Array.ForEach(_military.Split(','), val => { military.Add(int.Parse(val)); });
-        Array.ForEach(_economy.Split(','), val => { economy.Add(int.Parse(val)); });
-        Array.ForEach(_defaultBuilding.Split(','), val => { defaultBuilding.Add(int.Parse(val)); });
-        Array.ForEach(_initial_Building.Split(','), val => { initial_Building.Add(int.Parse(val)); });
-    }
 }
 
 public class BuildingConfig
@@ -131,6 +88,10 @@ public class BuildingConfig
     /// 是否启用
     /// </summary>
     public bool enable;
+    /// <summary>
+    /// 每日工资
+    /// </summary>
+    public int dailySalary;
 
     /// <summary>
     /// 前置建筑

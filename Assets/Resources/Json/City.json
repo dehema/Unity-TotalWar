@@ -11,8 +11,8 @@
     "2": {
       "ID": 2,
       "name": 1672306602,
-      "posX": -190,
-      "posY": 30,
+      "posX": -19,
+      "posY": 3,
       "icon": "town_2",
       "raceType": "Human"
     },
@@ -20,43 +20,33 @@
       "ID": 3,
       "name": 1672306603,
       "posX": 0,
-      "posY": 150,
+      "posY": 15,
       "icon": "town_3",
       "raceType": "Human"
     },
     "4": {
       "ID": 4,
       "name": 1672306604,
-      "posX": 150,
-      "posY": -30,
+      "posX": 15,
+      "posY": -3,
       "icon": "town_4",
       "raceType": "Human"
     },
     "5": {
       "ID": 5,
       "name": 1672306605,
-      "posX": -150,
-      "posY": -100,
+      "posX": -15,
+      "posY": -10,
       "icon": "town_5",
       "raceType": "Human"
     },
     "6": {
       "ID": 6,
       "name": 1672306606,
-      "posX": -180,
-      "posY": -180,
+      "posX": -18,
+      "posY": -18,
       "icon": "town_6",
       "raceType": "Human"
-    }
-  },
-  "race": {
-    "Human": {
-      "raceType": "Human",
-      "_mainBase": 10001,
-      "_military": "11001",
-      "_economy": "12001",
-      "_defaultBuilding": "10001,11001,12001",
-      "_initial_Building": "10001,11001,11011,11021,12001"
     }
   },
   "building": {
@@ -206,7 +196,7 @@
       "upgradeBuildingID": 11012,
       "icon": "wood_elves_forest_nomads1",
       "costGold": "1000",
-      "costHour": 12,
+      "costHour": 6,
       "enable": true,
       "#注释": "靶场"
     },
@@ -221,7 +211,7 @@
       "upgradeBuildingID": 11013,
       "icon": "wood_elves_forest_nomads2",
       "costGold": "1500",
-      "costHour": 24,
+      "costHour": 12,
       "enable": true,
       "#注释": "靶场"
     },
@@ -236,7 +226,7 @@
       "upgradeBuildingID": "0",
       "icon": "wood_elves_forest_nomads3",
       "costGold": "2000",
-      "costHour": 36,
+      "costHour": 18,
       "enable": true,
       "#注释": "靶场"
     },
