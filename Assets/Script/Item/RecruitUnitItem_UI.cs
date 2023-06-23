@@ -32,11 +32,11 @@ public partial class RecruitUnitItem : PoolItemBase
     [HideInInspector]
     public Text name_Text;
     [HideInInspector]
-    public GameObject iconSel;
-    [HideInInspector]
     public GameObject txtSelNum;
     [HideInInspector]
     public Text txtSelNum_Text;
+    [HideInInspector]
+    public GameObject iconSel;
     [HideInInspector]
     public GameObject btSel;
     [HideInInspector]
@@ -50,7 +50,7 @@ public partial class RecruitUnitItem : PoolItemBase
         unitIcon_RawImage = unitIcon.GetComponent<RawImage>();
         camera = transform.Find("Mask/$unitIcon#RawImage/$camera#Camera").gameObject;
         camera_Camera = camera.GetComponent<Camera>();
-        unitNum = transform.Find("Type/$unitNum#Text").gameObject;
+        unitNum = transform.Find("$unitNum#Text").gameObject;
         unitNum_Text = unitNum.GetComponent<Text>();
         star_1 = transform.Find("Stars/$star_1").gameObject;
         star_2 = transform.Find("Stars/$star_2").gameObject;
@@ -59,9 +59,9 @@ public partial class RecruitUnitItem : PoolItemBase
         star_5 = transform.Find("Stars/$star_5").gameObject;
         name = transform.Find("$name#Text").gameObject;
         name_Text = name.GetComponent<Text>();
-        iconSel = transform.Find("$iconSel").gameObject;
-        txtSelNum = transform.Find("$iconSel/$txtSelNum#Text").gameObject;
+        txtSelNum = transform.Find("$txtSelNum#Text").gameObject;
         txtSelNum_Text = txtSelNum.GetComponent<Text>();
+        iconSel = transform.Find("$txtSelNum#Text/$iconSel").gameObject;
         btSel = transform.Find("$btSel#Button,ShowCommonFloatTips").gameObject;
         btSel_Button = btSel.GetComponent<Button>();
         btSel_ShowCommonFloatTips = btSel.GetComponent<ShowCommonFloatTips>();

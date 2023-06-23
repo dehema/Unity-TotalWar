@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class PlayerController : UnitBase
 {
     Animator animator;
     CharacterController characterController;
+    [HideInInspector]
+    public ThirdPersonController thirdPersonController;
     HitBoxCollider hitBoxCollider;
     PlayerInput playerInput;
     PlayerData playerData { get { return DataMgr.Ins.playerData; } }
@@ -15,6 +18,7 @@ public class PlayerController : UnitBase
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        thirdPersonController = GetComponent<ThirdPersonController>();
         hitBoxCollider = transform.Find("hitBoxCollider").GetComponent<HitBoxCollider>();
         playerInput = GetComponent<PlayerInput>();
         playerInput.defaultControlScheme = "KeyboardMouse";
@@ -28,17 +32,12 @@ public class PlayerController : UnitBase
         unitConfig = new UnitConfig();
         unitConfig.type = UnitType.Player;
         unitConfig.name = "1667200201";
-
-    }
-    public override void TakeDamage(UnitBase _attacker)
-    {
-        UnitHp -= (int)_attacker.unitData.attack;
-        base.TakeDamage(_attacker);
     }
 
     public void Init(UnitBaseBattleParams _battleParams)
     {
         battleParams = _battleParams;
+        thirdPersonController.LockCameraPosition = false;
         HideHideCollider();
     }
 
@@ -49,6 +48,12 @@ public class PlayerController : UnitBase
         {
             animator.SetTrigger("Attack_Sword");
         }
+    }
+
+    public override void TakeDamage(UnitBase _attacker)
+    {
+        UnitHp -= (int)_attacker.unitData.attack;
+        base.TakeDamage(_attacker);
     }
 
     public void Hit()

@@ -70,8 +70,6 @@ public partial class CityInfoView : BaseView
     [HideInInspector]
     public Button btCloseBuildingTips_Button;
     [HideInInspector]
-    public GameObject constructList;
-    [HideInInspector]
     public GameObject btUpgradeBuilding;
     [HideInInspector]
     public Button btUpgradeBuilding_Button;
@@ -79,6 +77,10 @@ public partial class CityInfoView : BaseView
     public GameObject txtUpgradeBuilding;
     [HideInInspector]
     public Text txtUpgradeBuilding_Text;
+    [HideInInspector]
+    public GameObject debugBtUpgradeBuilding;
+    [HideInInspector]
+    public Button debugBtUpgradeBuilding_Button;
     [HideInInspector]
     public GameObject constructNeed;
     [HideInInspector]
@@ -101,6 +103,10 @@ public partial class CityInfoView : BaseView
     public GameObject inBuildingTips;
     [HideInInspector]
     public Text inBuildingTips_Text;
+    [HideInInspector]
+    public GameObject debugBtFinishBuild;
+    [HideInInspector]
+    public Button debugBtFinishBuild_Button;
 
     internal override void _LoadUI()    
     {
@@ -137,11 +143,12 @@ public partial class CityInfoView : BaseView
         buildingTips_Rect = buildingTips.GetComponent<RectTransform>();
         btCloseBuildingTips = transform.Find("$content#Rect/pop/$buildingTips#Rect/bg/$btCloseBuildingTips#Button").gameObject;
         btCloseBuildingTips_Button = btCloseBuildingTips.GetComponent<Button>();
-        constructList = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList").gameObject;
-        btUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList/$btUpgradeBuilding#Button").gameObject;
+        btUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$btUpgradeBuilding#Button").gameObject;
         btUpgradeBuilding_Button = btUpgradeBuilding.GetComponent<Button>();
-        txtUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructList/$btUpgradeBuilding#Button/$txtUpgradeBuilding#Text").gameObject;
+        txtUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$btUpgradeBuilding#Button/$txtUpgradeBuilding#Text").gameObject;
         txtUpgradeBuilding_Text = txtUpgradeBuilding.GetComponent<Text>();
+        debugBtUpgradeBuilding = transform.Find("$content#Rect/pop/$buildingTips#Rect/$btUpgradeBuilding#Button/$debugBtUpgradeBuilding#Button").gameObject;
+        debugBtUpgradeBuilding_Button = debugBtUpgradeBuilding.GetComponent<Button>();
         constructNeed = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructNeed").gameObject;
         constructNeedGold = transform.Find("$content#Rect/pop/$buildingTips#Rect/$constructNeed/$constructNeedGold#Text").gameObject;
         constructNeedGold_Text = constructNeedGold.GetComponent<Text>();
@@ -153,5 +160,7 @@ public partial class CityInfoView : BaseView
         buildingMaxLv_Text = buildingMaxLv.GetComponent<Text>();
         inBuildingTips = transform.Find("$content#Rect/pop/$buildingTips#Rect/$inBuildingTips#Text").gameObject;
         inBuildingTips_Text = inBuildingTips.GetComponent<Text>();
+        debugBtFinishBuild = transform.Find("$content#Rect/pop/$buildingTips#Rect/$inBuildingTips#Text/$debugBtFinishBuild#Button").gameObject;
+        debugBtFinishBuild_Button = debugBtFinishBuild.GetComponent<Button>();
     }
 }

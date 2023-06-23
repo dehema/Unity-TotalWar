@@ -43,14 +43,12 @@ public class NavData
         selfUnit = WorldMgr.Ins.worldUnitDict[_selfWUID];
         navAgent = selfUnit.GetComponent<NavMeshAgent>();
         navPurpose = _navPurpose;
-        NavMgr.Ins.navDict[_selfWUID] = this;
         RefreshNavSpeed();
     }
 
     public void SetTargetPos(Vector3 _targetPos)
     {
         targetPos = _targetPos;
-        navAgent.SetDestination(_targetPos);
         SetDestination();
     }
 
@@ -79,6 +77,5 @@ public class NavData
     public void RefreshNavSpeed()
     {
         navAgent.speed = moveSpeed * WorldMgr.Ins.worldDate.speed;
-        SetDestination();
     }
 }

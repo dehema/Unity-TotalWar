@@ -22,7 +22,12 @@ public partial class CityInfoBuildingItem : PoolItemBase
     void RefreshUI()
     {
         buildingIcon_Image.sprite = Resources.Load<Sprite>("UI/Building/" + buildingConfig.icon);
-        buildingName_Text.text = LangMgr.Ins.Get(buildingConfig.name);
+        string buildingName = LangMgr.Ins.Get(buildingConfig.name);
+        if (buildingData.isInitialBuilded)
+        {
+            buildingName += LangMgr.Ins.Get("1667200208");
+        }
+        buildingName_Text.text = buildingName;
         switch (buildingConfig.buildingType)
         {
             case BuildingType.MainBase:

@@ -13,15 +13,19 @@ public class NavMgr : MonoSingleton<NavMgr>
 {
     public Dictionary<int, NavData> navDict = new Dictionary<int, NavData>();
 
+    //设置寻路
     public void SetNav(int _selfWUID, float _moveSpeed, NavPurpose _navPurpose, int _targetWUID)
     {
         NavData navData = new NavData(_selfWUID, _moveSpeed, _navPurpose);
+        navDict[_selfWUID] = navData;
         navData.SetTargetWUID(_targetWUID);
     }
 
+    //设置寻路
     public void SetNav(int _selfWUID, float _moveSpeed, NavPurpose _navPurpose, Vector3 _targetPos)
     {
         NavData navData = new NavData(_selfWUID, _moveSpeed, _navPurpose);
+        navDict[_selfWUID] = navData;
         navData.SetTargetPos(_targetPos);
     }
 
@@ -32,7 +36,7 @@ public class NavMgr : MonoSingleton<NavMgr>
     {
         foreach (var item in navDict)
         {
-            if (item.Value.navAgent.remainingDistance < 0.5f)
+            if (item.Value.navAgent.remainingDistance < 1)
             {
                 lastEndNavID = item.Key;
                 havNavEnd = true;

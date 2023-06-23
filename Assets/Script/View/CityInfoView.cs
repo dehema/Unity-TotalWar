@@ -32,6 +32,8 @@ public partial class CityInfoView : BaseView
         upgradeConditionPool = PoolMgr.Ins.CreatePool(upgradeCondition);
         //UI
         btUpgradeBuilding_Button.SetButton(OnClickUpgradeBuilding);
+        debugBtUpgradeBuilding_Button.SetDebugButton(OnClickDebugUpgradeBuilding);
+        debugBtFinishBuild_Button.SetDebugButton(OnClickDebugBtFinishBuild);
         btclose_Button.SetButton(Close);
         btRecruit_Button.SetButton(OnClickRecruit);
         buildingTips.SetActive(false);
@@ -45,6 +47,7 @@ public partial class CityInfoView : BaseView
         InitOption();
         InitBuilding();
         PlayerMgr.Ins.SetPlayerScene(PlayerScene.city);
+        buildingTips.SetActive(false);
     }
 
     public override void OnClose(Action _cb)
@@ -95,6 +98,7 @@ public partial class CityInfoView : BaseView
 
     //当前选中的建筑
     BuildingConfig selectBuildingConfig;
+    BuildingData selectBuildingData;
     /// <summary>
     /// 显示建筑提示面板
     /// </summary>
@@ -111,10 +115,11 @@ public partial class CityInfoView : BaseView
         buildingTips_Rect.anchoredPosition += new Vector2(0, 100);
         //data
         selectBuildingConfig = _buildingConfig;
+        selectBuildingData = cityData.buildingDict[selectBuildingConfig.ID];
         buildingTips.SetActive(true);
         //
         //升级按钮
-        constructList.SetActive(false);
+        btUpgradeBuilding.SetActive(false);
         //升级所需材料
         constructNeed.SetActive(false);
         //升级条件提示
@@ -140,30 +145,35 @@ public partial class CityInfoView : BaseView
         BuildingConfig newBuildingConfig = CityMgr.Ins.GetBuildingConfig(newBuildingID);
         //升级条件提示
         bool isCondition = true;
-        upgradeConditionPool.CollectAll();
-        foreach (var preBuildingID in newBuildingConfig.preBuildingIDs)
+        if (!selectBuildingData.isInitialBuilded)
         {
-            if (!CityMgr.Ins.IsHasBuilding(cityID, preBuildingID))
+            upgradeConditionPool.CollectAll();
+            foreach (var preBuildingID in newBuildingConfig.preBuildingIDs)
             {
-                GameObject go = upgradeConditionPool.Get();
-                BuildingConfig needCityConfig = CityMgr.Ins.GetBuildingConfig(preBuildingID);
-                go.GetComponent<Text>().text = LangMgr.Ins.Get("1667200205") + LangMgr.Ins.Get(needCityConfig.name);
-                isCondition = false;
+                if (!CityMgr.Ins.IsHasBuilding(cityID, preBuildingID))
+                {
+                    GameObject go = upgradeConditionPool.Get();
+                    BuildingConfig needCityConfig = CityMgr.Ins.GetBuildingConfig(preBuildingID);
+                    go.GetComponent<Text>().text = LangMgr.Ins.Get("1667200205") + LangMgr.Ins.Get(needCityConfig.name);
+                    isCondition = false;
+                }
             }
+            constructTips.SetActive(!isCondition);
         }
-        constructTips.SetActive(!isCondition);
-        //
+        //可建造的
         if (isCondition)
         {
             //升级所需材料
             constructNeed.SetActive(true);
-            int costGold = newBuildingConfig.costGold;
+            int costGold = selectBuildingData.isInitialBuilded ? selectBuildingConfig.costGold : newBuildingConfig.costGold;
             constructNeedGold_Text.text = costGold.ToString();
             constructNeedGold_Text.color = DataMgr.Ins.playerData.gold.Value >= costGold ? Color.white : Color.red;
-            constructNeedTime_Text.text = newBuildingConfig.costHour + "H";
+            int costHour = selectBuildingData.isInitialBuilded ? selectBuildingConfig.costHour : newBuildingConfig.costHour;
+            constructNeedTime_Text.text = costHour + "H";
             //升级按钮
-            constructList.SetActive(true);
-            txtUpgradeBuilding_Text.text = LangMgr.Ins.Get("1667200203") + LangMgr.Ins.Get(newBuildingConfig.name);
+            btUpgradeBuilding.SetActive(true);
+            string costName = LangMgr.Ins.Get(selectBuildingData.isInitialBuilded ? selectBuildingConfig.name : newBuildingConfig.name);
+            txtUpgradeBuilding_Text.text = LangMgr.Ins.Get("1667200203") + costName;
         }
     }
 
@@ -180,14 +190,37 @@ public partial class CityInfoView : BaseView
         }
         InBuildIngData inBuildIngData = new InBuildIngData();
         inBuildIngData.startHour = DataMgr.Ins.gameData.worldTime.TotalHour;
-        inBuildIngData.endHour = DataMgr.Ins.gameData.worldTime.TotalHour + newBuildingConfig.costHour;
+        int costHour = selectBuildingData.isInitialBuilded ? selectBuildingConfig.costHour : newBuildingConfig.costHour;
+        inBuildIngData.endHour = DataMgr.Ins.gameData.worldTime.TotalHour + costHour;
         inBuildIngData.originBuildingID = selectBuildingConfig.ID;
-        inBuildIngData.targetBuildingID = selectBuildingConfig.upgradeBuildingID;
+        int newBuildingID = selectBuildingData.isInitialBuilded ? selectBuildingConfig.ID : selectBuildingConfig.upgradeBuildingID;
+        inBuildIngData.targetBuildingID = newBuildingID;
         cityData.inBuildIngData.Add(selectBuildingConfig.ID, inBuildIngData);
-        DataMgr.Ins.playerData.gold.Value -= newBuildingConfig.costGold;
+        int costGold = selectBuildingData.isInitialBuilded ? selectBuildingConfig.costGold : newBuildingConfig.costGold;
+        DataMgr.Ins.playerData.gold.Value -= costGold;
         DataMgr.Ins.SaveAllData();
         buildingTips.SetActive(false);
-        Debug.Log(newBuildingConfig.costHour + "小时后升级为" + LangMgr.Ins.Get(newBuildingConfig.name));
+        string costName = LangMgr.Ins.Get(selectBuildingData.isInitialBuilded ? selectBuildingConfig.name : newBuildingConfig.name);
+        Debug.Log(costHour + "小时后升级为" + costName);
+    }
+
+    /// <summary>
+    /// 升级建筑(测试)
+    /// </summary>
+    void OnClickDebugUpgradeBuilding()
+    {
+        int newBuildingID = selectBuildingData.isInitialBuilded ? selectBuildingConfig.ID : selectBuildingConfig.upgradeBuildingID;
+        CityMgr.Ins.UpgradeBuilding(cityID, selectBuildingConfig.ID, newBuildingID);
+        buildingTips.SetActive(false);
+        InitBuilding();
+    }
+
+    /// <summary>
+    /// 瞬间完成建造(测试)
+    /// </summary>
+    public void OnClickDebugBtFinishBuild()
+    {
+        OnClickDebugUpgradeBuilding();
     }
 }
 

@@ -28,7 +28,7 @@ public class CityData
     /// </summary>
     public Dictionary<int, BuildingData> buildingDict = new Dictionary<int, BuildingData>();
     /// <summary>
-    /// 建造中的建筑信息
+    /// 建造中的建筑信息 key为被升级的建筑ID
     /// </summary>
     public Dictionary<int, InBuildIngData> inBuildIngData = new Dictionary<int, InBuildIngData>();
     /// <summary>
@@ -43,18 +43,13 @@ public class CityData
         CityConfig cityConfig = CityMgr.Ins.GetCityConfig(_cityID);
         RaceBuildingConfig _raceBuildingConfig = CityMgr.Ins.GetRaceBuildingConfig(cityConfig.raceType);
         //填充默认建筑
-        Action<List<int>> fillData = (buildingIDs) =>
+        foreach (int buildingID in _raceBuildingConfig.initial_Building)
         {
-            foreach (var buildingID in buildingIDs)
-            {
-                var buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
-                buildingDict[buildingID] = new BuildingData(buildingID);
-            }
-        };
-        fillData(_raceBuildingConfig.MainBase);
-        fillData(_raceBuildingConfig.Military);
-        fillData(_raceBuildingConfig.Economy);
-        fillData(_raceBuildingConfig.DefaultBuilding);
+            var buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
+            if (!buildingConfig.enable)
+                continue;
+            buildingDict[buildingID] = new BuildingData(buildingID, !_raceBuildingConfig.defaultBuilding.Contains(buildingID));
+        }
     }
 
     /// <summary>
@@ -87,6 +82,11 @@ public class CityData
                 //是否是军事序列建筑
                 continue;
             }
+            if (item.Value.isInitialBuilded)
+            {
+                //建筑尚未建造
+                continue;
+            }
             int buildingID = item.Value.id;
             BuildingConfig buildingConfig = CityMgr.Ins.GetBuildingConfig(buildingID);
             if (buildingConfig.buildingType != BuildingType.Military)
@@ -116,11 +116,14 @@ public class BuildingData
 {
     public int id;
     public BuildingConfig buildingConfig;
+    //需要初始建造(如果正确默认0级，不生效，需要建造)
+    public bool isInitialBuilded = false;
     public BuildingData() { }
-    public BuildingData(int _buildingID)
+    public BuildingData(int _buildingID, bool _isInitialBuilded = false)
     {
         id = _buildingID;
         buildingConfig = CityMgr.Ins.GetBuildingConfig(id);
+        isInitialBuilded = _isInitialBuilded;
     }
 
     /// <summary>

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class CityMgr : MonoSingleton<CityMgr>
 {
@@ -136,19 +138,33 @@ public class CityMgr : MonoSingleton<CityMgr>
     /// </summary>
     void AddInBuildingProgress()
     {
-        foreach (var item in DataMgr.Ins.gameData.cityData)
+        foreach (var cityData in DataMgr.Ins.gameData.cityData)
         {
-            for (int i = item.Value.inBuildIngData.Count - 1; i >= 0; i--)
+            for (int i = cityData.Value.inBuildIngData.Count - 1; i >= 0; i--)
             {
-                KeyValuePair<int, InBuildIngData> data = item.Value.inBuildIngData.ElementAt(i);
+                KeyValuePair<int, InBuildIngData> data = cityData.Value.inBuildIngData.ElementAt(i);
                 if (DataMgr.Ins.gameData.worldTime.TotalHour >= data.Value.endHour)
                 {
                     //建造完成
-                    item.Value.inBuildIngData.Remove(data.Key);
-                    item.Value.buildingDict.Remove(data.Value.originBuildingID);
-                    item.Value.buildingDict.Add(data.Value.targetBuildingID, new BuildingData(data.Value.targetBuildingID));
+                    UpgradeBuilding(cityData.Key, data.Value.originBuildingID, data.Value.targetBuildingID);
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 升级建筑
+    /// </summary>
+    /// <param name="_cityID"></param>
+    /// <param name="_buildingID"></param>
+    public void UpgradeBuilding(int _cityID, int _originBuildingID, int _newBuildingID)
+    {
+        CityData cityData = DataMgr.Ins.gameData.cityData[_cityID];
+        if (cityData.inBuildIngData.ContainsKey(_originBuildingID))
+            cityData.inBuildIngData.Remove(_originBuildingID);
+        if (cityData.buildingDict.ContainsKey(_originBuildingID))
+            cityData.buildingDict.Remove(_originBuildingID);
+        cityData.buildingDict.Add(_newBuildingID, new BuildingData(_newBuildingID));
+        DataMgr.Ins.SaveAllData();
     }
 }

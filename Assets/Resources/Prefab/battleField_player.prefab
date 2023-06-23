@@ -593,6 +593,7 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   canAttack: 1
   animatorTiggerName: 
+  thirdPersonController: {fileID: 0}
 --- !u!114 &2357588113057750395
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public partial class RecruitUnitItem : PoolItemBase
         btSel_Button.SetButton(OnClick);
         selNum = 0;
         iconSel.SetActive(false);
-        renderTexture = new RenderTexture(256, 256, 0);
+        renderTexture = new RenderTexture(1024, 1024, 0);
         camera_Camera.targetTexture = renderTexture;
         unitIcon_RawImage.texture = renderTexture;
 

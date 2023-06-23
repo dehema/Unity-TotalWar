@@ -48,19 +48,19 @@ public class InputMgr : MonoSingleton<InputMgr>
                     WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.pause);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.BackQuote))
+            else if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 if (PlayerMgr.Ins.playerScene != PlayerScene.world)
                     return;
                 WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.pause);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 if (PlayerMgr.Ins.playerScene != PlayerScene.world)
                     return;
                 WorldMgr.Ins.worldDate.SetTimeSpeed(TimeSpeed.normal);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 if (PlayerMgr.Ins.playerScene != PlayerScene.world)
                     return;
@@ -156,12 +156,16 @@ public class InputMgr : MonoSingleton<InputMgr>
 
     public void OnClick(Vector3 _mousePos)
     {
-        UIMgr.Ins.GetView<CursorEffectView>()?.ClickEffect(_mousePos);
+        //鼠标点击特效
+        if (!SceneMgr.Ins.IsBattleField)
+        {
+            UIMgr.Ins.GetView<CursorEffectView>()?.ClickEffect(_mousePos);
+        }
         if (mouseModel == MouseModel.World)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                //如果是
+                //世界地图
                 if (SceneMgr.Ins.IsWorld)
                 {
                     WorldMgr.Ins?.OnClick(_mousePos);
