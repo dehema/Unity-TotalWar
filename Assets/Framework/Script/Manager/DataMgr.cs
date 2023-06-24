@@ -6,6 +6,7 @@ using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
 
 public class DataMgr : Singleton<DataMgr>
 {
@@ -39,17 +40,7 @@ public class DataMgr : Singleton<DataMgr>
         }
         //游戏数据
         gameData = JsonConvert.DeserializeObject<GameData>(PlayerPrefs.GetString(SaveField.gameData));
-        if (gameData == null)
-        {
-            gameData = new GameData();
-            //城镇数据
-            foreach (var item in ConfigMgr.Ins.cityConfig.city)
-            {
-                int cityID = item.Key;
-                gameData.cityData.Add(cityID, new CityData(cityID));
-            }
-            SaveGameData();
-        }
+        InitGameData();
         //设置
         settingData = JsonConvert.DeserializeObject<SettingData>(PlayerPrefs.GetString(SaveField.settingData));
         if (settingData == null)
@@ -70,6 +61,38 @@ public class DataMgr : Singleton<DataMgr>
         isLoaded = true;
         //login
         Login();
+    }
+
+    /// <summary>
+    /// 初始化游戏数据
+    /// </summary>
+    void InitGameData()
+    {
+        if (gameData == null)
+        {
+            gameData = new GameData();
+            //初始化派系数据
+            foreach (var faction in ConfigMgr.Ins.factionConfig.faction)
+            {
+                int factionID = faction.Key;
+                FactionData factionData = new FactionData();
+                gameData.factions[factionID] = factionData;
+                foreach (var city in ConfigMgr.Ins.cityConfig.city)
+                {
+                    if (city.Value.factionID == factionID)
+                    {
+                        factionData.citys.Add(city.Key);
+                    }
+                }
+            }
+            //城镇数据
+            foreach (var city in ConfigMgr.Ins.cityConfig.city)
+            {
+                int cityID = city.Key;
+                gameData.cityData.Add(cityID, new CityData(cityID));
+            }
+            SaveGameData();
+        }
     }
 
     /// <summary>

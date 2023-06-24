@@ -46,7 +46,7 @@ public class CityData
         cityID = _cityID;
         CityConfig cityConfig = CityMgr.Ins.GetCityConfig(cityID);
         factionID = CityMgr.Ins.GetCityFactionID(cityID);
-        FactionConfig factionConfig = WorldMgr.Ins.GetFactionConfig(factionID);
+        FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
         //填充默认建筑
         foreach (int buildingID in factionConfig.initial_Building)
         {

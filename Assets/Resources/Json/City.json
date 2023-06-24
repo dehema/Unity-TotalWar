@@ -6,7 +6,9 @@
       "posX": -5,
       "posY": 0,
       "icon": "town_1",
-      "raceType": "Human"
+      "factionID": "1",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     },
     "2": {
       "ID": 2,
@@ -14,7 +16,9 @@
       "posX": -19,
       "posY": 3,
       "icon": "town_2",
-      "raceType": "Human"
+      "factionID": "2",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     },
     "3": {
       "ID": 3,
@@ -22,7 +26,9 @@
       "posX": 0,
       "posY": 15,
       "icon": "town_3",
-      "raceType": "Human"
+      "factionID": "3",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     },
     "4": {
       "ID": 4,
@@ -30,7 +36,9 @@
       "posX": 15,
       "posY": -3,
       "icon": "town_4",
-      "raceType": "Human"
+      "factionID": "4",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     },
     "5": {
       "ID": 5,
@@ -38,7 +46,9 @@
       "posX": -15,
       "posY": -10,
       "icon": "town_5",
-      "raceType": "Human"
+      "factionID": "5",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     },
     "6": {
       "ID": 6,
@@ -46,7 +56,9 @@
       "posX": -18,
       "posY": -18,
       "icon": "town_6",
-      "raceType": "Human"
+      "factionID": "6",
+      "tradeCaravan_num": 1,
+      "tradeCaravan_gold": 500
     }
   },
   "building": {
@@ -63,7 +75,8 @@
       "costGold": "1000",
       "costHour": 24,
       "enable": true,
-      "#注释": "主城"
+      "#注释": "主城",
+      "dailySalary": 0
     },
     "10002": {
       "ID": 10002,
@@ -78,7 +91,8 @@
       "costGold": "2000",
       "costHour": 48,
       "enable": true,
-      "#注释": "主城"
+      "#注释": "主城",
+      "dailySalary": 0
     },
     "10003": {
       "ID": 10003,
@@ -93,7 +107,8 @@
       "costGold": "3000",
       "costHour": 72,
       "enable": true,
-      "#注释": "主城"
+      "#注释": "主城",
+      "dailySalary": 0
     },
     "10004": {
       "ID": 10004,
@@ -108,7 +123,8 @@
       "costGold": "4000",
       "costHour": 96,
       "enable": true,
-      "#注释": "主城"
+      "#注释": "主城",
+      "dailySalary": 0
     },
     "10005": {
       "ID": 10005,
@@ -123,7 +139,8 @@
       "costGold": "5000",
       "costHour": 120,
       "enable": true,
-      "#注释": "主城"
+      "#注释": "主城",
+      "dailySalary": 0
     },
     "11001": {
       "ID": 11001,
@@ -138,7 +155,8 @@
       "costGold": "500",
       "costHour": 6,
       "enable": true,
-      "#注释": "兵营"
+      "#注释": "兵营",
+      "dailySalary": 0
     },
     "11002": {
       "ID": 11002,
@@ -153,7 +171,8 @@
       "costGold": "1000",
       "costHour": 12,
       "enable": true,
-      "#注释": "兵营"
+      "#注释": "兵营",
+      "dailySalary": 0
     },
     "11003": {
       "ID": 11003,
@@ -168,7 +187,8 @@
       "costGold": "1500",
       "costHour": 18,
       "enable": true,
-      "#注释": "兵营"
+      "#注释": "兵营",
+      "dailySalary": 0
     },
     "11004": {
       "ID": 11004,
@@ -183,7 +203,8 @@
       "costGold": "2000",
       "costHour": 24,
       "enable": true,
-      "#注释": "兵营"
+      "#注释": "兵营",
+      "dailySalary": 0
     },
     "11011": {
       "ID": 11011,
@@ -198,7 +219,8 @@
       "costGold": "1000",
       "costHour": 6,
       "enable": true,
-      "#注释": "靶场"
+      "#注释": "靶场",
+      "dailySalary": 0
     },
     "11012": {
       "ID": 11012,
@@ -213,7 +235,8 @@
       "costGold": "1500",
       "costHour": 12,
       "enable": true,
-      "#注释": "靶场"
+      "#注释": "靶场",
+      "dailySalary": 0
     },
     "11013": {
       "ID": 11013,
@@ -228,7 +251,8 @@
       "costGold": "2000",
       "costHour": 18,
       "enable": true,
-      "#注释": "靶场"
+      "#注释": "靶场",
+      "dailySalary": 0
     },
     "11021": {
       "ID": 11021,
@@ -243,7 +267,8 @@
       "costGold": "1000",
       "costHour": 12,
       "enable": false,
-      "#注释": "马厩"
+      "#注释": "马厩",
+      "dailySalary": 0
     },
     "11022": {
       "ID": 11022,
@@ -258,7 +283,8 @@
       "costGold": "1500",
       "costHour": 24,
       "enable": false,
-      "#注释": "马厩"
+      "#注释": "马厩",
+      "dailySalary": 0
     },
     "11023": {
       "ID": 11023,
@@ -273,7 +299,8 @@
       "costGold": "2000",
       "costHour": 36,
       "enable": false,
-      "#注释": "马厩"
+      "#注释": "马厩",
+      "dailySalary": 0
     },
     "12001": {
       "ID": 12001,
@@ -288,7 +315,8 @@
       "costGold": "500",
       "costHour": 6,
       "enable": true,
-      "#注释": "市场"
+      "#注释": "市场",
+      "dailySalary": 50
     },
     "12002": {
       "ID": 12002,
@@ -303,7 +331,8 @@
       "costGold": "1000",
       "costHour": 12,
       "enable": true,
-      "#注释": "市场"
+      "#注释": "市场",
+      "dailySalary": 100
     },
     "12003": {
       "ID": 12003,
@@ -318,7 +347,8 @@
       "costGold": "1500",
       "costHour": 24,
       "enable": true,
-      "#注释": "市场"
+      "#注释": "市场",
+      "dailySalary": 150
     }
   },
   "recruitDaily": {

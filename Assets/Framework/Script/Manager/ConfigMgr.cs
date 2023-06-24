@@ -96,4 +96,13 @@ public class ConfigMgr : MonoSingleton<ConfigMgr>
     {
         return allUnitConfig.unit[_unitID];
     }
+
+    /// <summary>
+    /// ªÒ»°≈…œµ≈‰÷√
+    /// </summary>
+    /// <returns></returns>
+    public FactionConfig GetFactionConfig(int _factionID)
+    {
+        return factionConfig.faction[_factionID];
+    }
 }

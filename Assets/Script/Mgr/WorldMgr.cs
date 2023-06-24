@@ -145,7 +145,7 @@ public class WorldMgr : MonoBehaviour
     private void InitTroops()
     {
         //测试部队
-        //InitTestTroop();
+        InitTestTroop();
         //生成所有部队
         foreach (var item in DataMgr.Ins.gameData.troops)
         {
@@ -167,14 +167,5 @@ public class WorldMgr : MonoBehaviour
         troopData.posY = 0;
         troopData.units = new Dictionary<int, int> { { 1101, 5 } };
         DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
-    }
-
-    /// <summary>
-    /// 获取派系配置
-    /// </summary>
-    /// <returns></returns>
-    public FactionConfig GetFactionConfig(int _factionID)
-    {
-        return ConfigMgr.Ins.factionConfig.faction[_factionID];
     }
 }

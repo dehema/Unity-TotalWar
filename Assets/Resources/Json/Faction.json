@@ -1,34 +1,116 @@
 {
   "faction": {
     "1": {
-      "ID": 1,
-      "name": ""
+      "factionID": 1,
+      "name": 1667200401,
+      "raceID": "Human",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
     },
     "2": {
-      "ID": 2,
-      "name": ""
+      "factionID": 2,
+      "name": 1667200411,
+      "raceID": "Orc",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
     },
     "3": {
-      "ID": 3,
-      "name": ""
+      "factionID": 3,
+      "name": 1667200421,
+      "raceID": "Elf",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
     },
     "4": {
-      "ID": 4,
-      "name": ""
+      "factionID": 4,
+      "name": 1667200431,
+      "raceID": "Barbarian",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
     },
     "5": {
-      "ID": 5,
-      "name": ""
+      "factionID": 5,
+      "name": 1667200441,
+      "raceID": "Undead",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
+    },
+    "6": {
+      "factionID": 6,
+      "name": 1667200451,
+      "raceID": "Dwarf",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
     }
   },
   "race": {
     "Human": {
-      "raceType": "Human",
+      "raceID": "Human",
+      "name": 1667200301,
       "_mainBase": 10001,
       "_military": "11001",
       "_economy": "12001",
-      "_defaultBuilding": "10001,11001,12001",
-      "_initial_Building": "10001,11001,11011,11021,12001",
+      "Column5": "",
+      "Column6": "",
+      "Column7": "",
+      "Column8": "",
+      "Column9": ""
+    },
+    "Orc": {
+      "raceID": "Orc",
+      "name": 1667200302,
+      "_mainBase": 10001,
+      "_military": "11001",
+      "_economy": "12001",
+      "Column5": "",
+      "Column6": "",
+      "Column7": "",
+      "Column8": "",
+      "Column9": ""
+    },
+    "Elf": {
+      "raceID": "Elf",
+      "name": 1667200303,
+      "_mainBase": 10001,
+      "_military": "11001",
+      "_economy": "12001",
+      "Column5": "",
+      "Column6": "",
+      "Column7": "",
+      "Column8": "",
+      "Column9": ""
+    },
+    "Barbarian": {
+      "raceID": "Barbarian",
+      "name": 1667200304,
+      "_mainBase": 10001,
+      "_military": "11001",
+      "_economy": "12001",
+      "Column5": "",
+      "Column6": "",
+      "Column7": "",
+      "Column8": "",
+      "Column9": ""
+    },
+    "Undead": {
+      "raceID": "Undead",
+      "name": 1667200305,
+      "_mainBase": 10001,
+      "_military": "11001",
+      "_economy": "12001",
+      "Column5": "",
+      "Column6": "",
+      "Column7": "",
+      "Column8": "",
+      "Column9": ""
+    },
+    "Dwarf": {
+      "raceID": "Dwarf",
+      "name": 1667200306,
+      "_mainBase": 10001,
+      "_military": "11001",
+      "_economy": "12001",
+      "Column5": "",
       "Column6": "",
       "Column7": "",
       "Column8": "",
