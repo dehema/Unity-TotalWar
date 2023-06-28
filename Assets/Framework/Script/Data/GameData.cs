@@ -60,10 +60,6 @@ public class GameData
     /// </summary>
     public List<UnitData> armyUnits = new List<UnitData>();
     /// <summary>
-    /// 所有部队
-    /// </summary>
-    public Dictionary<int, TroopData> troops = new Dictionary<int, TroopData>();
-    /// <summary>
     /// 派系数据
     /// </summary>
     public Dictionary<int, FactionData> factions = new Dictionary<int, FactionData>();

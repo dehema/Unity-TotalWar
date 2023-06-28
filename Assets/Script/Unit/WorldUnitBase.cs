@@ -49,7 +49,7 @@ public class WorldUnitBase : MonoBehaviour
     /// </summary>
     public virtual void SetWUID()
     {
-        wuid = WorldMgr.Ins.GetWUID(worldUnitType, wuidOffset);
+        wuid = DataMgr.Ins.GetWUID(worldUnitType, wuidOffset);
         WorldMgr.Ins.worldUnitDict[wuid] = this;
     }
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -91,6 +92,23 @@ public class DataMgr : Singleton<DataMgr>
                 int cityID = city.Key;
                 gameData.cityData.Add(cityID, new CityData(cityID));
             }
+            //初始化商队数据
+            foreach (var city in ConfigMgr.Ins.cityConfig.city)
+            {
+                int tradeNum = city.Value.tradeCaravan_num;
+                for (int i = 0; i < tradeNum; i++)
+                {
+                    int cityID = city.Key;
+                    CityConfig cityConfig = ConfigMgr.Ins.cityConfig.city[cityID];
+                    int factionID = CityMgr.Ins.GetCityFactionID(cityID);
+                    TroopData troopData = new TroopData(TroopType.Trade);
+                    troopData.wuid = GetWUID(WorldUnitType.troop);
+                    troopData.posX = cityConfig.posX;
+                    troopData.posY = cityConfig.posY;
+                    troopData.cityID = cityID;
+                    gameData.factions[factionID].troops.Add(troopData);
+                }
+            }
             SaveGameData();
         }
     }
@@ -156,6 +174,34 @@ public class DataMgr : Singleton<DataMgr>
         DataMgr.Ins.SaveGameData();
         DataMgr.Ins.SavePlayerData();
         DataMgr.Ins.SaveSettingData();
+    }
+
+    /// <summary>
+    /// 获取世界对象ID
+    /// </summary>
+    /// <param name="_worldUnitType"></param>
+    /// <returns></returns>
+    public int GetWUID(WorldUnitType _worldUnitType, int _wuidOffset = 0)
+    {
+        int startIndex = (int)_worldUnitType * 1000;
+        if (_worldUnitType == WorldUnitType.troop)
+        {
+            List<int> ids = new List<int>();
+            foreach (var faction in DataMgr.Ins.gameData.factions)
+            {
+                foreach (var troop in faction.Value.troops)
+                {
+                    ids.Add(troop.wuid);
+                }
+            }
+            int index = startIndex;
+            while (ids.Contains(index))
+            {
+                index++;
+            }
+            return index;
+        }
+        return startIndex;
     }
 }
 

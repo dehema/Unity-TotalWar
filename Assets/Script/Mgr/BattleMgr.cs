@@ -101,7 +101,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
             PlayerMgr.Ins.AddPlayerUnit(1101);
         }
         //敌军
-        TroopData troopData = new TroopData();
+        TroopData troopData = new TroopData(TroopType.Army);
         //troopData.units.Add(2101, _unitNum);
         troopData.units.Add(1201, _unitNum);
         return troopData;

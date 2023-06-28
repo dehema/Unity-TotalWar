@@ -15,4 +15,12 @@ public enum NavPurpose
     /// 访问部队
     /// </summary>
     troop,
+    /// <summary>
+    /// 贸易
+    /// </summary>
+    trade,
+    /// <summary>
+    /// 贸易返回
+    /// </summary>
+    tradeBack,
 }

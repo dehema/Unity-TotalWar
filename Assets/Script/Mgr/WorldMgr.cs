@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using YamlDotNet.Core.Tokens;
+using static UnityEngine.InputSystem.DefaultInputActions;
 
 public class WorldMgr : MonoBehaviour
 {
@@ -26,6 +28,10 @@ public class WorldMgr : MonoBehaviour
     //世界时间
     public WorldDate worldDate = new WorldDate();
     public Dictionary<int, WorldUnitBase> worldUnitDict = new Dictionary<int, WorldUnitBase>();
+    /// <summary>
+    /// 部队
+    /// </summary>
+    public Dictionary<int, WorldTroop> worldTroopDict = new Dictionary<int, WorldTroop>();
 
 
     private void Awake()
@@ -37,6 +43,7 @@ public class WorldMgr : MonoBehaviour
         InitTroops();
         UIMgr.Ins.OpenView<TopView>();
         CityMgr.Ins.OnFirstEnterWorld();
+        StartTrade();
     }
 
     private void FixedUpdate()
@@ -108,24 +115,6 @@ public class WorldMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 获取世界对象ID
-    /// </summary>
-    /// <param name="_worldUnitType"></param>
-    /// <param name="_offest"></param>
-    /// <returns></returns>
-    public int GetWUID(WorldUnitType _worldUnitType, int _offest = 0)
-    {
-        if (_offest == 0)
-        {
-            if (_worldUnitType == WorldUnitType.troop)
-            {
-                _offest = DataMgr.Ins.gameData.troops.Count;
-            }
-        }
-        return (int)_worldUnitType * 1000 + _offest;
-    }
-
-    /// <summary>
     /// 根据世界对象ID获取对象
     /// </summary>
     /// <param name="_wuid"></param>
@@ -145,14 +134,20 @@ public class WorldMgr : MonoBehaviour
     private void InitTroops()
     {
         //测试部队
-        InitTestTroop();
+        //InitTestTroop();
         //生成所有部队
-        foreach (var item in DataMgr.Ins.gameData.troops)
+        foreach (var faction in DataMgr.Ins.gameData.factions)
         {
-            var WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), transform).GetComponent<WorldTroop>();
-            WorldTroop.transform.SetParent(transform.Find(WorldUnitType.troop.ToString()));
-            WorldTroop.transform.position = new Vector3(item.Value.posX, 0, item.Value.posY);
-            WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
+            foreach (var troop in faction.Value.troops)
+            {
+                WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), transform).GetComponent<WorldTroop>();
+                WorldTroop.transform.SetParent(transform.Find(WorldUnitType.troop.ToString()));
+                WorldTroop.transform.position = new Vector3(troop.posX, 0, troop.posY);
+                WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
+                WorldTroop.troopData = troop;
+                WorldTroop.wuid = DataMgr.Ins.GetWUID(WorldUnitType.troop);
+                worldTroopDict[WorldTroop.wuid] = WorldTroop;
+            }
         }
     }
 
@@ -161,11 +156,22 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     private void InitTestTroop()
     {
-        TroopData troopData = new TroopData();
-        troopData.wuid = GetWUID(WorldUnitType.troop);
+        TroopData troopData = new TroopData(TroopType.Army);
+        troopData.wuid = DataMgr.Ins.GetWUID(WorldUnitType.troop);
         troopData.posX = 10;
         troopData.posY = 0;
         troopData.units = new Dictionary<int, int> { { 1101, 5 } };
-        DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
+        //DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
+    }
+
+    /// <summary>
+    /// 开始跑商
+    /// </summary>
+    public void StartTrade()
+    {
+        foreach (var troop in worldTroopDict)
+        {
+            troop.Value.StartTrade();
+        }
     }
 }

@@ -9,7 +9,7 @@ public class FactionData
     /// </summary>
     public List<int> citys = new List<int>();
     /// <summary>
-    /// 部队数据
+    /// 部队数据 <WUID, TroopData>
     /// </summary>
-    public List<int> troops = new List<int>();
+    public List<TroopData> troops = new List<TroopData>();
 }
