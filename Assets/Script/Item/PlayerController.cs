@@ -38,7 +38,7 @@ public class PlayerController : UnitBase
     {
         battleParams = _battleParams;
         thirdPersonController.LockCameraPosition = false;
-        HideHideCollider();
+        HideCollider();
     }
 
     public override void Update()
@@ -67,7 +67,7 @@ public class PlayerController : UnitBase
         hitBoxCollider.StartTrigger();
     }
 
-    private void HideHideCollider()
+    private void HideCollider()
     {
         hitBoxCollider.SetColliderEnable(false);
     }

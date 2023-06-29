@@ -40,7 +40,7 @@ public class NavData
     {
         selfWUID = _selfWUID;
         moveSpeed = _moveSpeed;
-        selfUnit = WorldMgr.Ins.worldUnitDict[_selfWUID];
+        selfUnit = WorldMgr.Ins.GetUnitByWUID(_selfWUID);
         navAgent = selfUnit.GetComponent<NavMeshAgent>();
         navPurpose = _navPurpose;
         RefreshNavSpeed();

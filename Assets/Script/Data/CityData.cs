@@ -14,7 +14,11 @@ public class CityData
     /// <summary>
     /// 城镇ID
     /// </summary>
-    public int cityID;
+    public int cityID; 
+    /// <summary>
+    /// 世界唯一ID
+    /// </summary>
+    public int wuid;
     /// <summary>
     /// 繁荣度
     /// </summary>

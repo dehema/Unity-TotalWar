@@ -20,28 +20,62 @@ public class WorldTroop : WorldUnitBase
         WorldMgr.Ins.worldPlayer.MoveToWorldUnit(this, NavPurpose.troop);
     }
 
+    public void StartAction()
+    {
+        if (troopData.troopType == TroopType.Trade)
+        {
+            TradeState();
+        }
+    }
+
+    void SetState(TroopState _troopState)
+    {
+        troopData.troopState = _troopState;
+        StartAction();
+    }
+
+    void TradeState()
+    {
+        switch (troopData.troopState)
+        {
+            case TroopState.wait:
+            case TroopState.moveTarget:
+                {
+                    if (troopData.targetWUID == 0)
+                        troopData.targetWUID = GetRandomTradeCityGUID();
+                    StartTrade();
+                    break;
+                }
+            case TroopState.arriveTarget:
+                {
+                    troopData.gold = (int)(troopData.gold * 1.2f);
+                    SetState(TroopState.moveBackHome);
+                    break;
+                }
+            case TroopState.moveBackHome:
+                {
+                    troopData.targetWUID = CommonMgr.Ins.GetCityWUID(troopData.cityID);
+                    StartTrade();
+                    break;
+                }
+            case TroopState.arriveHome:
+                break;
+        }
+    }
+
     /// <summary>
     /// 开始贸易
     /// </summary>
     public void StartTrade()
     {
-        if (troopData.troopType != TroopType.Trade)
-        {
-            return;
-        }
-        if (troopData.troopState == TroopState.wait)
-        {
-            troopData.targetWUID = GetATradeCityID();
-            SetTroopState(TroopState.moveTarget);
-            NavMgr.Ins.SetNav(wuid, 2, NavPurpose.trade, troopData.targetWUID);
-        }
+        NavMgr.Ins.SetNav(wuid, 2, NavPurpose.trade, troopData.targetWUID);
     }
 
     /// <summary>
-    /// 获取贸易城市对象
+    /// 随机获取贸易城市
     /// </summary>
     /// <returns></returns>
-    int GetATradeCityID()
+    int GetRandomTradeCityGUID()
     {
         List<int> cityIDs = new List<int>();
         foreach (var item in ConfigMgr.Ins.cityConfig.city)
@@ -49,7 +83,9 @@ public class WorldTroop : WorldUnitBase
             cityIDs.Add(item.Key);
         }
         cityIDs.Remove(troopData.cityID);
-        return RandomTools.GetVal<int>(cityIDs);
+        int cityID = RandomTools.GetVal<int>(cityIDs);
+        int cityWUID = CommonMgr.Ins.GetCityWUID(cityID);
+        return cityWUID;
     }
 
     public void SetTroopState(TroopState _troopState)

@@ -27,12 +27,6 @@ public class WorldPlayer : WorldUnitBase
         MoveAniamtion();
     }
 
-    public override void SetWUID()
-    {
-        wuidOffset = 0;
-        base.SetWUID();
-    }
-
     //方向值，控制来回旋转
     int rotDir = 1;
     //旋转的局部坐标z值

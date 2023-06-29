@@ -5,16 +5,7 @@ using UnityEngine.AI;
 
 public class WorldUnitBase : MonoBehaviour
 {
-    /// <summary>
-    /// 世界ID
-    /// </summary>
-    [HideInInspector]
-    public int wuid = 0;
     protected WorldUnitBaseParams worldUnitBaseParams;
-    /// <summary>
-    /// 世界对象偏移值 （wuid叠加值）
-    /// </summary>
-    protected int wuidOffset = 0;
     /// <summary>
     /// 寻路
     /// </summary>
@@ -24,7 +15,7 @@ public class WorldUnitBase : MonoBehaviour
     //世界单位配置
     WorldUnitConfig worldUnitConfig;
     //获取世界单位类型
-    protected WorldUnitType worldUnitType = WorldUnitType.player;
+    public WorldUnitType worldUnitType = WorldUnitType.player;
 
     //Y轴偏移值
     protected float posYOffset = 0;
@@ -38,19 +29,9 @@ public class WorldUnitBase : MonoBehaviour
         worldUnitBaseParams = _params[0] as WorldUnitBaseParams;
         worldUnitType = worldUnitBaseParams.worldUnitType;
         worldUnitConfig = ConfigMgr.Ins.worldConfig.Unit[worldUnitType];
-        SetWUID();
         spriteRenderer = transform.Find("sprite").GetComponent<SpriteRenderer>();
         RefrehUnitUI();
         GetPosYOffset();
-    }
-
-    /// <summary>
-    /// 设置世界对象ID
-    /// </summary>
-    public virtual void SetWUID()
-    {
-        wuid = DataMgr.Ins.GetWUID(worldUnitType, wuidOffset);
-        WorldMgr.Ins.worldUnitDict[wuid] = this;
     }
 
     /// <summary>
@@ -112,6 +93,24 @@ public class WorldUnitBase : MonoBehaviour
         nav.updateRotation = false;
         nav.updateUpAxis = false;
         nav.acceleration = 100000;
+    }
+    /// <summary>
+    /// 世界ID
+    /// </summary>
+    public int wuid
+    {
+        get
+        {
+            switch (worldUnitType)
+            {
+                case WorldUnitType.city:
+                    return (this as WorldCityItem).cityData.wuid;
+                case WorldUnitType.troop:
+                    return (this as WorldTroop).troopData.wuid;
+                default:
+                    return CommonMgr.Ins.GetWUID(worldUnitType);
+            }
+        }
     }
 }
 

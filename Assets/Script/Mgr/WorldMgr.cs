@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
-using YamlDotNet.Core.Tokens;
-using static UnityEngine.InputSystem.DefaultInputActions;
 
 public class WorldMgr : MonoBehaviour
 {
@@ -27,11 +21,7 @@ public class WorldMgr : MonoBehaviour
     public Vector2 worldSize = Vector2.zero;
     //世界时间
     public WorldDate worldDate = new WorldDate();
-    public Dictionary<int, WorldUnitBase> worldUnitDict = new Dictionary<int, WorldUnitBase>();
-    /// <summary>
-    /// 部队
-    /// </summary>
-    public Dictionary<int, WorldTroop> worldTroopDict = new Dictionary<int, WorldTroop>();
+    private Dictionary<int, WorldUnitBase> worldUnitDict = new Dictionary<int, WorldUnitBase>();
 
 
     private void Awake()
@@ -95,10 +85,12 @@ public class WorldMgr : MonoBehaviour
     {
         foreach (var config in CityMgr.Ins.allCityConfig.city)
         {
+            int cityID = config.Key;
             WorldCityItem city = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_city), transform).GetComponent<WorldCityItem>();
             city.transform.SetParent(transform.Find(WorldUnitType.city.ToString()));
             city.Init(new WorldUnitBaseParams(WorldUnitType.city), config.Value);
-            CityMgr.Ins.allCityItem.Add(config.Key, city);
+            CityMgr.Ins.allCityItem.Add(cityID, city);
+            worldUnitDict.Add(CommonMgr.Ins.GetCityWUID(cityID), city);
         }
     }
 
@@ -112,6 +104,7 @@ public class WorldMgr : MonoBehaviour
         worldPlayer.transform.SetParent(transform.Find(WorldUnitType.player.ToString()));
         worldPlayer.Init(new WorldUnitBaseParams(WorldUnitType.player));
         worldCamera.SetLookAtTarget(worldPlayer.gameObject);
+        worldUnitDict[worldPlayer.wuid] = worldPlayer;
     }
 
     /// <summary>
@@ -145,8 +138,7 @@ public class WorldMgr : MonoBehaviour
                 WorldTroop.transform.position = new Vector3(troop.posX, 0, troop.posY);
                 WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
                 WorldTroop.troopData = troop;
-                WorldTroop.wuid = DataMgr.Ins.GetWUID(WorldUnitType.troop);
-                worldTroopDict[WorldTroop.wuid] = WorldTroop;
+                worldUnitDict[WorldTroop.wuid] = WorldTroop;
             }
         }
     }
@@ -157,7 +149,7 @@ public class WorldMgr : MonoBehaviour
     private void InitTestTroop()
     {
         TroopData troopData = new TroopData(TroopType.Army);
-        troopData.wuid = DataMgr.Ins.GetWUID(WorldUnitType.troop);
+        troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
         troopData.posX = 10;
         troopData.posY = 0;
         troopData.units = new Dictionary<int, int> { { 1101, 5 } };
@@ -169,9 +161,13 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     public void StartTrade()
     {
-        foreach (var troop in worldTroopDict)
+        foreach (var troop in worldUnitDict)
         {
-            troop.Value.StartTrade();
+            WorldUnitBase worldUnitBase = troop.Value;
+            if (worldUnitBase.worldUnitType == WorldUnitType.troop)
+            {
+                (worldUnitBase as WorldTroop).StartAction();
+            }
         }
     }
 }

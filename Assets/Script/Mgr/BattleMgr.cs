@@ -158,9 +158,9 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         };
         if (_armyType == ArmyType.player)
         {
-            foreach (var item in DataMgr.Ins.gameData.armyUnits)
+            foreach (var item in PlayerMgr.Ins.GetPlayerTroop().units)
             {
-                AddToQueue(item.unitConfig.ID, 1);
+                AddToQueue(item.Key, item.Value);
             }
         }
         else if (_armyType == ArmyType.enemy)

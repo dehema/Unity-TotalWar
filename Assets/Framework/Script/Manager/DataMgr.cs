@@ -18,6 +18,10 @@ public class DataMgr : Singleton<DataMgr>
     bool isLoaded = false;
     public GameData gameData;
     public SettingData settingData;
+    /// <summary>
+    /// 玩家派系
+    /// </summary>
+    public const int playerFactionID = 1;
 
     public void Load()
     {
@@ -76,6 +80,8 @@ public class DataMgr : Singleton<DataMgr>
             foreach (var faction in ConfigMgr.Ins.factionConfig.faction)
             {
                 int factionID = faction.Key;
+                if (gameData.factions.ContainsKey(factionID))
+                    continue;
                 FactionData factionData = new FactionData();
                 gameData.factions[factionID] = factionData;
                 foreach (var city in ConfigMgr.Ins.cityConfig.city)
@@ -90,7 +96,9 @@ public class DataMgr : Singleton<DataMgr>
             foreach (var city in ConfigMgr.Ins.cityConfig.city)
             {
                 int cityID = city.Key;
-                gameData.cityData.Add(cityID, new CityData(cityID));
+                CityData cityData = new CityData(cityID);
+                cityData.wuid = CommonMgr.Ins.GetCityWUID(cityID);
+                gameData.cityData.Add(cityID, cityData);
             }
             //初始化商队数据
             foreach (var city in ConfigMgr.Ins.cityConfig.city)
@@ -102,13 +110,17 @@ public class DataMgr : Singleton<DataMgr>
                     CityConfig cityConfig = ConfigMgr.Ins.cityConfig.city[cityID];
                     int factionID = CityMgr.Ins.GetCityFactionID(cityID);
                     TroopData troopData = new TroopData(TroopType.Trade);
-                    troopData.wuid = GetWUID(WorldUnitType.troop);
+                    troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
                     troopData.posX = cityConfig.posX;
                     troopData.posY = cityConfig.posY;
                     troopData.cityID = cityID;
                     gameData.factions[factionID].troops.Add(troopData);
                 }
             }
+            //玩家军队
+            TroopData playerTroop = new TroopData(TroopType.Player);
+            playerTroop.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.player);
+            gameData.factions[playerFactionID].troops.Add(playerTroop);
             SaveGameData();
         }
     }
@@ -174,34 +186,6 @@ public class DataMgr : Singleton<DataMgr>
         DataMgr.Ins.SaveGameData();
         DataMgr.Ins.SavePlayerData();
         DataMgr.Ins.SaveSettingData();
-    }
-
-    /// <summary>
-    /// 获取世界对象ID
-    /// </summary>
-    /// <param name="_worldUnitType"></param>
-    /// <returns></returns>
-    public int GetWUID(WorldUnitType _worldUnitType, int _wuidOffset = 0)
-    {
-        int startIndex = (int)_worldUnitType * 1000;
-        if (_worldUnitType == WorldUnitType.troop)
-        {
-            List<int> ids = new List<int>();
-            foreach (var faction in DataMgr.Ins.gameData.factions)
-            {
-                foreach (var troop in faction.Value.troops)
-                {
-                    ids.Add(troop.wuid);
-                }
-            }
-            int index = startIndex;
-            while (ids.Contains(index))
-            {
-                index++;
-            }
-            return index;
-        }
-        return startIndex;
     }
 }
 

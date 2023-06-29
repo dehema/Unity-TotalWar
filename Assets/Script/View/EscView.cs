@@ -15,6 +15,7 @@ public partial class EscView : BaseView
         btClose_Button.SetButton(Close);
         btSetting_Button.SetButton(() => { UIMgr.Ins.OpenView<SettingView>(); });
         btExit_Button.SetButton(OnClickExit);
+        btSave_Button.SetButton(OnClickSave);
     }
 
     public override void OnOpen(params object[] _params)
@@ -56,5 +57,11 @@ public partial class EscView : BaseView
             DataMgr.Ins.SaveAllData();
             Application.Quit();
         }
+    }
+
+    public void OnClickSave()
+    {
+        DataMgr.Ins.SaveAllData();
+        Close();
     }
 }

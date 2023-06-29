@@ -24,13 +24,17 @@ public partial class EscView : BaseView
     [HideInInspector]
     public Button btClose_Button;
     [HideInInspector]
-    public GameObject btSetting;
+    public GameObject btSave;
     [HideInInspector]
-    public Button btSetting_Button;
+    public Button btSave_Button;
     [HideInInspector]
     public GameObject btExit;
     [HideInInspector]
     public Button btExit_Button;
+    [HideInInspector]
+    public GameObject btSetting;
+    [HideInInspector]
+    public Button btSetting_Button;
 
     internal override void _LoadUI()    
     {
@@ -44,9 +48,11 @@ public partial class EscView : BaseView
         title_Text = title.GetComponent<Text>();
         btClose = transform.Find("$content#Rect/Popup/$btClose#Button").gameObject;
         btClose_Button = btClose.GetComponent<Button>();
-        btSetting = transform.Find("$content#Rect/Popup/ver/$btSetting#Button").gameObject;
-        btSetting_Button = btSetting.GetComponent<Button>();
+        btSave = transform.Find("$content#Rect/Popup/ver/$btSave#Button").gameObject;
+        btSave_Button = btSave.GetComponent<Button>();
         btExit = transform.Find("$content#Rect/Popup/ver/$btExit#Button").gameObject;
         btExit_Button = btExit.GetComponent<Button>();
+        btSetting = transform.Find("$content#Rect/Popup/ver/$btSetting#Button").gameObject;
+        btSetting_Button = btSetting.GetComponent<Button>();
     }
 }

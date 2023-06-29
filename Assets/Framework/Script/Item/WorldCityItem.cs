@@ -16,11 +16,6 @@ public class WorldCityItem : WorldUnitBase
         transform.position = new Vector3(cityConfig.posX, posYOffset, cityConfig.posY);
     }
 
-    public override void SetWUID()
-    {
-        wuidOffset = cityConfig.ID;
-        base.SetWUID();
-    }
 
     public void OnClick()
     {

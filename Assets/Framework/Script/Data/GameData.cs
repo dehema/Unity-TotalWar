@@ -56,10 +56,6 @@ public class GameData
     /// </summary>
     public int enterGameTime = 0;
     /// <summary>
-    /// 麾下单位
-    /// </summary>
-    public List<UnitData> armyUnits = new List<UnitData>();
-    /// <summary>
     /// 派系数据
     /// </summary>
     public Dictionary<int, FactionData> factions = new Dictionary<int, FactionData>();

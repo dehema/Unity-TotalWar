@@ -22,6 +22,14 @@ public class TroopData
     /// </summary>
     public int targetWUID;
     public TroopState troopState = TroopState.wait;
+    /// <summary>
+    /// 携带金币
+    /// </summary>
+    public int initGold = 100;
+    /// <summary>
+    /// 携带金币
+    /// </summary>
+    public int gold = 100;
 
     public TroopData(TroopType _troopType)
     {

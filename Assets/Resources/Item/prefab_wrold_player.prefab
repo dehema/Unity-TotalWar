@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2417220b34126c64e8c3f97b9e13f378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldUnitType: -1
 --- !u!195 &296947648
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -54,7 +55,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 179374023536701687}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 3.04
+  m_Radius: 0.00001
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
