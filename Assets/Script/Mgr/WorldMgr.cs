@@ -126,34 +126,23 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     private void InitTroops()
     {
-        //测试部队
-        //InitTestTroop();
         //生成所有部队
         foreach (var faction in DataMgr.Ins.gameData.factions)
         {
             foreach (var troop in faction.Value.troops)
             {
-                WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), transform).GetComponent<WorldTroop>();
-                WorldTroop.transform.SetParent(transform.Find(WorldUnitType.troop.ToString()));
-                WorldTroop.transform.position = new Vector3(troop.posX, 0, troop.posY);
+                if (troop.troopType == TroopType.Player)
+                {
+                    continue;
+                }
+                Vector3 pos = new Vector3(troop.posX, 0, troop.posY);
+                Transform parent = transform.Find(WorldUnitType.troop.ToString());
+                WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), pos, Quaternion.identity, parent).GetComponent<WorldTroop>();
                 WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
                 WorldTroop.troopData = troop;
                 worldUnitDict[WorldTroop.wuid] = WorldTroop;
             }
         }
-    }
-
-    /// <summary>
-    /// 初始化测试部队
-    /// </summary>
-    private void InitTestTroop()
-    {
-        TroopData troopData = new TroopData(TroopType.Army);
-        troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
-        troopData.posX = 10;
-        troopData.posY = 0;
-        troopData.units = new Dictionary<int, int> { { 1101, 5 } };
-        //DataMgr.Ins.gameData.troops.Add(troopData.wuid, troopData);
     }
 
     /// <summary>
@@ -166,7 +155,7 @@ public class WorldMgr : MonoBehaviour
             WorldUnitBase worldUnitBase = troop.Value;
             if (worldUnitBase.worldUnitType == WorldUnitType.troop)
             {
-                (worldUnitBase as WorldTroop).StartAction();
+                (worldUnitBase as WorldTroop).StateAction();
             }
         }
     }

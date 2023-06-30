@@ -40,7 +40,7 @@ public class NavMgr : MonoSingleton<NavMgr>
     {
         foreach (var item in navDict)
         {
-            if (item.Value.navAgent.remainingDistance < 1)
+            if (!item.Value.navAgent.pathPending && item.Value.navAgent.remainingDistance < 1)
             {
                 lastEndNavID = item.Key;
                 havNavEnd = true;

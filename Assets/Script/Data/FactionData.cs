@@ -5,6 +5,10 @@ using UnityEngine;
 public class FactionData
 {
     /// <summary>
+    /// 金币
+    /// </summary>
+    public int gold;
+    /// <summary>
     /// 建筑数据
     /// </summary>
     public List<int> citys = new List<int>();

@@ -40,4 +40,30 @@ public class CommonMgr : Singleton<CommonMgr>
     {
         return GetWUID(WorldUnitType.city) + _cityID;
     }
+
+    /// <summary>
+    /// 根据部队信息获取所属派系ID
+    /// </summary>
+    public int GetFactionIDByTroop(TroopData _troopData)
+    {
+        foreach (var faction in DataMgr.Ins.gameData.factions)
+        {
+            foreach (var troopData in faction.Value.troops)
+            {
+                if (troopData == _troopData)
+                {
+                    return faction.Key;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>
+    /// 增加派系金币
+    /// </summary>
+    public void AddFactionMoney(int _factionID, int _gold)
+    {
+        DataMgr.Ins.gameData.factions[_factionID].gold += _gold;
+    }
 }

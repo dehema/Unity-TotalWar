@@ -11,7 +11,25 @@ public class WorldTroop : WorldUnitBase
     public override void Init(params object[] _params)
     {
         base.Init(_params);
+        transform.position += new Vector3(0, posYOffset, 0);
         InitNav();
+    }
+
+    public override void OnNavArrive(NavData _navData)
+    {
+        return;
+        base.OnNavArrive(_navData);
+        if (troopData.troopType == TroopType.Trade)
+        {
+            if (_navData.navPurpose == NavPurpose.trade)
+            {
+                SetState(TroopState.arriveTarget);
+            }
+            else if (_navData.navPurpose == NavPurpose.tradeBack)
+            {
+                SetState(TroopState.arriveHome);
+            }
+        }
     }
 
     public void OnClick()
@@ -20,7 +38,7 @@ public class WorldTroop : WorldUnitBase
         WorldMgr.Ins.worldPlayer.MoveToWorldUnit(this, NavPurpose.troop);
     }
 
-    public void StartAction()
+    public void StateAction()
     {
         if (troopData.troopType == TroopType.Trade)
         {
@@ -31,7 +49,7 @@ public class WorldTroop : WorldUnitBase
     void SetState(TroopState _troopState)
     {
         troopData.troopState = _troopState;
-        StartAction();
+        StateAction();
     }
 
     void TradeState()
@@ -59,7 +77,15 @@ public class WorldTroop : WorldUnitBase
                     break;
                 }
             case TroopState.arriveHome:
-                break;
+                {
+                    if (troopData.gold > troopData.initGold)
+                    {
+                        CommonMgr.Ins.AddFactionMoney(CommonMgr.Ins.GetFactionIDByTroop(troopData), troopData.gold - troopData.initGold);
+                    }
+                    troopData.gold = troopData.initGold;
+                    SetState(TroopState.wait);
+                    break;
+                }
         }
     }
 

@@ -89,10 +89,15 @@ public class WorldUnitBase : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         if (nav == null)
             return;
-        nav.Warp(transform.position);
         nav.updateRotation = false;
         nav.updateUpAxis = false;
         nav.acceleration = 100000;
+        nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        bool isWarp = nav.Warp(transform.position);
+        if (!isWarp)
+        {
+            Debug.LogError("寻路初始化错误");
+        }
     }
     /// <summary>
     /// 世界ID
