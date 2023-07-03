@@ -84,7 +84,6 @@ public class NavData
     /// </summary>
     public void RefreshNavSpeed()
     {
-        //navAgent.speed = moveSpeed * WorldMgr.Ins.worldDate.speed;
-        navAgent.speed = moveSpeed;
+        navAgent.speed = moveSpeed * WorldMgr.Ins.worldDate.speed;
     }
 }

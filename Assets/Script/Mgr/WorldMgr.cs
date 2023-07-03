@@ -5,6 +5,8 @@ public class WorldMgr : MonoBehaviour
 {
     public static WorldMgr Ins;
 
+    bool inited = false;
+
     [Header("世界相机")]
     public WorldCamera worldCamera;
 
@@ -27,10 +29,14 @@ public class WorldMgr : MonoBehaviour
     private void Awake()
     {
         Ins = this;
-        InitWorld();
-        worldCamera.Init();
-        InitPlayer();
-        InitTroops();
+        if (!inited)
+        {
+            InitWorld();
+            worldCamera.Init();
+            InitPlayer();
+            InitTroops();
+            inited = true;
+        }
         UIMgr.Ins.OpenView<TopView>();
         CityMgr.Ins.OnFirstEnterWorld();
         StartTrade();
