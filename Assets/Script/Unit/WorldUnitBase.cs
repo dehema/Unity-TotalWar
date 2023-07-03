@@ -14,35 +14,114 @@ public class WorldUnitBase : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     //世界单位配置
     WorldUnitConfig worldUnitConfig;
+    //显示图标
+    Transform icon;
     //获取世界单位类型
     public WorldUnitType worldUnitType = WorldUnitType.player;
 
     //Y轴偏移值
-    protected float posYOffset = 0;
+    //protected float posYOffset = 0;
     //X轴旋转值
     protected float rotX = 0;
     //缩放值
     protected float unitScale = 1;
+    //是否在移动
+    bool isMoving = false;
 
     public virtual void Init(params object[] _params)
     {
+        //data
         worldUnitBaseParams = _params[0] as WorldUnitBaseParams;
         worldUnitType = worldUnitBaseParams.worldUnitType;
         worldUnitConfig = ConfigMgr.Ins.worldConfig.Unit[worldUnitType];
-        spriteRenderer = transform.Find("sprite").GetComponent<SpriteRenderer>();
-        RefrehUnitUI();
-        GetPosYOffset();
+        //component
+        nav = GetComponent<NavMeshAgent>();
+        icon = transform.Find("icon");
+        isMoving = false;
+        spriteRenderer = icon.GetComponent<SpriteRenderer>();
+        //UI
+        RefrehIconUI();
+        RefrehNavIconUI();
+    }
+
+    private void Update()
+    {
+        if (nav != null)
+        {
+            isMoving = nav.velocity != Vector3.zero;
+            MoveAniamtion();
+        }
+    }
+
+    //方向值，控制来回旋转
+    int rotDir = 1;
+    //旋转的局部坐标z值
+    float axisZ = 0;
+    /// <summary>
+    /// 移动动画
+    /// </summary>
+    private void MoveAniamtion()
+    {
+        if (!isMoving)
+        {
+            if (icon.localEulerAngles.z != 0)
+                icon.localEulerAngles = new Vector3(icon.localEulerAngles.x, 0, 0);
+            return;
+        }
+        axisZ += 200f * Time.deltaTime * rotDir;
+        if (axisZ >= 20f)
+            rotDir = -1;
+        if (axisZ <= -20f)
+            rotDir = 1;
+        axisZ = ClampAngle(axisZ, -20f, 20f);
+        Quaternion quaternion = Quaternion.Euler(icon.localEulerAngles.x, icon.localEulerAngles.y, axisZ);
+        icon.localRotation = quaternion;
     }
 
     /// <summary>
-    /// 设置单元大小（比如单元为1，需要根据单元大小）
+    ///  角度区间
     /// </summary>
-    public void RefrehUnitUI()
+    /// <param name="angle"></param>
+    /// <param name="min"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
+    float ClampAngle(float angle, float min, float max)
+    {
+        if (angle < -360)
+            angle += 360;
+        if (angle > 360)
+            angle -= 360;
+        return Mathf.Clamp(angle, min, max);
+    }
+
+    void RefrehIconUI()
     {
         unitScale = 1 / (spriteRenderer.sprite.rect.width / 100) * unitSize;
-        transform.localScale = new Vector3(unitScale, unitScale, unitScale);
+        icon.localScale = new Vector3(unitScale, unitScale, unitScale);
         rotX = Utility.GetSetting<float>(SettingField.World.World_Unit_RotX);
-        transform.localEulerAngles = new Vector3(rotX, 0, 0);
+        icon.localEulerAngles = new Vector3(rotX, 0, 0);
+    }
+
+    /// <summary>
+    /// 处理
+    /// </summary>
+    void RefrehNavIconUI()
+    {
+        //icon偏移
+        float offset = unitSize / 2;
+        //角度转弧度
+        offset *= Mathf.Cos(rotX * Mathf.Deg2Rad);
+        if (nav == null)
+        {
+            //没有寻路系统 比如城镇
+            icon.transform.localPosition = new Vector3(0, offset, 0);
+            return;
+        }
+        float iconFactHeight = spriteRenderer.sprite.rect.height / 100;
+        nav.height = iconFactHeight;
+        transform.position = new Vector3(transform.position.x, iconFactHeight / 2, transform.position.z);
+        icon.transform.localPosition = new Vector3(0, -transform.position.y + offset, 0);
+        transform.position = new Vector3(transform.position.x, nav.height / 2, transform.position.z);
     }
 
     /// <summary>
@@ -52,17 +131,6 @@ public class WorldUnitBase : MonoBehaviour
     private float unitSize
     {
         get { return worldUnitConfig.size; }
-    }
-
-    /// <summary>
-    /// 坐标在Y轴上的偏移量
-    /// </summary>
-    public void GetPosYOffset()
-    {
-        float offset = unitSize / 2;
-        //角度转弧度
-        offset *= Mathf.Cos(rotX * Mathf.Deg2Rad);
-        posYOffset = offset;
     }
 
     /// <summary>
@@ -86,7 +154,6 @@ public class WorldUnitBase : MonoBehaviour
     /// </summary>
     protected void InitNav()
     {
-        nav = GetComponent<NavMeshAgent>();
         if (nav == null)
             return;
         nav.updateRotation = false;

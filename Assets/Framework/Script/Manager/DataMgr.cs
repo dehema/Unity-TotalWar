@@ -112,7 +112,7 @@ public class DataMgr : Singleton<DataMgr>
                     TroopData troopData = new TroopData(TroopType.Trade);
                     troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
                     troopData.posX = cityConfig.posX;
-                    troopData.posY = cityConfig.posY;
+                    troopData.posY = cityConfig.posY + 1.5f;
                     troopData.cityID = cityID;
                     gameData.factions[factionID].troops.Add(troopData);
                 }

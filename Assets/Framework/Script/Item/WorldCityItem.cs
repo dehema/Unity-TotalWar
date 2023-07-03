@@ -13,7 +13,7 @@ public class WorldCityItem : WorldUnitBase
         cityConfig = _params[1] as CityConfig;
         base.Init(_params);
         //往上增加一个偏移值
-        transform.position = new Vector3(cityConfig.posX, posYOffset, cityConfig.posY);
+        transform.position = new Vector3(cityConfig.posX, 0, cityConfig.posY);
     }
 
 

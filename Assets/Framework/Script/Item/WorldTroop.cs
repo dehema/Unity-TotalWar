@@ -11,13 +11,12 @@ public class WorldTroop : WorldUnitBase
     public override void Init(params object[] _params)
     {
         base.Init(_params);
-        transform.position += new Vector3(0, posYOffset, 0);
+        //transform.position += new Vector3(0, posYOffset, 0);
         InitNav();
     }
 
     public override void OnNavArrive(NavData _navData)
     {
-        return;
         base.OnNavArrive(_navData);
         if (troopData.troopType == TroopType.Trade)
         {
@@ -57,11 +56,14 @@ public class WorldTroop : WorldUnitBase
         switch (troopData.troopState)
         {
             case TroopState.wait:
+                {
+                    SetState(TroopState.moveTarget);
+                    break;
+                }
             case TroopState.moveTarget:
                 {
-                    if (troopData.targetWUID == 0)
-                        troopData.targetWUID = GetRandomTradeCityGUID();
-                    StartTrade();
+                    troopData.targetWUID = GetRandomTradeCityGUID();
+                    NavMgr.Ins.SetNav(wuid, 2, NavPurpose.trade, troopData.targetWUID);
                     break;
                 }
             case TroopState.arriveTarget:
@@ -73,7 +75,7 @@ public class WorldTroop : WorldUnitBase
             case TroopState.moveBackHome:
                 {
                     troopData.targetWUID = CommonMgr.Ins.GetCityWUID(troopData.cityID);
-                    StartTrade();
+                    NavMgr.Ins.SetNav(wuid, 2, NavPurpose.tradeBack, troopData.targetWUID);
                     break;
                 }
             case TroopState.arriveHome:
@@ -87,14 +89,6 @@ public class WorldTroop : WorldUnitBase
                     break;
                 }
         }
-    }
-
-    /// <summary>
-    /// 开始贸易
-    /// </summary>
-    public void StartTrade()
-    {
-        NavMgr.Ins.SetNav(wuid, 2, NavPurpose.trade, troopData.targetWUID);
     }
 
     /// <summary>

@@ -264,6 +264,8 @@ MonoBehaviour:
   hpSlider_Rect: {fileID: 0}
   txtHp: {fileID: 0}
   txtHp_Text: {fileID: 0}
+  debugWin: {fileID: 0}
+  debugWin_Button: {fileID: 0}
 --- !u!1 &2882878390544986029
 GameObject:
   m_ObjectHideFlags: 0

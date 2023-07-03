@@ -16,6 +16,7 @@ public partial class EscView : BaseView
         btSetting_Button.SetButton(() => { UIMgr.Ins.OpenView<SettingView>(); });
         btExit_Button.SetButton(OnClickExit);
         btSave_Button.SetButton(OnClickSave);
+        btDebugWin_Button.SetDebugButton(OnClickDebugWin);
     }
 
     public override void OnOpen(params object[] _params)
@@ -63,5 +64,11 @@ public partial class EscView : BaseView
     {
         DataMgr.Ins.SaveAllData();
         Close();
+    }
+
+    private void OnClickDebugWin()
+    {
+        BattleMgr.Ins.enemyList.Clear();
+        BattleMgr.Ins.BattleVictory();
     }
 }

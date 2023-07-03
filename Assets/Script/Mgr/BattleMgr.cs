@@ -434,7 +434,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     /// <summary>
     /// 战斗胜利
     /// </summary>
-    void BattleVictory()
+    public void BattleVictory()
     {
         Debug.Log("战斗胜利");
         //animator

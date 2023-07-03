@@ -23,12 +23,27 @@ public class SceneMgr : MonoSingleton<SceneMgr>
             currSceneID = _sceneID;
             _changeSuccess?.Invoke();
             Debug.Log("切换至场景" + viewParams.targetSceneName);
-            OnSceneChange();
+            OnSceneChangeComplete();
         };
+        OnSceneStartChange();
         UIMgr.Ins.OpenView<LoadSceneView>(viewParams);
     }
 
-    public void OnSceneChange()
+    /// <summary>
+    /// 场景开始跳转
+    /// </summary>
+    public void OnSceneStartChange()
+    {
+        if (currSceneID == SceneID.WorldMap)
+        {
+            NavMgr.Ins.ClearAllNavData();
+        }
+    }
+
+    /// <summary>
+    /// 场景跳转完成
+    /// </summary>
+    void OnSceneChangeComplete()
     {
         Debug.Log("跳转到场景:" + targetSceneName);
         //世界地图

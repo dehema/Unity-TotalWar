@@ -3,6 +3,7 @@ using RPGCharacterAnims.Actions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,24 +35,19 @@ public class NavMgr : MonoSingleton<NavMgr>
     }
 
     //上个寻路结束的ID
-    int lastEndNavID;
-    bool havNavEnd = false;
     public void Update()
     {
-        foreach (var item in navDict)
+        for (int i = 0; i < navDict.Count; i++)
         {
-            if (!item.Value.navAgent.pathPending && item.Value.navAgent.remainingDistance < 1)
+            var ele = navDict.ElementAt<KeyValuePair<int, NavData>>(i);
+            if (!ele.Value.navAgent.pathPending && ele.Value.navAgent.remainingDistance < 1)
             {
-                lastEndNavID = item.Key;
-                havNavEnd = true;
-                item.Value.selfUnit.OnNavArrive(item.Value);
-                break;
+                int wuid = ele.Key;
+                NavData navData = ele.Value;
+                navDict.Remove(wuid);
+                navData.selfUnit.OnNavArrive(navData);
+                navData = null;
             }
-        }
-        if (havNavEnd)
-        {
-            navDict.Remove(lastEndNavID);
-            havNavEnd = false;
         }
     }
 
@@ -64,5 +60,21 @@ public class NavMgr : MonoSingleton<NavMgr>
         {
             item.Value.RefreshNavSpeed();
         }
+    }
+
+    /// <summary>
+    /// 清除所有寻路
+    /// </summary>
+    /// <param name="_invoke"></param>
+    public void ClearAllNavData(bool _invoke = false)
+    {
+        if (_invoke)
+        {
+            foreach (var item in navDict)
+            {
+                item.Value.selfUnit.OnNavArrive(item.Value);
+            }
+        }
+        navDict.Clear();
     }
 }

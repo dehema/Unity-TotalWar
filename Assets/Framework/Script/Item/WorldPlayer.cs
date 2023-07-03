@@ -9,63 +9,14 @@ public class WorldPlayer : WorldUnitBase
     //data
     //达到位置后的回调
     Action moveCB;
-    bool isMoving = false;
     public override void Init(params object[] _params)
     {
         base.Init(_params);
-        transform.position = new Vector3(0, posYOffset, 0);
-        isMoving = false;
+        //transform.position = new Vector3(0, posYOffset, 0);
         //nav
         InitNav();
         //camera
         //WorldMgr.Ins.worldCamera.
-    }
-
-    private void Update()
-    {
-        isMoving = nav.velocity != Vector3.zero;
-        MoveAniamtion();
-    }
-
-    //方向值，控制来回旋转
-    int rotDir = 1;
-    //旋转的局部坐标z值
-    float axisZ = 0;
-    /// <summary>
-    /// 移动动画
-    /// </summary>
-    private void MoveAniamtion()
-    {
-        if (!isMoving)
-        {
-            if (transform.localEulerAngles.z != 0)
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 0, 0);
-            return;
-        }
-        axisZ += 200f * Time.deltaTime * rotDir;
-        if (axisZ >= 20f)
-            rotDir = -1;
-        if (axisZ <= -20f)
-            rotDir = 1;
-        axisZ = ClampAngle(axisZ, -20f, 20f);
-        Quaternion quaternion = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, axisZ);
-        transform.localRotation = quaternion;
-    }
-
-    /// <summary>
-    ///  角度区间
-    /// </summary>
-    /// <param name="angle"></param>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
-    /// <returns></returns>
-    float ClampAngle(float angle, float min, float max)
-    {
-        if (angle < -360)
-            angle += 360;
-        if (angle > 360)
-            angle -= 360;
-        return Mathf.Clamp(angle, min, max);
     }
 
     public void OnMoveBegin()

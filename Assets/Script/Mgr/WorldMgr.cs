@@ -150,12 +150,15 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     public void StartTrade()
     {
-        foreach (var troop in worldUnitDict)
+        if (SceneMgr.Ins.IsWorld)
         {
-            WorldUnitBase worldUnitBase = troop.Value;
-            if (worldUnitBase.worldUnitType == WorldUnitType.troop)
+            foreach (var troop in worldUnitDict)
             {
-                (worldUnitBase as WorldTroop).StateAction();
+                WorldUnitBase worldUnitBase = troop.Value;
+                if (worldUnitBase.worldUnitType == WorldUnitType.troop)
+                {
+                    (worldUnitBase as WorldTroop).StateAction();
+                }
             }
         }
     }

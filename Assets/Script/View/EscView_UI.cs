@@ -35,6 +35,10 @@ public partial class EscView : BaseView
     public GameObject btSetting;
     [HideInInspector]
     public Button btSetting_Button;
+    [HideInInspector]
+    public GameObject btDebugWin;
+    [HideInInspector]
+    public Button btDebugWin_Button;
 
     internal override void _LoadUI()    
     {
@@ -54,5 +58,7 @@ public partial class EscView : BaseView
         btExit_Button = btExit.GetComponent<Button>();
         btSetting = transform.Find("$content#Rect/Popup/ver/$btSetting#Button").gameObject;
         btSetting_Button = btSetting.GetComponent<Button>();
+        btDebugWin = transform.Find("debugPanel/$btDebugWin#Button").gameObject;
+        btDebugWin_Button = btDebugWin.GetComponent<Button>();
     }
 }
