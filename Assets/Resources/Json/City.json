@@ -6,7 +6,7 @@
       "posX": -5,
       "posY": 0,
       "icon": "town_1",
-      "factionID": "1",
+      "factionID": "11",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     },
@@ -16,7 +16,7 @@
       "posX": -19,
       "posY": 3,
       "icon": "town_2",
-      "factionID": "2",
+      "factionID": "12",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     },
@@ -26,7 +26,7 @@
       "posX": 0,
       "posY": 15,
       "icon": "town_3",
-      "factionID": "3",
+      "factionID": "21",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     },
@@ -36,7 +36,7 @@
       "posX": 15,
       "posY": -3,
       "icon": "town_4",
-      "factionID": "4",
+      "factionID": "31",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     },
@@ -46,7 +46,7 @@
       "posX": -15,
       "posY": -10,
       "icon": "town_5",
-      "factionID": "5",
+      "factionID": "41",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     },
@@ -56,7 +56,7 @@
       "posX": -18,
       "posY": -18,
       "icon": "town_6",
-      "factionID": "6",
+      "factionID": "51",
       "tradeCaravan_num": 1,
       "tradeCaravan_gold": 500
     }

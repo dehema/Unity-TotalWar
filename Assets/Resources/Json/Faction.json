@@ -1,44 +1,44 @@
 {
   "faction": {
-    "1": {
-      "factionID": 1,
-      "name": 1667200401,
+    "11": {
+      "factionID": 11,
+      "name": 1667200411,
       "raceID": "Human",
       "_defaultBuilding": "10001,11001,12001",
       "_initial_Building": "10001,11001,11011,11021,12001"
     },
-    "2": {
-      "factionID": 2,
-      "name": 1667200411,
+    "12": {
+      "factionID": 12,
+      "name": 1667200412,
+      "raceID": "Human",
+      "_defaultBuilding": "10001,11001,12001",
+      "_initial_Building": "10001,11001,11011,11021,12001"
+    },
+    "21": {
+      "factionID": 21,
+      "name": 1667200421,
       "raceID": "Orc",
       "_defaultBuilding": "10001,11001,12001",
       "_initial_Building": "10001,11001,11011,11021,12001"
     },
-    "3": {
-      "factionID": 3,
-      "name": 1667200421,
-      "raceID": "Elf",
+    "31": {
+      "factionID": 31,
+      "name": 1667200431,
+      "raceID": "HighElf",
       "_defaultBuilding": "10001,11001,12001",
       "_initial_Building": "10001,11001,11011,11021,12001"
     },
-    "4": {
-      "factionID": 4,
-      "name": 1667200431,
+    "41": {
+      "factionID": 41,
+      "name": 1667200441,
       "raceID": "Barbarian",
       "_defaultBuilding": "10001,11001,12001",
       "_initial_Building": "10001,11001,11011,11021,12001"
     },
-    "5": {
-      "factionID": 5,
-      "name": 1667200441,
-      "raceID": "Undead",
-      "_defaultBuilding": "10001,11001,12001",
-      "_initial_Building": "10001,11001,11011,11021,12001"
-    },
-    "6": {
-      "factionID": 6,
+    "51": {
+      "factionID": 51,
       "name": 1667200451,
-      "raceID": "Dwarf",
+      "raceID": "Undead",
       "_defaultBuilding": "10001,11001,12001",
       "_initial_Building": "10001,11001,11011,11021,12001"
     }
@@ -68,8 +68,8 @@
       "Column8": "",
       "Column9": ""
     },
-    "Elf": {
-      "raceID": "Elf",
+    "HighElf": {
+      "raceID": "HighElf",
       "name": 1667200303,
       "_mainBase": 10001,
       "_military": "11001",
