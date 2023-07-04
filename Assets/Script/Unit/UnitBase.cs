@@ -123,7 +123,16 @@ public class UnitBase : MonoBehaviour, IUnitBase
     /// <param name="_defender">被攻击者</param>
     public virtual void AttackUnit(UnitBase _defender)
     {
+        if (this == null)
+        {
+            return;
+        }
         if (IsDead)
+        {
+            return;
+        }
+        //被攻击者死亡
+        if (_defender == null || _defender.IsDead)
         {
             return;
         }

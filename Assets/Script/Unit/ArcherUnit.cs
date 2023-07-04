@@ -14,6 +14,14 @@ public class ArcherUnit : UnitBase
 
     public override void AttackUnit(UnitBase _defender)
     {
+        if (this == null)
+        {
+            return;
+        }
+        if (_defender == null || _defender.IsDead)
+        {
+            return;
+        }
         GameObject itemArrow = BattleMgr.Ins.GetArrow(shootPos.transform, _defender.transform, this);
     }
 }
