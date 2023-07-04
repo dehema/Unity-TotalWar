@@ -59,6 +59,46 @@
       "ID": "World_Time_QuickSpeed",
       "val": "2",
       "#备注": "大地图_时间_加快的流速"
+    },
+    "World_Trade_MoveSpeed": {
+      "ID": "World_Trade_MoveSpeed",
+      "val": "2.0",
+      "#备注": "大地图_商队_移动速度"
+    },
+    "World_Trade_InitGold": {
+      "ID": "World_Trade_InitGold",
+      "val": "100",
+      "#备注": "大地图_商队_初始资金"
+    },
+    "row_16": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": ""
+    },
+    "row_17": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": ""
+    },
+    "row_18": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": ""
+    },
+    "row_19": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": ""
+    },
+    "row_20": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": ""
+    },
+    "row_21": {
+      "ID": "",
+      "val": 0.0,
+      "#备注": " "
     }
   },
   "Other": {}

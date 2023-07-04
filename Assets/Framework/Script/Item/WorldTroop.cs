@@ -63,7 +63,7 @@ public class WorldTroop : WorldUnitBase
             case TroopState.moveTarget:
                 {
                     troopData.targetWUID = GetRandomTradeCityGUID();
-                    NavMgr.Ins.SetNav(wuid, 2, NavPurpose.trade, troopData.targetWUID);
+                    NavMgr.Ins.SetNav(wuid, Utility.GetSetting<float>(SettingField.World.World_Trade_MoveSpeed), NavPurpose.trade, troopData.targetWUID);
                     break;
                 }
             case TroopState.arriveTarget:
@@ -75,7 +75,7 @@ public class WorldTroop : WorldUnitBase
             case TroopState.moveBackHome:
                 {
                     troopData.targetWUID = CommonMgr.Ins.GetCityWUID(troopData.cityID);
-                    NavMgr.Ins.SetNav(wuid, 2, NavPurpose.tradeBack, troopData.targetWUID);
+                    NavMgr.Ins.SetNav(wuid, Utility.GetSetting<float>(SettingField.World.World_Trade_MoveSpeed), NavPurpose.tradeBack, troopData.targetWUID);
                     break;
                 }
             case TroopState.arriveHome:

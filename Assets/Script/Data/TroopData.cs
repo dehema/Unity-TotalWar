@@ -34,6 +34,7 @@ public class TroopData
     public TroopData(TroopType _troopType)
     {
         troopType = _troopType;
+        gold = Utility.GetSetting<int>(SettingField.World.World_Trade_InitGold);
     }
 }
 

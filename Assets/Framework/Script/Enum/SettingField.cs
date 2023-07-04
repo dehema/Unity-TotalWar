@@ -52,6 +52,14 @@ public class SettingField
         /// 大地图_单位_X轴旋转量
         /// </summary>
         public const string World_Unit_RotX = "World_Unit_RotX";
+        /// <summary>
+        /// 大地图_商队_移动速度
+        /// </summary>
+        public const string World_Trade_MoveSpeed = "World_Trade_MoveSpeed";
+        /// <summary>
+        /// 大地图_商队_初始资金
+        /// </summary>
+        public const string World_Trade_InitGold = "World_Trade_InitGold";
     }
 
     public class Time

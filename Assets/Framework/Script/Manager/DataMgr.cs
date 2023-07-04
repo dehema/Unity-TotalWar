@@ -21,7 +21,7 @@ public class DataMgr : Singleton<DataMgr>
     /// <summary>
     /// ÕÊº“≈…œµ
     /// </summary>
-    public const int playerFactionID = 1;
+    public const int playerFactionID = 11;
 
     public void Load()
     {
