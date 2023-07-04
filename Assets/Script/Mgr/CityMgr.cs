@@ -10,30 +10,7 @@ using static UnityEditor.Progress;
 
 public class CityMgr : MonoSingleton<CityMgr>
 {
-    public AllCityConfig allCityConfig { get { return ConfigMgr.Ins.cityConfig; } }
-
-    /// <summary>
-    /// 第一次进入世界
-    /// </summary>
-    public void OnFirstEnterWorld()
-    {
-        WorldMgr.Ins.worldDate.onNewDay += () =>
-        {
-            //刷兵();
-            foreach (var item in WorldMgr.Ins.allCityItem)
-            {
-                item.Value.cityData.RefreshRecruitUnit();
-            }
-            //发薪水
-
-            //每日收入
-
-        };
-        WorldMgr.Ins.worldDate.onNewHour += () =>
-        {
-            AddInBuildingProgress();
-        };
-    }
+    public AllCityConfig allCityConfig { get { return ConfigMgr.Ins.allCityConfig; } }
 
     /// <summary>
     /// 获取城镇配置
@@ -140,7 +117,7 @@ public class CityMgr : MonoSingleton<CityMgr>
     /// <summary>
     /// 增加建造中建筑进度
     /// </summary>
-    void AddInBuildingProgress()
+    public void AddInBuildingProgress()
     {
         foreach (var cityData in DataMgr.Ins.gameData.cityData)
         {
@@ -170,24 +147,5 @@ public class CityMgr : MonoSingleton<CityMgr>
             cityData.buildingDict.Remove(_originBuildingID);
         cityData.buildingDict.Add(_newBuildingID, new BuildingData(_newBuildingID));
         DataMgr.Ins.SaveAllData();
-    }
-
-    /// <summary>
-    /// 查询城镇派系ID
-    /// </summary>
-    /// <returns></returns>
-    public int GetCityFactionID(int _cityID)
-    {
-        foreach (var factionData in DataMgr.Ins.gameData.factions)
-        {
-            foreach (var cityID in factionData.Value.citys)
-            {
-                if (cityID == _cityID)
-                {
-                    return factionData.Key;
-                }
-            }
-        }
-        return -1;
     }
 }

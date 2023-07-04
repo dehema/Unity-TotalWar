@@ -22,7 +22,7 @@ public class PlayerMgr : MonoSingleton<PlayerMgr>
 
     public TroopData GetPlayerTroop()
     {
-        foreach (var troop in DataMgr.Ins.gameData.factions[DataMgr.playerFactionID].troops)
+        foreach (var troop in DataMgr.Ins.GetFactionData(DataMgr.playerFactionID).troops)
         {
             if (troop.troopType == TroopType.Player)
             {

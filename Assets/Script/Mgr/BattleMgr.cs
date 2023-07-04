@@ -23,14 +23,16 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     /// 双方单位数量上限
     /// </summary>
     private int UnitNumLimitOnField { get { return 5; } }
+    BattleParams battleParams;
 
 
-    public void Init(TroopData _enemyTroop)
+    public void Init(BattleParams _battleParams)
     {
+        battleParams = _battleParams;
         ResetData();
         SetBattleState(BattleState.Init);
         InitArmyQueueData(ArmyType.player);
-        InitArmyQueueData(ArmyType.enemy, _enemyTroop);
+        InitArmyQueueData(ArmyType.enemy, battleParams.enemyTroop);
         Timer.Ins.SetTimeOut(BattleInit, 0.5f);
         InitPool();
     }
@@ -389,6 +391,8 @@ public class BattleMgr : MonoSingleton<BattleMgr>
         float distance = 10000;
         foreach (var item in enemyUnitList)
         {
+            if (item == null)
+                continue;
             float _distance = Vector3.Distance(_unitBase.transform.position, item.transform.position);
             if (nearestEnemy == null || _distance < distance)
             {
@@ -449,6 +453,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
             viewParams.closeCB = () => { SceneMgr.Ins.ChangeScene(SceneID.WorldMap); };
             UIMgr.Ins.OpenView<BattleVictoryView>(viewParams);
         }, 2);
+        battleParams.winCB?.Invoke();
     }
 
     /// <summary>
@@ -470,6 +475,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
             viewParams.closeCB = () => { SceneMgr.Ins.ChangeScene(SceneID.WorldMap); };
             UIMgr.Ins.OpenView<BattleDefeatView>(viewParams);
         }, 2);
+        battleParams.defeatCB?.Invoke();
     }
 
     /// <summary>
@@ -534,6 +540,13 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     {
         playerController.thirdPersonController.LockCameraPosition = _lock;
     }
+}
+
+public class BattleParams
+{
+    public TroopData enemyTroop;
+    public Action winCB;
+    public Action defeatCB;
 }
 
 /// <summary>

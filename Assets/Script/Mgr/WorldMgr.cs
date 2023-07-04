@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldMgr : MonoBehaviour
 {
     public static WorldMgr Ins;
-
-    bool inited = false;
 
     [Header("世界相机")]
     public WorldCamera worldCamera;
@@ -23,6 +22,7 @@ public class WorldMgr : MonoBehaviour
     public Vector2 worldSize = Vector2.zero;
     //世界时间
     public WorldDate worldDate = new WorldDate();
+    //世界单位 <wuid,WorldUnitBase>
     private Dictionary<int, WorldUnitBase> worldUnitDict = new Dictionary<int, WorldUnitBase>();
     //全部城市
     public Dictionary<int, WorldCityItem> allCityItem = new Dictionary<int, WorldCityItem>();
@@ -31,22 +31,54 @@ public class WorldMgr : MonoBehaviour
     private void Awake()
     {
         Ins = this;
-        if (!inited)
-        {
-            InitWorld();
-            worldCamera.Init();
-            InitPlayer();
-            InitTroops();
-            inited = true;
-        }
+        InitWorld();
+        worldCamera.Init();
+        InitPlayer();
+        InitTroops();
+        OnFirstEnterWorld();
         UIMgr.Ins.OpenView<TopView>();
-        CityMgr.Ins.OnFirstEnterWorld();
         StartTrade();
     }
 
     private void FixedUpdate()
     {
         worldDate.UpdateWroldTime();
+    }
+    /// <summary>
+    /// 第一次进入世界
+    /// </summary>
+    public void OnFirstEnterWorld()
+    {
+        worldDate.onNewDay += () =>
+        {
+            //刷兵();
+            foreach (var item in WorldMgr.Ins.allCityItem)
+            {
+                item.Value.cityData.RefreshRecruitUnit();
+            }
+            //发薪水
+
+            //每日收入
+
+            //重新生成商队
+            RefreshCreateTrade();
+        };
+        worldDate.onNewHour += () =>
+        {
+            CityMgr.Ins.AddInBuildingProgress();
+        };
+    }
+
+    /// <summary>
+    /// 重新生成商队
+    /// </summary>
+    public void RefreshCreateTrade()
+    {
+        foreach (var cityData in DataMgr.Ins.gameData.cityData.Values)
+        {
+            cityData.RefreshTradeTroop();
+        }
+        InitTroops();
     }
 
     /// <summary>
@@ -134,21 +166,28 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     private void InitTroops()
     {
+        Action<TroopData> action = (troopData) =>
+        {
+            Vector3 pos = new Vector3(troopData.posX, 0, troopData.posY);
+            Transform parent = transform.Find(WorldUnitType.troop.ToString());
+            WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), pos, Quaternion.identity, parent).GetComponent<WorldTroop>();
+            WorldTroop.troopData = troopData;
+            WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
+            worldUnitDict[WorldTroop.wuid] = WorldTroop;
+        };
         //生成所有部队
         foreach (var faction in DataMgr.Ins.gameData.factions)
         {
-            foreach (var troop in faction.Value.troops)
+            foreach (var troops in faction.Value.tradeTroops)
             {
-                if (troop.troopType == TroopType.Player)
+                foreach (var troopData in troops.Value)
                 {
-                    continue;
+                    if (troopData.troopType == TroopType.Player)
+                        continue;
+                    if (worldUnitDict.ContainsKey(troopData.wuid))
+                        continue;
+                    action(troopData);
                 }
-                Vector3 pos = new Vector3(troop.posX, 0, troop.posY);
-                Transform parent = transform.Find(WorldUnitType.troop.ToString());
-                WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), pos, Quaternion.identity, parent).GetComponent<WorldTroop>();
-                WorldTroop.troopData = troop;
-                WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
-                worldUnitDict[WorldTroop.wuid] = WorldTroop;
             }
         }
     }

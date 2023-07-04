@@ -84,7 +84,7 @@ public class DataMgr : Singleton<DataMgr>
                     continue;
                 FactionData factionData = new FactionData();
                 gameData.factions[factionID] = factionData;
-                foreach (var city in ConfigMgr.Ins.cityConfig.city)
+                foreach (var city in ConfigMgr.Ins.allCityConfig.city)
                 {
                     if (city.Value.factionID == factionID)
                     {
@@ -93,7 +93,7 @@ public class DataMgr : Singleton<DataMgr>
                 }
             }
             //城镇数据
-            foreach (var city in ConfigMgr.Ins.cityConfig.city)
+            foreach (var city in ConfigMgr.Ins.allCityConfig.city)
             {
                 int cityID = city.Key;
                 CityData cityData = new CityData(cityID);
@@ -101,30 +101,18 @@ public class DataMgr : Singleton<DataMgr>
                 gameData.cityData.Add(cityID, cityData);
             }
             //初始化商队数据
-            foreach (var city in ConfigMgr.Ins.cityConfig.city)
+            foreach (var config in ConfigMgr.Ins.allCityConfig.city)
             {
-                int tradeNum = city.Value.tradeCaravan_num;
-                for (int i = 0; i < tradeNum; i++)
-                {
-                    int cityID = city.Key;
-                    CityConfig cityConfig = ConfigMgr.Ins.cityConfig.city[cityID];
-                    int factionID = CityMgr.Ins.GetCityFactionID(cityID);
-                    FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
-                    TroopData troopData = new TroopData(TroopType.Trade);
-                    troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
-                    troopData.posX = cityConfig.posX;
-                    troopData.posY = cityConfig.posY + 1.5f;
-                    troopData.cityID = cityID;
-                    troopData.units = new Dictionary<int, int>(factionConfig.init_troop_unit);
-                    gameData.factions[factionID].troops.Add(troopData);
-                }
+                CityData cityData = GetCityData(config.Key);
+                cityData.RefreshTradeTroop();
             }
             //玩家军队
             TroopData playerTroop = new TroopData(TroopType.Player);
             playerTroop.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.player);
             FactionConfig playerFactionConfig = ConfigMgr.Ins.GetFactionConfig(playerFactionID);
             playerTroop.units = new Dictionary<int, int>(playerFactionConfig.init_troop_unit);
-            gameData.factions[playerFactionID].troops.Add(playerTroop);
+            FactionData playerFactionData = GetFactionData(playerFactionID);
+            playerFactionData.AddTroop(playerTroop);
             SaveGameData();
         }
     }
@@ -190,6 +178,26 @@ public class DataMgr : Singleton<DataMgr>
         DataMgr.Ins.SaveGameData();
         DataMgr.Ins.SavePlayerData();
         DataMgr.Ins.SaveSettingData();
+    }
+
+    /// <summary>
+    /// 获取派系数据
+    /// </summary>
+    /// <param name="_factionID"></param>
+    /// <returns></returns>
+    public FactionData GetFactionData(int _factionID)
+    {
+        return gameData.factions[_factionID];
+    }
+
+    /// <summary>
+    /// 获取城镇数据
+    /// </summary>
+    /// <param name="_cityID"></param>
+    /// <returns></returns>
+    public CityData GetCityData(int _cityID)
+    {
+        return gameData.cityData[_cityID];
     }
 }
 

@@ -70,9 +70,17 @@ public class WorldPlayer : WorldUnitBase
             case NavPurpose.troop:
                 WorldTroop worldTroop = _navData.targetUnit as WorldTroop;
                 Debug.Log("玩家访问到部队:" + worldTroop.wuid);
+                DataMgr.Ins.SaveAllData();
                 SceneMgr.Ins.ChangeScene(SceneID.BattleField, () =>
                 {
-                    BattleMgr.Ins.Init(worldTroop.troopData);
+                    BattleParams battleParams = new BattleParams();
+                    battleParams.enemyTroop = worldTroop.troopData;
+                    battleParams.winCB = () =>
+                    {
+                        int factionID = CommonMgr.Ins.GetCityFactionID(worldTroop.troopData.cityID);
+                        CommonMgr.Ins.RemoveFactionTrade(factionID, battleParams.enemyTroop);
+                    };
+                    BattleMgr.Ins.Init(battleParams);
                 });
                 break;
         }

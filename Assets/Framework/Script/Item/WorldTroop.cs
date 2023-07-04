@@ -98,7 +98,7 @@ public class WorldTroop : WorldUnitBase
     int GetRandomTradeCityGUID()
     {
         List<int> cityIDs = new List<int>();
-        foreach (var item in ConfigMgr.Ins.cityConfig.city)
+        foreach (var item in ConfigMgr.Ins.allCityConfig.city)
         {
             cityIDs.Add(item.Key);
         }

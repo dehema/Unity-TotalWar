@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.Playables;
 
 /// <summary>
 /// 据点数据
@@ -14,7 +15,7 @@ public class CityData
     /// <summary>
     /// 城镇ID
     /// </summary>
-    public int cityID; 
+    public int cityID;
     /// <summary>
     /// 世界唯一ID
     /// </summary>
@@ -48,8 +49,7 @@ public class CityData
     public CityData(int _cityID)
     {
         cityID = _cityID;
-        CityConfig cityConfig = CityMgr.Ins.GetCityConfig(cityID);
-        factionID = CityMgr.Ins.GetCityFactionID(cityID);
+        factionID = CommonMgr.Ins.GetCityFactionID(cityID);
         FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
         //填充默认建筑
         foreach (int buildingID in factionConfig.initial_Building)
@@ -115,6 +115,30 @@ public class CityData
         }
         CityConfig cityConfig = CityMgr.Ins.GetCityConfig(cityID);
         Utility.Dump(recruitUnit, $"城镇{LangMgr.Ins.Get(cityConfig.name)}每日刷洗招募士兵");
+    }
+
+    /// <summary>
+    /// 刷新商队数据
+    /// </summary>
+    public void RefreshTradeTroop()
+    {
+        CityConfig config = ConfigMgr.Ins.GetCityConfig(cityID);
+        int tradeConfigNum = config.tradeCaravan_num;
+        int tradeNum = CommonMgr.Ins.GetCityTradeTotalNum(cityID);
+
+        for (int i = 0; i < tradeConfigNum - tradeNum; i++)
+        {
+            CityConfig cityConfig = ConfigMgr.Ins.allCityConfig.city[cityID];
+            int factionID = CommonMgr.Ins.GetCityFactionID(cityID);
+            FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
+            TroopData troopData = new TroopData(TroopType.Trade);
+            troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
+            troopData.posX = cityConfig.posX;
+            troopData.posY = cityConfig.posY + 1.5f;
+            troopData.cityID = cityID;
+            troopData.units = new Dictionary<int, int>(factionConfig.init_troop_unit);
+            DataMgr.Ins.gameData.factions[factionID].AddTradeTroop(factionID, troopData);
+        }
     }
 }
 

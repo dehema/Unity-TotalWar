@@ -42,7 +42,7 @@ public class WorldUnitBase : MonoBehaviour
         //UI
         if (worldUnitType == WorldUnitType.troop)
         {
-            int factionID = CityMgr.Ins.GetCityFactionID((this as WorldTroop).troopData.cityID);
+            int factionID = CommonMgr.Ins.GetCityFactionID((this as WorldTroop).troopData.cityID);
             FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
             spriteRenderer.sprite = Resources.Load<Sprite>("UI/troopIcon/troopIcon_" + (int)factionConfig.raceID);
         }

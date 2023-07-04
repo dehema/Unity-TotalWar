@@ -13,7 +13,7 @@ public class ConfigMgr : MonoSingleton<ConfigMgr>
     public ImageTextMixConfig imageTextMix;
     public GameSettingConfig settingConfig;
     public AllUnitConfig allUnitConfig;
-    public AllCityConfig cityConfig;
+    public AllCityConfig allCityConfig;
     public WorldConfig worldConfig;
     public AllFactionConfig factionConfig;
 
@@ -26,7 +26,7 @@ public class ConfigMgr : MonoSingleton<ConfigMgr>
         imageTextMix = LoadConfig<ImageTextMixConfig>("ImageTextMix");
         settingConfig = LoadConfig<GameSettingConfig>("Setting");
         allUnitConfig = LoadConfig<AllUnitConfig>("Unit");
-        cityConfig = LoadConfig<AllCityConfig>("City");
+        allCityConfig = LoadConfig<AllCityConfig>("City");
         worldConfig = LoadConfig<WorldConfig>("World");
         factionConfig = LoadConfig<AllFactionConfig>("Faction");
         AllLoadComplete();
@@ -86,6 +86,15 @@ public class ConfigMgr : MonoSingleton<ConfigMgr>
         Utility.Dump(config);
         UIViewConfig UIViewConfig = deserializer.Deserialize<UIViewConfig>(config);
         return UIViewConfig;
+    }
+
+    /// <summary>
+    /// ∂¡»°≥«’Ú≈‰÷√
+    /// </summary>
+    /// <returns></returns>
+    public CityConfig GetCityConfig(int _cityID)
+    {
+        return allCityConfig.city[_cityID];
     }
 
     /// <summary>
