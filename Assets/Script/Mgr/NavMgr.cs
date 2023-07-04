@@ -39,7 +39,7 @@ public class NavMgr : MonoSingleton<NavMgr>
     //上个寻路结束的ID
     public void Update()
     {
-        for (int i = navDict.Count - 1; i >= 0; i--)
+        for (int i = 0; i < navDict.Count; i++)
         {
             var ele = navDict.ElementAt(i);
             NavData navData = ele.Value;
@@ -48,6 +48,7 @@ public class NavMgr : MonoSingleton<NavMgr>
             {
                 int wuid = ele.Key;
                 navDict.Remove(wuid);
+                i--;
                 navData.selfUnit.OnNavArrive(navData);
             }
             else

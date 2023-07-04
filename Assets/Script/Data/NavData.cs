@@ -71,7 +71,7 @@ public class NavData
     {
         if (targetUnit != null)
         {
-            navAgent.SetDestination(targetUnit.transform.position);
+            navAgent.SetDestination(new Vector3(targetUnit.transform.position.x, 0, targetUnit.transform.position.z));
         }
         else
         {
