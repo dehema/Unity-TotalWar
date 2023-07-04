@@ -9,9 +9,9 @@
     /// </summary>
     Orc = 2,
     /// <summary>
-    /// 精灵
+    /// 高等精灵
     /// </summary>
-    Elf = 3,
+    HighElf = 3,
     /// <summary>
     /// 野蛮人
     /// </summary>
