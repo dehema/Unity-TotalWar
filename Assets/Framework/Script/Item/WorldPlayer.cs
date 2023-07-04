@@ -72,7 +72,7 @@ public class WorldPlayer : WorldUnitBase
                 Debug.Log("玩家访问到部队:" + worldTroop.wuid);
                 SceneMgr.Ins.ChangeScene(SceneID.BattleField, () =>
                 {
-                    BattleMgr.Ins.Init();
+                    BattleMgr.Ins.Init(worldTroop.troopData);
                 });
                 break;
         }

@@ -109,17 +109,21 @@ public class DataMgr : Singleton<DataMgr>
                     int cityID = city.Key;
                     CityConfig cityConfig = ConfigMgr.Ins.cityConfig.city[cityID];
                     int factionID = CityMgr.Ins.GetCityFactionID(cityID);
+                    FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
                     TroopData troopData = new TroopData(TroopType.Trade);
                     troopData.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.troop);
                     troopData.posX = cityConfig.posX;
                     troopData.posY = cityConfig.posY + 1.5f;
                     troopData.cityID = cityID;
+                    troopData.units = new Dictionary<int, int>(factionConfig.init_troop_unit);
                     gameData.factions[factionID].troops.Add(troopData);
                 }
             }
             //Íæ¼Ò¾ü¶Ó
             TroopData playerTroop = new TroopData(TroopType.Player);
             playerTroop.wuid = CommonMgr.Ins.GetWUID(WorldUnitType.player);
+            FactionConfig playerFactionConfig = ConfigMgr.Ins.GetFactionConfig(playerFactionID);
+            playerTroop.units = new Dictionary<int, int>(playerFactionConfig.init_troop_unit);
             gameData.factions[playerFactionID].troops.Add(playerTroop);
             SaveGameData();
         }

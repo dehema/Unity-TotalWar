@@ -22,14 +22,13 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     /// <summary>
     /// 双方单位数量上限
     /// </summary>
-    private int UnitNumLimitOnField { get { return 3; } }
+    private int UnitNumLimitOnField { get { return 5; } }
 
 
-    public void Init(TroopData _enemyTroop = null)
+    public void Init(TroopData _enemyTroop)
     {
         ResetData();
         SetBattleState(BattleState.Init);
-        _enemyTroop = DebugInitUnits();
         InitArmyQueueData(ArmyType.player);
         InitArmyQueueData(ArmyType.enemy, _enemyTroop);
         Timer.Ins.SetTimeOut(BattleInit, 0.5f);
@@ -92,7 +91,7 @@ public class BattleMgr : MonoSingleton<BattleMgr>
     /// 调试初始化初始单位
     /// </summary>
     /// <returns></returns>
-    private TroopData DebugInitUnits()
+    public TroopData DebugInitUnits()
     {
         int _unitNum = 5;
         //我军

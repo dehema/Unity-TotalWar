@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,11 +44,20 @@ public class FactionConfig
     /// 初始可显示的
     /// </summary>
     public List<int> initial_Building = new List<int>();
+    /// <summary>
+    /// 初始部队单位
+    /// </summary>
+    public string _init_troop_unit;
+    /// <summary>
+    /// 初始部队单位
+    /// </summary>
+    public Dictionary<int, int> init_troop_unit = new Dictionary<int, int>();
 
     public void Init()
     {
         Array.ForEach(_defaultBuilding.Split(','), val => { defaultBuilding.Add(int.Parse(val)); });
         Array.ForEach(_initial_Building.Split(','), val => { initial_Building.Add(int.Parse(val)); });
+        init_troop_unit = JsonConvert.DeserializeObject<Dictionary<int, int>>(_init_troop_unit);
     }
 }
 

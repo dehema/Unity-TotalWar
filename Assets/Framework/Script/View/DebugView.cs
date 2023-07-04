@@ -70,7 +70,7 @@ public partial class DebugView : BaseView
         Close();
         SceneMgr.Ins.ChangeScene(SceneID.BattleField, () =>
         {
-            BattleMgr.Ins.Init();
+            BattleMgr.Ins.Init(BattleMgr.Ins.DebugInitUnits());
         });
     }
 }

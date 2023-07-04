@@ -18,7 +18,7 @@ public class BattleSceneMgr : MonoBehaviour
     /// <summary>
     /// ³öÉú°ë¾¶
     /// </summary>
-    public const float birthSize = 4;
+    public const float birthSize = 6;
 
     public void Awake()
     {

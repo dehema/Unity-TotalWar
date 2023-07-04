@@ -24,6 +24,8 @@ public class WorldMgr : MonoBehaviour
     //世界时间
     public WorldDate worldDate = new WorldDate();
     private Dictionary<int, WorldUnitBase> worldUnitDict = new Dictionary<int, WorldUnitBase>();
+    //全部城市
+    public Dictionary<int, WorldCityItem> allCityItem = new Dictionary<int, WorldCityItem>();
 
 
     private void Awake()
@@ -95,7 +97,7 @@ public class WorldMgr : MonoBehaviour
             WorldCityItem city = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_city), transform).GetComponent<WorldCityItem>();
             city.transform.SetParent(transform.Find(WorldUnitType.city.ToString()));
             city.Init(new WorldUnitBaseParams(WorldUnitType.city), config.Value);
-            CityMgr.Ins.allCityItem.Add(cityID, city);
+            allCityItem.Add(cityID, city);
             worldUnitDict.Add(CommonMgr.Ins.GetCityWUID(cityID), city);
         }
     }

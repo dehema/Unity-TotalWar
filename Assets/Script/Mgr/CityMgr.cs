@@ -11,7 +11,6 @@ using static UnityEditor.Progress;
 public class CityMgr : MonoSingleton<CityMgr>
 {
     public AllCityConfig allCityConfig { get { return ConfigMgr.Ins.cityConfig; } }
-    public Dictionary<int, WorldCityItem> allCityItem = new Dictionary<int, WorldCityItem>();
 
     /// <summary>
     /// 第一次进入世界
@@ -21,7 +20,7 @@ public class CityMgr : MonoSingleton<CityMgr>
         WorldMgr.Ins.worldDate.onNewDay += () =>
         {
             //刷兵();
-            foreach (var item in allCityItem)
+            foreach (var item in WorldMgr.Ins.allCityItem)
             {
                 item.Value.cityData.RefreshRecruitUnit();
             }
