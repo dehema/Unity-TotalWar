@@ -44,7 +44,7 @@ public class EditorAudioVolume : EditorWindow
         }
     }
 
-    [MenuItem("柏木/音频文件音量大小调整")]
+    [MenuItem("开发工具/音频文件音量大小调整")]
     static void OpenMainWindow()
     {
         EditorAudioVolume window = GetWindow<EditorAudioVolume>();

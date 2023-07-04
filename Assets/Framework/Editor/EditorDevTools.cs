@@ -14,7 +14,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using UnityEditor.Callbacks;
 
-public class EditorBaimu : EditorWindow
+public class EditorDevTools : EditorWindow
 {
     static GUILayoutOption[] commonLayout = { GUILayout.Height(30) };
     public static GUIStyle titleLabelStyle;
@@ -26,10 +26,10 @@ public class EditorBaimu : EditorWindow
         titleLabelStyle = new GUIStyle() { fontSize = 20, alignment = TextAnchor.MiddleCenter };
     }
 
-    [MenuItem("柏木/开发工具")]
+    [MenuItem("开发工具/开发工具")]
     static void OpenMainWindow()
     {
-        EditorBaimu window = GetWindow<EditorBaimu>();
+        EditorDevTools window = GetWindow<EditorDevTools>();
         window.titleContent = new GUIContent("BM Development Tools");
         window.position = new Rect(400, 100, 640, 480);
         window.Show();
@@ -37,7 +37,7 @@ public class EditorBaimu : EditorWindow
 
     public static string GetEditorScriptPath()
     {
-        return Application.dataPath + "/Script/Editor/EditorBaimu.cs";
+        return Application.dataPath + "/Script/Editor/EditorDevTools.cs";
     }
 
     Vector2 scrollPosition;
@@ -233,12 +233,12 @@ public class EditorBaimu : EditorWindow
         GUILayout.EndHorizontal();
     }
 
-    [MenuItem("柏木/重启 %R")]
+    [MenuItem("开发工具/重启 %R")]
     static void ResetGame()
     {
         if (Application.isPlaying)
         {
-            EditorWindow.GetWindow<EditorBaimu>()._ResetGame();
+            EditorWindow.GetWindow<EditorDevTools>()._ResetGame();
         }
         else
         {
