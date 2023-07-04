@@ -39,7 +39,7 @@ public class CityConfig
     public float posY;
     public string icon;
     /// <summary>
-    /// ÷÷◊ÂID
+    /// ≈…œµID
     /// </summary>
     public int factionID;
     /// <summary>

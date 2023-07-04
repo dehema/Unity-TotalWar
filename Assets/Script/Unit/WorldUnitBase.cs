@@ -14,8 +14,8 @@ public class WorldUnitBase : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     //世界单位配置
     WorldUnitConfig worldUnitConfig;
+    protected Transform icon;
     //显示图标
-    Transform icon;
     //获取世界单位类型
     public WorldUnitType worldUnitType = WorldUnitType.player;
 
@@ -34,12 +34,18 @@ public class WorldUnitBase : MonoBehaviour
         worldUnitBaseParams = _params[0] as WorldUnitBaseParams;
         worldUnitType = worldUnitBaseParams.worldUnitType;
         worldUnitConfig = ConfigMgr.Ins.worldConfig.Unit[worldUnitType];
-        //component
-        nav = GetComponent<NavMeshAgent>();
-        icon = transform.Find("icon");
         isMoving = false;
+        //component
+        icon = transform.Find("icon");
+        nav = GetComponent<NavMeshAgent>();
         spriteRenderer = icon.GetComponent<SpriteRenderer>();
         //UI
+        if (worldUnitType == WorldUnitType.troop)
+        {
+            int factionID = CityMgr.Ins.GetCityFactionID((this as WorldTroop).troopData.cityID);
+            FactionConfig factionConfig = ConfigMgr.Ins.GetFactionConfig(factionID);
+            spriteRenderer.sprite = Resources.Load<Sprite>("UI/troopIcon/troopIcon_" + (int)factionConfig.raceID);
+        }
         RefrehIconUI();
         RefrehNavIconUI();
     }

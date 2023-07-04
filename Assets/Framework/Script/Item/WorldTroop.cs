@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class WorldTroop : WorldUnitBase
 {
@@ -11,7 +12,6 @@ public class WorldTroop : WorldUnitBase
     public override void Init(params object[] _params)
     {
         base.Init(_params);
-        //transform.position += new Vector3(0, posYOffset, 0);
         InitNav();
     }
 

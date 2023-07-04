@@ -144,8 +144,8 @@ public class WorldMgr : MonoBehaviour
                 Vector3 pos = new Vector3(troop.posX, 0, troop.posY);
                 Transform parent = transform.Find(WorldUnitType.troop.ToString());
                 WorldTroop WorldTroop = Instantiate(Resources.Load<GameObject>(PrefabPath.prefab_wrold_troop), pos, Quaternion.identity, parent).GetComponent<WorldTroop>();
-                WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
                 WorldTroop.troopData = troop;
+                WorldTroop.Init(new WorldUnitBaseParams(WorldUnitType.troop));
                 worldUnitDict[WorldTroop.wuid] = WorldTroop;
             }
         }
