@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleFieldCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 4348455764921273744, guid: 5f88f0173db281f42a47c037f28d2716, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4348455764921273745, guid: 5f88f0173db281f42a47c037f28d2716, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f88f0173db281f42a47c037f28d2716, type: 3}
