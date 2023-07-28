@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class CityMgr : MonoSingleton<CityMgr>
 {
