@@ -182,6 +182,7 @@ public class WorldMgr : MonoBehaviour
             {
                 foreach (var troopData in troops.Value)
                 {
+                    //玩家军队不在这里生成
                     if (troopData.troopType == TroopType.Player)
                         continue;
                     if (worldUnitDict.ContainsKey(troopData.wuid))

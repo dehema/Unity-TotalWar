@@ -26,8 +26,8 @@ public class PlayerController : UnitBase
         //Íæ¼ÒÊý¾Ý
         unitData = new UnitData();
         unitData.attack = 30;
-        UnitHpMax = 1000;
-        UnitHp = 1000;
+        UnitHpMax = 200;
+        UnitHp = 200;
         unitData.unitCreateIndex = "PlayerSelf";
         unitConfig = new UnitConfig();
         unitConfig.type = UnitType.Player;
