@@ -32,4 +32,6 @@ public class ViewName
 	public const string EscView = "EscView";
 	public const string SettingView = "SettingView";
 	public const string CityInfoView = "CityInfoView";
+	public const string BattleVictoryView = "BattleVictoryView";
+	public const string BattleDefeatView = "BattleDefeatView";
 }

@@ -108,3 +108,8 @@ view:
         comment: 战斗失败
         layer: PopUI
         bgColor: "#000000B0"
+    TechView:
+        comment: 科技
+        layer: PopUI
+        bgColor: "#000000B0"
+        escClose: true
