@@ -15,6 +15,10 @@ public partial class TechView : BaseView
     public GameObject content;
     [HideInInspector]
     public RectTransform content_Rect;
+    [HideInInspector]
+    public GameObject btClose;
+    [HideInInspector]
+    public Button btClose_Button;
 
     internal override void _LoadUI()    
     {
@@ -24,5 +28,7 @@ public partial class TechView : BaseView
         bg_Button = bg.GetComponent<Button>();
         content = transform.Find("$content#Rect").gameObject;
         content_Rect = content.GetComponent<RectTransform>();
+        btClose = transform.Find("$content#Rect/pop/$btClose#Button").gameObject;
+        btClose_Button = btClose.GetComponent<Button>();
     }
 }

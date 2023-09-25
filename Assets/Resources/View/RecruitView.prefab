@@ -1331,7 +1331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Heroes
+  m_Text: "\u57CE\u9547\u540D\u79F0"
 --- !u!114 &746132870647431501
 MonoBehaviour:
   m_ObjectHideFlags: 0

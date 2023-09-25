@@ -128,6 +128,8 @@ public class EditorDevTools : EditorWindow
             string path = Directory.GetParent(Application.dataPath).FullName + @"\Product\StaticData";
             System.Diagnostics.Process.Start("Explorer.exe", path);
         }
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
         if (GUILayout.Button("¥Úø™∂‡”Ô—‘≈‰÷√"))
         {
             string langName = Application.systemLanguage.ToString();

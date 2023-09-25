@@ -113,3 +113,9 @@ view:
         layer: PopUI
         bgColor: "#000000B0"
         escClose: true
+    TechInfoView:
+        comment: 科技详情
+        layer: PopUI
+        bgColor: "#000000B0"
+        escClose: true
+        bgClose: true

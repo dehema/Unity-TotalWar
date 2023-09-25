@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using UnityEngine;
+
 using UnityEngine.AI;
 using UnityEngine.UI;
 
@@ -33,7 +33,7 @@ public class WorldTroop : WorldUnitBase
 
     public void OnClick()
     {
-        Utility.Dump($"µã»÷²¿¶Ó{wuid}");
+        Utility.Dump($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½{wuid}");
         WorldMgr.Ins.worldPlayer.MoveToWorldUnit(this, NavPurpose.troop);
     }
 
@@ -92,7 +92,7 @@ public class WorldTroop : WorldUnitBase
     }
 
     /// <summary>
-    /// Ëæ»ú»ñÈ¡Ã³Ò×³ÇÊÐ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ã³ï¿½×³ï¿½ï¿½ï¿½
     /// </summary>
     /// <returns></returns>
     int GetRandomTradeCityGUID()

@@ -34,4 +34,6 @@ public class ViewName
 	public const string CityInfoView = "CityInfoView";
 	public const string BattleVictoryView = "BattleVictoryView";
 	public const string BattleDefeatView = "BattleDefeatView";
+	public const string TechView = "TechView";
+	public const string TechInfoView = "TechInfoView";
 }

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -198,6 +199,16 @@ public class DataMgr : Singleton<DataMgr>
     public CityData GetCityData(int _cityID)
     {
         return gameData.cityData[_cityID];
+    }
+
+    /// <summary>
+    /// 获取科技数据
+    /// </summary>
+    /// <param name="_techID"></param>
+    /// <returns></returns>
+    public TechData GetTechData(int _techID)
+    {
+        return new TechData();
     }
 }
 

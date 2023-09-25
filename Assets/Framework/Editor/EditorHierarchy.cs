@@ -27,6 +27,12 @@ public class EditorHierarchy
         CreatePrefab("EditorHierarchy/TextButton");
     }
 
+    [MenuItem("GameObject/自定义组件/文本标题", priority = 3)]
+    public static void CreateTextTitle()
+    {
+        CreatePrefab("EditorHierarchy/Title");
+    }
+
     private static void CreatePrefab(string _path)
     {
         Object obj = Selection.activeObject;
