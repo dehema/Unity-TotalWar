@@ -25,6 +25,7 @@ public partial class TopView : BaseView
         btTimePause_Button.SetButton(() => { OnClickTimeSpeed(TimeSpeed.pause); });
         btTimeNormal_Button.SetButton(() => { OnClickTimeSpeed(TimeSpeed.normal); });
         btTimeQuick_Button.SetButton(() => { OnClickTimeSpeed(TimeSpeed.quick); });
+        tech_Button.SetButton(() => { UIMgr.Ins.OpenView<TechView>(); });
         debugAddGold1K_Button.SetButton(() => { ResMgr.Ins.AddRes(ResType.gold, 1000); DataMgr.Ins.SavePlayerData(); });
         //UI
         RefreshTimeSpeedUI();

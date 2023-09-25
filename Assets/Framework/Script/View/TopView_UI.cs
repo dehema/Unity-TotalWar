@@ -70,6 +70,10 @@ public partial class TopView : BaseView
     [HideInInspector]
     public GameObject btTimeQuick_light;
     [HideInInspector]
+    public GameObject tech;
+    [HideInInspector]
+    public Button tech_Button;
+    [HideInInspector]
     public GameObject right;
     [HideInInspector]
     public RectTransform right_Rect;
@@ -109,6 +113,8 @@ public partial class TopView : BaseView
         btTimeQuick = transform.Find("$content#Rect/bottom/timeSpeed/$btTimeQuick#Button").gameObject;
         btTimeQuick_Button = btTimeQuick.GetComponent<Button>();
         btTimeQuick_light = transform.Find("$content#Rect/bottom/timeSpeed/$btTimeQuick#Button/$btTimeQuick_light").gameObject;
+        tech = transform.Find("$content#Rect/bottom/$tech#Button").gameObject;
+        tech_Button = tech.GetComponent<Button>();
         right = transform.Find("$content#Rect/$right#Rect").gameObject;
         right_Rect = right.GetComponent<RectTransform>();
     }

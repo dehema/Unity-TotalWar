@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,16 @@ using UnityEngine;
 public partial class TechInfoView : BaseView
 {
     TechInfoViewParams viewParams;
-    TechData techData;
+    TechConfig techData;
 
     public override void Init(params object[] _params)
     {
         base.Init(_params);
-        btLear_Button.SetButton(Close);
+        btLear_Button.SetButton(() =>
+        {
+            Close();
+            viewParams.learnCB.Invoke();
+        });
     }
 
     public override void OnOpen(params object[] _params)
@@ -20,6 +25,7 @@ public partial class TechInfoView : BaseView
         techData = DataMgr.Ins.GetTechData(viewParams.techID);
         techName_Text.text = LangMgr.Ins.Get(techData.techName);
         techDesc_Text.text = LangMgr.Ins.Get(techData.techDesc);
+        cost_Text.text = techData.cost.ToString();
     }
 }
 
@@ -27,4 +33,5 @@ public partial class TechInfoView : BaseView
 public class TechInfoViewParams
 {
     public int techID;
+    public Action learnCB;
 }

@@ -24,6 +24,10 @@ public partial class TechInfoView : BaseView
     [HideInInspector]
     public Text techDesc_Text;
     [HideInInspector]
+    public GameObject cost;
+    [HideInInspector]
+    public Text cost_Text;
+    [HideInInspector]
     public GameObject btLear;
     [HideInInspector]
     public Button btLear_Button;
@@ -40,6 +44,8 @@ public partial class TechInfoView : BaseView
         techName_Text = techName.GetComponent<Text>();
         techDesc = transform.Find("$content#Rect/info/$techDesc#Text").gameObject;
         techDesc_Text = techDesc.GetComponent<Text>();
+        cost = transform.Find("$content#Rect/info/iconCost/$cost#Text").gameObject;
+        cost_Text = cost.GetComponent<Text>();
         btLear = transform.Find("$content#Rect/info/$btLear#Button").gameObject;
         btLear_Button = btLear.GetComponent<Button>();
     }

@@ -9,17 +9,21 @@ public class TechItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     int teckID;
     GameObject goLight;
+    GameObject goRight;
 
     void Awake()
     {
         GetComponent<Button>().SetButton(OnButtonClick);
         goLight = transform.Find("light").gameObject;
+        goRight = transform.Find("right").gameObject;
+        goRight.SetActive(false);
     }
 
     void OnButtonClick()
     {
         TechInfoViewParams viewParams = new TechInfoViewParams();
         viewParams.techID = teckID;
+        viewParams.learnCB = () => { goRight.SetActive(true); };
         UIMgr.Ins.OpenView<TechInfoView>(viewParams);
     }
 

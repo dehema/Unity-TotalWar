@@ -206,9 +206,9 @@ public class DataMgr : Singleton<DataMgr>
     /// </summary>
     /// <param name="_techID"></param>
     /// <returns></returns>
-    public TechData GetTechData(int _techID)
+    public TechConfig GetTechData(int _techID)
     {
-        return new TechData();
+        return ConfigMgr.Ins.techConfig.tech[_techID];
     }
 }
 
