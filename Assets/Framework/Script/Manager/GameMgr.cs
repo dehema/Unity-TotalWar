@@ -32,13 +32,36 @@ public class GameMgr : MonoBehaviour
         }
         else
         {
+            InitGame();
+        }
+    }
+
+    public void InitGame()
+    {
+        if (!DataMgr.Ins.gameData.isRoleInit)
+        {
+            InitRole();
+        }
+        else
+        {
             StartGame();
         }
     }
 
     public void StartGame()
     {
-        SceneMgr.Ins.ChangeScene(SceneID.WorldMap, () => { EnterGame(); });
+        SceneMgr.Ins.ChangeScene(SceneID.WorldMap, () =>
+        {
+            EnterGame();
+        });
+    }
+
+    /// <summary>
+    /// 初始化角色
+    /// </summary>
+    public void InitRole()
+    {
+        UIMgr.Ins.OpenView<ChooseFactionView>();
     }
 
     /// <summary>

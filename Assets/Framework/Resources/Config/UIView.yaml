@@ -119,3 +119,6 @@ view:
         bgColor: "#000000B0"
         escClose: true
         bgClose: true
+    ChooseFactionView:
+        comment: 选择派系
+        layer: NormalUI

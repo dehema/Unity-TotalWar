@@ -22,7 +22,7 @@ public partial class DebugView : BaseView
     public void OnClickStartGame()
     {
         btStartGame_Button.interactable = false;
-        GameMgr.Ins.StartGame();
+        GameMgr.Ins.InitGame();
         Close();
     }
 

@@ -59,4 +59,16 @@ public class GameData
     /// 派系数据
     /// </summary>
     public Dictionary<int, FactionData> factions = new Dictionary<int, FactionData>();
+    /// <summary>
+    /// 角色是否完成初始化
+    /// </summary>
+    public bool isRoleInit = false;
+    /// <summary>
+    /// 玩家种族
+    /// </summary>
+    public int roleRace;
+    /// <summary>
+    /// 玩家派系
+    /// </summary>
+    public int roleFaction;
 }

@@ -63,7 +63,7 @@ public class EditorTranslate : MonoBehaviour
         }
         string transFileTxt = JsonConvert.SerializeObject(newEnglishDict);
         File.WriteAllText(EditorDevTools.GetLangPath(SystemLanguage.English), transFileTxt);
-        Debug.Log("翻译完成");
+        Debug.Log("翻译完成,共翻译" + transLangKey.Count + "个多语言");
     }
 
     static Dictionary<string, string> ReadChineseJson(SystemLanguage language)

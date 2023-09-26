@@ -166,7 +166,7 @@ public class WorldMgr : MonoBehaviour
     /// </summary>
     private void InitTroops()
     {
-        Action<TroopData> action = (troopData) =>
+        Action<TroopData> CreateTroop = (troopData) =>
         {
             Vector3 pos = new Vector3(troopData.posX, 0, troopData.posY);
             Transform parent = transform.Find(WorldUnitType.troop.ToString());
@@ -187,7 +187,7 @@ public class WorldMgr : MonoBehaviour
                         continue;
                     if (worldUnitDict.ContainsKey(troopData.wuid))
                         continue;
-                    action(troopData);
+                    CreateTroop(troopData);
                 }
             }
         }

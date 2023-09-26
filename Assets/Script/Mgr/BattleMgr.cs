@@ -454,6 +454,10 @@ public class BattleMgr : MonoSingleton<BattleMgr>
             UIMgr.Ins.OpenView<BattleVictoryView>(viewParams);
         }, 2);
         battleParams.winCB?.Invoke();
+
+        //战利品
+        DataMgr.Ins.playerData.gold.Value += 100;
+        DataMgr.Ins.playerData.exp.Value += 100;
     }
 
     /// <summary>

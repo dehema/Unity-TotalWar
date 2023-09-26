@@ -36,4 +36,5 @@ public class ViewName
 	public const string BattleDefeatView = "BattleDefeatView";
 	public const string TechView = "TechView";
 	public const string TechInfoView = "TechInfoView";
+	public const string ChooseFactionView = "ChooseFactionView";
 }

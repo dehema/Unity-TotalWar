@@ -36,6 +36,7 @@ public class DataMgr : Singleton<DataMgr>
         if (string.IsNullOrEmpty(playerDataStr))
         {
             playerData.playerName.Value = "dehema";
+            playerData.level.Value = 1;
             SavePlayerData();
         }
         else
