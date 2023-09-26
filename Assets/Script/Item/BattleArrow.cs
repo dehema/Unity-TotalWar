@@ -52,8 +52,8 @@ public class BattleArrow : PoolItemBase3D
         float height = Mathf.Abs(transform.position.y - shootTarget.transform.position.y);
         float heightAngle = height * flyTime * angleSpeed / 20;
         transform.eulerAngles = startPos.eulerAngles - new Vector3(0, 0, startAngle + heightAngle);
-        //增加一个随机角度
-        transform.eulerAngles += new Vector3(0, Random.Range(-0.5f, 0.5f), Random.Range(-2f, 0.5f));
+        //增加一个随机角度 Z(a,b)a越小落点越高，b越大落点越低
+        transform.eulerAngles += new Vector3(0, Random.Range(-0.5f, 0.5f), Random.Range(-1f, 5f));
         isEnable = true;
     }
 
