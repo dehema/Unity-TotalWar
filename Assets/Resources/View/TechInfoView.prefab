@@ -753,6 +753,8 @@ MonoBehaviour:
   techName_Text: {fileID: 0}
   techDesc: {fileID: 0}
   techDesc_Text: {fileID: 0}
+  cost: {fileID: 0}
+  cost_Text: {fileID: 0}
   btLear: {fileID: 0}
   btLear_Button: {fileID: 0}
 --- !u!1 &8034499682623673137

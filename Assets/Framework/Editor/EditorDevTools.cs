@@ -13,6 +13,7 @@ using System.Collections;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using UnityEditor.Callbacks;
+using static UnityEditor.PlayerSettings.Switch;
 
 public class EditorDevTools : EditorWindow
 {
@@ -141,6 +142,10 @@ public class EditorDevTools : EditorWindow
             Debug.Log(path);
             EditorUtility.OpenWithDefaultApp(path);
         }
+        if (GUILayout.Button("∂‡”Ô—‘∫∫“Î”¢"))
+        {
+            EditorTranslate.OnClickTranslateLanguage();
+        }
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         if (EditorApplication.isPlaying)
@@ -155,6 +160,11 @@ public class EditorDevTools : EditorWindow
             }
         }
         GUILayout.EndHorizontal();
+    }
+
+    public static string GetLangPath(SystemLanguage language)
+    {
+        return Application.streamingAssetsPath + $"/Lang/{language}.json";
     }
 
     bool audit = false;

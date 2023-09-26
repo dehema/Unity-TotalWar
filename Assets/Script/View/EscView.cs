@@ -7,7 +7,6 @@ using UnityEngine.SocialPlatforms;
 
 public partial class EscView : BaseView
 {
-    float timeScale = 1;
 
     public override void Init(params object[] _params)
     {
@@ -23,8 +22,6 @@ public partial class EscView : BaseView
     {
         base.OnOpen(_params);
         //控制时间流速
-        timeScale = Time.timeScale;
-        Time.timeScale = 0;
         WorldMgr.Ins?.worldDate.SetTimeSpeed(TimeSpeed.pause);
         //锁定战场玩家视角
         if (SceneMgr.Ins.IsBattleField)
@@ -36,8 +33,6 @@ public partial class EscView : BaseView
     public override void OnClose(Action _cb)
     {
         base.OnClose(_cb);
-        //控制时间流速
-        Time.timeScale = timeScale;
         //锁定战场玩家视角
         if (SceneMgr.Ins.IsBattleField)
         {

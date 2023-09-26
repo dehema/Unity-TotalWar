@@ -15,6 +15,7 @@ public class MainMgr : MonoBehaviour
 
     void Start()
     {
+        GameInit();
     }
 
     public void GameInit()

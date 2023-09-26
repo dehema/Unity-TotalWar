@@ -69,7 +69,6 @@ public partial class SettingView : BaseView
     private void ShowLangContent(bool _isShow)
     {
         isLangContentShow = _isShow;
-        langContent.transform.DOKill();
         if (_isShow)
         {
             langPool.CollectAll();
@@ -95,11 +94,11 @@ public partial class SettingView : BaseView
                 text.text = LangMgr.Ins.GetLanguageName(lang);
                 langNum++;
             }
-            langContent_Rect.DOSizeDelta(new Vector2(langTemp_Rect.rect.width, langTemp_Rect.rect.height * langNum), 0.5f);
+            langContent.SetActive(true);
         }
         else
         {
-            langContent_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+            langContent.SetActive(false);
         }
     }
 }

@@ -6902,7 +6902,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6218\u529B"
+  m_Text: 
 --- !u!114 &6478141425063453037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22434,6 +22434,8 @@ MonoBehaviour:
   btTimeQuick: {fileID: 0}
   btTimeQuick_Button: {fileID: 0}
   btTimeQuick_light: {fileID: 0}
+  tech: {fileID: 0}
+  tech_Button: {fileID: 0}
   right: {fileID: 0}
   right_Rect: {fileID: 0}
 --- !u!223 &290176415120485816
