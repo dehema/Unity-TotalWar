@@ -33,7 +33,7 @@ public class WorldTroop : WorldUnitBase
 
     public void OnClick()
     {
-        Utility.Dump($"�������{wuid}");
+        Utility.Dump($"点击部队{wuid}");
         WorldMgr.Ins.worldPlayer.MoveToWorldUnit(this, NavPurpose.troop);
     }
 
@@ -92,7 +92,7 @@ public class WorldTroop : WorldUnitBase
     }
 
     /// <summary>
-    /// �����ȡó�׳���
+    ///  随机获取一个商队点的GUID
     /// </summary>
     /// <returns></returns>
     int GetRandomTradeCityGUID()

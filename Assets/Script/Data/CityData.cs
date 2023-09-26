@@ -137,7 +137,7 @@ public class CityData
             troopData.posY = cityConfig.posY + 1.5f;
             troopData.cityID = cityID;
             troopData.units = new Dictionary<int, int>(factionConfig.init_troop_unit);
-            DataMgr.Ins.gameData.factions[factionID].AddTradeTroop(factionID, troopData);
+            DataMgr.Ins.gameData.factions[factionID].AddTradeTroop(cityID, troopData);
         }
     }
 }

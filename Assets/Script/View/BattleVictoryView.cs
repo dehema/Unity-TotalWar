@@ -16,7 +16,17 @@ public partial class BattleVictoryView : BaseView
         viewParams = _params.Length > 0 ? _params[0] as BattleVictoryViewParams : null;
         isAnyKeyClose = false;
         ResetUI();
-        Timer.Ins.SetTimeOut(() => { isAnyKeyClose = true; }, 2);
+
+        reward_CanvasGroup.alpha = 0;
+        ani_CanvasGroup.alpha = 1;
+        Timer.Ins.SetTimeOut(() =>
+        {
+            isAnyKeyClose = true;
+            ani_CanvasGroup.DOFade(0, 0.5f).OnComplete(() =>
+            {
+                reward_CanvasGroup.DOFade(1, 1);
+            });
+        }, 2);
     }
 
     public void ResetUI()

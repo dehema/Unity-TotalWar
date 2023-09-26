@@ -49,10 +49,9 @@ public class FactionData
     {
         if (!tradeTroops.ContainsKey(_cityID))
         {
-            tradeTroops.Add(_cityID, new List<TroopData>());
+            tradeTroops[_cityID] = new List<TroopData>();
         }
-        List<TroopData> troops = tradeTroops[_cityID];
-        troops.Add(_troopData);
+        tradeTroops[_cityID].Add(_troopData);
     }
 
     /// <summary>
