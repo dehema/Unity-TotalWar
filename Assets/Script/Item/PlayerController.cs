@@ -13,6 +13,10 @@ public class PlayerController : UnitBase
     HitBoxCollider hitBoxCollider;
     PlayerInput playerInput;
     PlayerData playerData { get { return DataMgr.Ins.playerData; } }
+    /// <summary>
+    /// 攻击次数用来处理攻击碰撞盒
+    /// </summary>
+    int attackNum;
 
     private void Awake()
     {
