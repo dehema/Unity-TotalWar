@@ -1,8 +1,6 @@
 using Codice.Utils;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,12 +8,10 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
-using static UnityEditor.PlayerSettings.Switch;
 using Random = UnityEngine.Random;
 
 public class EditorTranslate : MonoBehaviour
 {
-
     /// <summary>
     /// µã»÷·­Òë
     /// </summary>

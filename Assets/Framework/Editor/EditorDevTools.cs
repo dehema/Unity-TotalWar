@@ -13,7 +13,6 @@ using System.Collections;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using UnityEditor.Callbacks;
-using static UnityEditor.PlayerSettings.Switch;
 
 public class EditorDevTools : EditorWindow
 {
